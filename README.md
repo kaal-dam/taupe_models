@@ -11,7 +11,7 @@ D'abord,il faut ouvrir l'utilitaire d'installation des plugins :
 Help => Install new Software
 Cliquer sur Add, entrez l'url : http://download.eclipse.org/egit/updates , et en nom "EGit".
 
-Bite!!!!
+
 
 Dérouler le menu Eclipse Git Team Provider et cocher Eclipse Git Team Provider.
 
