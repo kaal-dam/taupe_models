@@ -29,10 +29,10 @@ Ensuite, dans le menu
 Git => Configuration
 Cliquer sur "Add Entry"
 
-Clé : user.name / Value.Name : Ton Nom (Exemple : Alexandre Beaudet)
+Clé : user.name / Value.Name : Ton Nom (Exemple : Damien Toulouse)
 Puis encore une fois
 
-Clé : user.email / Value/Name : Ton email (Exemple : badeu.tibeuh@gmail.com)
+Clé : user.email / Value/Name : Ton email (Exemple : dam.toulouse@gmail.com)
 La dernière étape étant d'activer la toolbar :
 
 Window => Customize perspective
