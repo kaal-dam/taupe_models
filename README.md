@@ -1,5 +1,12 @@
 taupe_models
 ============
+#IMPORTANT
+
+le dossier à utiliser pour être compatible avec eclispe lors des commit+push est le dossier sans numéro merci
+
+
+
+
 
 #Utiliser le repository
 ##Installer EGit
