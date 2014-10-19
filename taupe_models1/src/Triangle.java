@@ -17,12 +17,13 @@ public class Triangle implements Comparable<Triangle>{
     List<Segment> segment;
     List<Point> point;
 
-    public Triangle(Segment s1, Segment s2) {
+    public Triangle(Segment s1, Segment s2, Segment s3) {
         segment = new ArrayList<>();
         point = new ArrayList<>();
 
         segment.add(s1);
         segment.add(s2);
+        segment.add(s3);
 
         for (Segment s : segment) {
             if (!point.contains(s.getPt1())) {

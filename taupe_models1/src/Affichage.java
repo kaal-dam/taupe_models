@@ -29,15 +29,18 @@ public class Affichage extends JPanel{
     public void paintComponent(Graphics g){
         Collections.sort(listTriangle);
         for(Triangle i : listTriangle){
-            int[] x, y;
-            x = new int[3];
-            y = new int[3];
+            float[] x, y;
+            x = new float[3];
+            y = new float[3];
             for(int idx = 0; idx < 3; idx++){
                 x[idx] = i.point.get(idx).x;
                 y[idx] = i.point.get(idx).y;
             }
             g.setColor(Color.GRAY);
+            //a trouver une astuce
+            /*
             g.drawPolygon(x, y, 3);
+                    */
         }
     }
 }
