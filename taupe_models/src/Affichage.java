@@ -8,8 +8,13 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JPanel;
 /**
  *
@@ -17,8 +22,21 @@ import javax.swing.JPanel;
  */
 public class Affichage extends JPanel{
     List<Triangle> listTriangle;
+    
+    public int ZOOM = 10;
+    public static float ROTATION_X = 1;
+    
     public Affichage(Model model){
         listTriangle = model.triangle;
+        this.addMouseWheelListener(new MouseWheelListener() {
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getPreciseWheelRotation() > 0){
+					ROTATION_X = (float) Math.cos(15);
+				}
+			}
+		});
     }
 
     public void setListTriangle(List<Triangle> listTriangle) {
@@ -27,17 +45,20 @@ public class Affichage extends JPanel{
     
     @Override
     public void paintComponent(Graphics g){
+    	super.paintComponent(g);
         Collections.sort(listTriangle);
         for(Triangle i : listTriangle){
             int[] x, y;
             x = new int[3];
             y = new int[3];
             for(int idx = 0; idx < 3; idx++){
-                x[idx] = i.point.get(idx).x;
-                y[idx] = i.point.get(idx).y;
+                x[idx] = (int) (i.point.get(idx).x)+ 400;
+                y[idx] = (int) ( i.point.get(idx).y) + 300;
             }
-            g.setColor(Color.GRAY);
-            g.drawPolygon(x, y, 3);
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillPolygon(x, y, 3);
         }
     }
+    
+   
 }
