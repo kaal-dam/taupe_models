@@ -1,8 +1,6 @@
 
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import javax.swing.JFrame;
 
 public class Projet_modelisasion_S3_test{
@@ -14,11 +12,15 @@ public class Projet_modelisasion_S3_test{
         //pour test
         JFrame jf = new JFrame("test de projection d'un cube");
         
-        Model model = Analyseur.Analyse("library/model");
+        Model model = new Model("x_wing.gts");
         Collections.sort(model.triangle);
         Affichage aff = new Affichage(model);
         jf.add(aff);
         jf.setVisible(true);
+        jf.setSize(800, 600);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        while(true){
+        	aff.repaint();
+        }
     }
 }

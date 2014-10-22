@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +10,13 @@ public class Triangle implements Comparable<Triangle>{
     List<Segment> segment;
     List<Point> point;
 
-    public Triangle(Segment s1, Segment s2) {
-        segment = new ArrayList<>();
+    public Triangle(Segment s1, Segment s2, Segment s3) {
+        segment = new ArrayList<Segment>();
         point = new ArrayList<>();
 
         segment.add(s1);
         segment.add(s2);
+        segment.add(s3);
 
         for (Segment s : segment) {
             if (!point.contains(s.getPt1())) {
