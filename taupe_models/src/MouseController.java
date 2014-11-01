@@ -12,7 +12,7 @@ public class MouseController implements MouseWheelListener {
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if(e.getPreciseWheelRotation() > 0){
-			for(Triangle t :Affichage.model.triangle){
+			for(Triangle t :Projet_modelisasion_S3_test.model.triangle){
 				for(Point p : t.point){
 					float tmpY = p.y;
 					float tmpZ = p.z;
@@ -21,6 +21,8 @@ public class MouseController implements MouseWheelListener {
 					p.z = ((float) Math.cos(Rotation)*tmpZ) + ((float) Math.sin(Rotation))*tmpY;
 				}
 			}
+			System.out.println(Projet_modelisasion_S3_test.model.triangle.get(0).point.get(0));
+			Projet_modelisasion_S3_test.aff.repaint();
 		}
 	}
 }

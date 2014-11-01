@@ -144,7 +144,7 @@ public class Model {
                 System.out.println("Le segment " + ligne + " est présent plusieurs fois");
                 return false;
             } else {
-                list.add(new Segment(lPoints.get(Integer.parseInt(str[0]) - 1), lPoints.get(Integer.parseInt(str[1]) - 1)));
+                list.add(new Segment(new Point(lPoints.get(Integer.parseInt(str[0]) - 1)), new Point(lPoints.get(Integer.parseInt(str[1]) - 1))));
                 segments.add(ligne);
             }
             ++i;
@@ -181,7 +181,9 @@ public class Model {
                 System.out.println("Le triangle " + ligne + " est présent plusieurs fois");
                 return false;
             } else {
-                triangle.add(new Triangle(lSegments.get(Integer.parseInt(str[0]) - 1), lSegments.get(Integer.parseInt(str[1]) - 1), lSegments.get(Integer.parseInt(str[2]) - 1)));
+                triangle.add(new Triangle(new Segment(lSegments.get(Integer.parseInt(str[0]) - 1))
+                		,new Segment(lSegments.get(Integer.parseInt(str[1]) - 1))
+                		,new Segment(lSegments.get(Integer.parseInt(str[2]) - 1))));
                 triangles.add(ligne);
             }
             ++i;

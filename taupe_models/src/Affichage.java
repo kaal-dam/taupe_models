@@ -44,8 +44,8 @@ public class Affichage extends JPanel{
             x = new int[3];
             y = new int[3];
             for(int idx = 0; idx < 3; idx++){
-                x[idx] = (int) ((i.point.get(idx).x) * 10) + 400;
-                y[idx] = (int) (( i.point.get(idx).y) * 10) + 300;
+                x[idx] = (int) (i.point.get(idx).x ) + 400;
+                y[idx] = (int) (i.point.get(idx).y ) + 300;
             }
             g.setColor(Color.LIGHT_GRAY);
             g.fillPolygon(x, y, 3);

@@ -29,7 +29,7 @@ public class Triangle implements Comparable<Triangle>{
     }
 
     public Point getBarycentre(){ 
-        int bx = 0, by = 0, bz = 0;
+        float bx = 0, by = 0, bz = 0;
         for(Point p : point){
             bx += p.x;
             by += p.y;
@@ -42,9 +42,9 @@ public class Triangle implements Comparable<Triangle>{
     @Override
     public int compareTo(Triangle t) {
         if(this.getBarycentre().z > t.getBarycentre().z){
-            return -1;
-        }else if(this.getBarycentre().z < t.getBarycentre().z){
             return 1;
+        }else if(this.getBarycentre().z < t.getBarycentre().z){
+            return -1;
         }else{
             return 0;
         }

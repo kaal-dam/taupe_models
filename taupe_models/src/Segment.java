@@ -18,6 +18,12 @@ public class Segment {
         this.pt1 = p1;
         this.pt2 = p2;
     }
+    
+    public Segment(Segment s) {
+		// TODO Auto-generated constructor stub
+    	this.pt1 = s.pt1;
+    	this.pt2 = s.pt2;
+	}
 
     public Point getPt1() {
         return pt1;
