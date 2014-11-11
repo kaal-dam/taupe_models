@@ -20,16 +20,15 @@ public class MouseController implements MouseWheelListener, MouseListener, Mouse
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if(e.getPreciseWheelRotation() > 0){
 			for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationY);
+				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mZoomIn);
 			}
-			Projet_modelisasion_S3_test.aff.repaint();
 		}
 		if(e.getPreciseWheelRotation() < 0){
 			for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationX);
+				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mZoomOut);
 			}
-			Projet_modelisasion_S3_test.aff.repaint();
 		}
+		Projet_modelisasion_S3_test.aff.repaint();
 	}
 
 
@@ -72,13 +71,47 @@ public class MouseController implements MouseWheelListener, MouseListener, Mouse
 		if(SwingUtilities.isLeftMouseButton(e)){
 			if(e.getX()<x){
 				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationY);
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
+			}else if(e.getX() > x){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
 				}
 				Projet_modelisasion_S3_test.aff.repaint();
 			}
 			if(e.getY()<y){
 				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationX);
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYHorraire);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
+			}else if(e.getX() > y){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYAntiHorraire);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
+			}
+		}
+		if(SwingUtilities.isRightMouseButton(e)){
+			if(e.getX()<x){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransXNeg);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
+			}else if(e.getX() > x){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransXPos);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
+			}
+			if(e.getY()<y){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYNeg);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
+			}else if(e.getX() > y){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYPos);
 				}
 				Projet_modelisasion_S3_test.aff.repaint();
 			}
@@ -90,8 +123,5 @@ public class MouseController implements MouseWheelListener, MouseListener, Mouse
 
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		
-		
-	}
+	public void mouseMoved(MouseEvent e) {}
 }
