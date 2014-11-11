@@ -3,7 +3,7 @@ public class ToolBox {
 	
 	public static final double angleRot = Math.PI/4;
 	public static double[][] mRotationX = new double[][]{{1,0,0,0},
-		{0,-Math.cos(angleRot),Math.sin(angleRot),0},
+		{0,Math.cos(angleRot),Math.sin(angleRot),0},
 		{0,-Math.sin(angleRot),Math.cos(angleRot), 0},
 		{0,0,0,1}};
 	

@@ -12,7 +12,7 @@ public class Triangle implements Comparable<Triangle>{
 
     public Triangle(Segment s1, Segment s2, Segment s3) {
         segment = new ArrayList<Segment>();
-        List<Point> point = new ArrayList<>();
+        List<Point> point = new ArrayList<Point>();
 
         segment.add(s1);
         segment.add(s2);
@@ -30,7 +30,7 @@ public class Triangle implements Comparable<Triangle>{
         matrixPoint = new double[3][4];
         
         for(int i = 0; i < point.size(); i++){
-        	System.out.println("i= " + i + "list size = " + point.size() + "pt@i = " + point.get(i));
+        	System.out.println("i=" + i + " list size = " + point.size() + " pt@i = " + point.get(i));
         	matrixPoint[i][0] = point.get(i).x;
         	matrixPoint[i][1] = point.get(i).y;
         	matrixPoint[i][2] = point.get(i).z;
