@@ -71,23 +71,44 @@ public class MouseController implements MouseWheelListener, MouseListener, Mouse
 		if(SwingUtilities.isLeftMouseButton(e)){
 			if(e.getX()<x){
 				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYAntiHorraire);
 				}
 				Projet_modelisasion_S3_test.aff.repaint();
+				if(e.getY()<y){
+					for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+					}
+					Projet_modelisasion_S3_test.aff.repaint();
+				}else if(e.getX() > y){
+					for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
+					}
+					Projet_modelisasion_S3_test.aff.repaint();
+				}
 			}else if(e.getX() > x){
-				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
-				}
-				Projet_modelisasion_S3_test.aff.repaint();
-			}
-			if(e.getY()<y){
 				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
 					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYHorraire);
 				}
 				Projet_modelisasion_S3_test.aff.repaint();
+				if(e.getY()<y){
+					for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+					}
+					Projet_modelisasion_S3_test.aff.repaint();
+				}else if(e.getX() > y){
+					for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
+					}
+					Projet_modelisasion_S3_test.aff.repaint();
+				}
+			}else if(e.getY()<y){
+				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+				}
+				Projet_modelisasion_S3_test.aff.repaint();
 			}else if(e.getX() > y){
 				for(Triangle t :Projet_modelisasion_S3_test.model.triangle){ 
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYAntiHorraire);
+					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
 				}
 				Projet_modelisasion_S3_test.aff.repaint();
 			}

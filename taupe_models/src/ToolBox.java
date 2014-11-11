@@ -3,8 +3,8 @@ import java.lang.Math.*;
 
 public class ToolBox {
 	// constante de rotation
-	public static final double angleRotHorraire = Math.PI / 32;
-	public static final double angleRotAntiHorraire = -Math.PI / 32;
+	public static final double angleRotHorraire = Math.PI / 64;
+	public static final double angleRotAntiHorraire = -Math.PI / 64;
 	// rotation horraire
 	public static double[][] mRotationXHorraire = new double[][] {
 			{ 1, 0, 0, 0 },
@@ -12,23 +12,21 @@ public class ToolBox {
 			{ 0, -Math.sin(angleRotHorraire), Math.cos(angleRotHorraire), 0 },
 			{ 0, 0, 0, 1 } };
 	public static double[][] mRotationYHorraire = new double[][] {
-			{ Math.cos(angleRotHorraire), 0, Math.sin(angleRotHorraire), 0 },
+			{ Math.cos(angleRotHorraire), 0, -Math.sin(angleRotHorraire), 0 },
 			{ 0, 1, 0, 0 },
-			{ -Math.sin(angleRotHorraire), 0, Math.cos(angleRotHorraire), 0 },
+			{ Math.sin(angleRotHorraire), 0, Math.cos(angleRotHorraire), 0 },
 			{ 0, 0, 0, 1 } };
 	// rotation anti-horraire
 	public static double[][] mRotationYAntiHorraire = new double[][] {
-			{ Math.cos(angleRotAntiHorraire), 0,
-					Math.sin(angleRotAntiHorraire), 0 },
+			{ Math.cos(angleRotAntiHorraire), 0, -Math.sin(angleRotAntiHorraire), 0 },
 			{ 0, 1, 0, 0 },
-			{ -Math.sin(angleRotAntiHorraire), 0,
-					Math.cos(angleRotAntiHorraire), 0 }, { 0, 0, 0, 1 } };
+			{ Math.sin(angleRotAntiHorraire), 0, Math.cos(angleRotAntiHorraire), 0 },
+			{ 0, 0, 0, 1 } };
 	public static double[][] mRotationXAntiHorraire = new double[][] {
 			{ 1, 0, 0, 0 },
-			{ 0, Math.cos(angleRotAntiHorraire),
-					Math.sin(angleRotAntiHorraire), 0 },
-			{ 0, -Math.sin(angleRotAntiHorraire),
-					Math.cos(angleRotAntiHorraire), 0 }, { 0, 0, 0, 1 } };
+			{ 0, Math.cos(angleRotAntiHorraire), Math.sin(angleRotAntiHorraire), 0 },
+			{ 0, -Math.sin(angleRotAntiHorraire), Math.cos(angleRotAntiHorraire), 0 },
+			{ 0, 0, 0, 1 } };
 
 	// constante de cadrage
 	public static double zoomIn = 1.5;
