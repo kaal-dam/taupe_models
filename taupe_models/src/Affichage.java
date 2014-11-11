@@ -48,8 +48,16 @@ public class Affichage extends JPanel{
                 x[idx] = (int) (i.matrixPoint[idx][0] * 10 ) + 400;
                 y[idx] = (int) (i.matrixPoint[idx][1] * 10) + 300;
             }
-            g.setColor(Color.LIGHT_GRAY);
+            g.setColor(ToolBox.getColor(i));
             g.fillPolygon(x, y, 3);
+            
+            g.setColor(Color.BLACK);
+            for(int idx = 0; idx < 3; idx++){
+            	for(int idy = 0; idy < 3; idy++){
+            		g.drawLine((int) (i.matrixPoint[idx][0]*10) + 400, (int) (i.matrixPoint[idx][1]*10) +300
+            				,(int) (i.matrixPoint[idy][0]*10) + 400, (int) (i.matrixPoint[idy][1]*10) + 300);
+            	}
+            }
         }
         this.setVisible(true);
     }
