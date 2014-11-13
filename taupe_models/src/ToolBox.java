@@ -39,8 +39,8 @@ public class ToolBox {
 			{ 0, zoomOut, 0, 0 }, { 0, 0, zoomOut, 0 }, { 0, 0, 0, 1 } };
 
 	//constante de translation
-	public static double transX = 20;
-	public static double transY = 20;
+	public static double transX = 2;
+	public static double transY = 2;
 	//trans sur X
 	public static double[][] mTransXPos = new double[][]{
 		{1,0,0,transX},
