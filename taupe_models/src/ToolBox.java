@@ -30,7 +30,7 @@ public class ToolBox {
 
 	// constante de cadrage
 	public static double zoomIn = 1.5;
-	public static double zoomOut = 0.5;
+	public static double zoomOut = 1/zoomIn;
 	// matrice zoomIn
 	public static double[][] mZoomIn = new double[][] { { zoomIn, 0, 0, 0 },
 			{ 0, zoomIn, 0, 0 }, { 0, 0, zoomIn, 0 }, { 0, 0, 0, 1 } };
@@ -39,33 +39,33 @@ public class ToolBox {
 			{ 0, zoomOut, 0, 0 }, { 0, 0, zoomOut, 0 }, { 0, 0, 0, 1 } };
 
 	//constante de translation
-	public static double transX = 2;
-	public static double transY = 2;
+	public static double transX = 0.5;
+	public static double transY = 0.5;
 	//trans sur X
 	public static double[][] mTransXPos = new double[][]{
-		{1,0,0,transX},
+		{1,0,0,0},
 		{0,1,0,0},
 		{0,0,1,0},
-		{0,0,0,1},
+		{transX,0,0,1},
 	};
 	public static double[][] mTransXNeg = new double[][]{
-		{1,0,0,-transX},
+		{1,0,0,0},
 		{0,1,0,0},
 		{0,0,1,0},
-		{0,0,0,1},
+		{-transX,0,0,1},
 	};
 	//trans sur Y
 	public static double[][] mTransYPos = new double[][]{
-		{1,0,0,transY},
+		{1,0,0,0},
 		{0,1,0,0},
 		{0,0,1,0},
-		{0,0,0,1},
+		{0,transY,0,1},
 	};
 	public static double[][] mTransYNeg = new double[][]{
-		{1,0,0,-transY},
+		{1,0,0,0},
 		{0,1,0,0},
 		{0,0,1,0},
-		{0,0,0,1},
+		{0,-transY,0,1},
 	};
 	
 	/**
@@ -99,7 +99,7 @@ public class ToolBox {
 	}
 
 	public static double normeVectoriel(double[] v) {
-		return produitScalaire(v, v);
+		return Math.sqrt(produitScalaire(v, v));
 	}
 
 	public static double[] getVecteur(double[] p1, double[] p2) {

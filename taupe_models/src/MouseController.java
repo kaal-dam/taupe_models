@@ -5,7 +5,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.SwingUtilities;
-import javax.tools.Tool;
+
 
 public class MouseController implements MouseWheelListener, MouseListener,
 		MouseMotionListener {
@@ -19,13 +19,13 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	// utiliser le produit matricielle !
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if (e.getPreciseWheelRotation() > 0) {
+		if (e.getPreciseWheelRotation() < 0) {
 			for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
 				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
 						ToolBox.mZoomIn);
 			}
 		}
-		if (e.getPreciseWheelRotation() < 0) {
+		if (e.getPreciseWheelRotation() > 0) {
 			for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
 				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
 						ToolBox.mZoomOut);
@@ -41,7 +41,6 @@ public class MouseController implements MouseWheelListener, MouseListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		clic = true;
 		x = e.getX();
 		y = e.getY();
 	}
@@ -49,6 +48,7 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		clic = false;
+		System.out.println(clic);
 	}
 
 	@Override
@@ -65,67 +65,105 @@ public class MouseController implements MouseWheelListener, MouseListener,
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		System.out.println(clic);
 		// ROTATION
 		//**************************************************************************************
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			if (e.getX() < x) {
 				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
-							ToolBox.mRotationYAntiHorraire);
+					//for(int i=x-e.getX(); i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYAntiHorraire);
+				}
+				if (e.getY() < y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=y-e.getY(); i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+					}
+				} else if (e.getY() > y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=e.getY()-y; i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
+					}
 				}
 			} else if (e.getX() > x) {
 				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
-							ToolBox.mRotationYHorraire);
+					//for(int i=e.getX()-x; i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationYHorraire);
+				}
+				if (e.getY() < y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=y-e.getY(); i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+					}
+				} else if (e.getY() > y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=e.getY()-y; i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
+					}
+				}
+			} else if (e.getY() < y) {
+				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+					//for(int i=y-e.getY(); i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXHorraire);
+				}
+			} else if (e.getY() > y) {
+				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+					//for(int i=e.getY()-y; i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotationXAntiHorraire);
 				}
 			}
-			if (e.getY() < y) {
-				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
-							ToolBox.mRotationXHorraire);
-				}
-			} else if (e.getX() > y) {
-				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
-							ToolBox.mRotationXAntiHorraire);
-				}
-			}
-			Projet_modelisasion_S3_test.aff.repaint();
 		}
 		// TRANSLATION
 		// *************************************************************************
 		if (SwingUtilities.isRightMouseButton(e)) {
 			if (e.getX() < x) {
 				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					for (int i = 0; i < t.matrixPoint.length; i++) {
-						t.matrixPoint[i][0] -= ToolBox.transX;
+					//for(int i=x-e.getX(); i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransXNeg);
+				}
+				if (e.getY() < y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=y-e.getY(); i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYNeg);
+					}
+				} else if (e.getY() > y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=e.getY()-y; i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYPos);
 					}
 				}
 			} else if (e.getX() > x) {
 				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					for (int i = 0; i < t.matrixPoint.length; i++) {
-						t.matrixPoint[i][0] += ToolBox.transX;
+					//for(int i=e.getX()-x; i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransXPos);
+				}
+				if (e.getY() < y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=y-e.getY(); i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYNeg);
 					}
+				} else if (e.getY() > y) {
+					for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+						//for(int i=e.getY()-y; i>0; --i)
+							t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYPos);
+					}
+				}
+			} else if (e.getY() < y) {
+				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+					//for(int i=y-e.getY(); i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYNeg);
+				}
+			} else if (e.getY() > y) {
+				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+					//for(int i=e.getY(); i>0; --i)
+						t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTransYPos);
 				}
 			}
-			if (e.getY() < y) {
-				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					for (int i = 0; i < t.matrixPoint.length; i++) {
-						t.matrixPoint[i][1] -= ToolBox.transY;
-					}
-				}
-			} else if (e.getX() > y) {
-				for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
-					for (int i = 0; i < t.matrixPoint.length; i++) {
-						t.matrixPoint[i][1] += ToolBox.transY;
-					}
-				}
-			}
-			Projet_modelisasion_S3_test.aff.repaint();
 		}
+		Projet_modelisasion_S3_test.aff.repaint();
 		x = e.getX();
 		y = e.getY();
-
+		System.out.println(x+" "+y);
 	}
 
 	@Override
