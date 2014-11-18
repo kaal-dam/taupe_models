@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 
+
+//projection perspective 
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -14,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import BDD.InsertFile;
 
 /**
  *
@@ -26,6 +32,7 @@ public class Affichage extends JPanel {
 
 	public Affichage(Model model) {
 		this.model = model;
+		this.add(new InsertFile(), BorderLayout.NORTH);
 		this.addMouseWheelListener(new MouseController());
 		this.addMouseListener(new MouseController());
 		this.addMouseMotionListener(new MouseController());
