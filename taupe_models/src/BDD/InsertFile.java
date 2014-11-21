@@ -15,10 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-
+import java.sql.*;
 
 public class InsertFile extends JPanel implements ActionListener {
 
@@ -52,27 +49,33 @@ public class InsertFile extends JPanel implements ActionListener {
 
 			if (result == JFileChooser.APPROVE_OPTION) {
 				System.out.println("");
-				Connection con=null;
+				Connection c=null;
 				try {
+					Class.forName("org.sqlite.JDBC");  
+					c=DriverManager.getConnection("jdbc:sqlite:model.db");
+					c.setAutoCommit(false);
+					System.out.println("Opened database successfully");
 					
-					
-
-					File filePath = fc.getSelectedFile();	
-					String s="~/model/"+filePath.getName();
+					File filePath = fc.getSelectedFile();
+					String s="./model/"+filePath.getName();
 					File fileDest = new File(s);
 					fileDest.createNewFile();
 					copyFile(filePath,fileDest);
 					
-					con = DriverManager.getConnection("~/model.db","","");
-
-					
-
+					Statement stmt = c.createStatement();
+				    String sql = "INSERT INTO Modeles (NAME,CHEMIN) " +
+				                   "VALUES ('"+filePath.getName()+"', '"+s+"');"; 
+				    stmt.executeUpdate(sql);
+				    stmt.close();
+				    c.commit();
 				
 				} catch (Exception sql){
-					System.out.println(sql);
+					System.err.println( sql.getClass().getName() + ": " + sql.getMessage() );
+				      System.exit(0);
 				} finally{
-					try{con.close();}catch(Exception sql2){};
+					try{c.close();}catch(Exception sql2){};
 				}
+				System.out.println("Records created successfully");
 				
 			}
 			

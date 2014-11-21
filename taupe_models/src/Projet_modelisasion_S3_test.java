@@ -1,5 +1,6 @@
 
 
+import java.io.File;
 import java.util.Collections;
 import javax.swing.JFrame;
 
@@ -21,7 +22,6 @@ public class Projet_modelisasion_S3_test{
         jf.add(aff);
         jf.setVisible(true);
         jf.setSize(800, 600);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
     }
 }
