@@ -1,5 +1,5 @@
+package Tools;
 import java.awt.Color;
-import java.lang.Math.*;
 
 public class ToolBox {
 	// constante de rotation

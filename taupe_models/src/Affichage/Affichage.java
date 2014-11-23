@@ -1,3 +1,4 @@
+package Affichage;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,6 +20,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import Tools.MouseController;
+import Tools.ToolBox;
+import Tools.Triangle;
 import BDD.InsertFile;
 
 /**

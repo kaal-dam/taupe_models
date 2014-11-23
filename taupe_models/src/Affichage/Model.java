@@ -1,19 +1,27 @@
+package Affichage;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import Tools.Point;
+import Tools.Segment;
+import Tools.Triangle;
 
 public class Model {
 
-    List<Triangle> triangle;
+    public List<Triangle> triangle;
 
     public Model(List<Triangle> t) {
         triangle = t;
     }
 
     public Model(String url) {
-        triangle = new ArrayList<>();
+        triangle = new ArrayList<Triangle>();
         try {
             this.loadFile(url);
         } catch (Exception e) {
@@ -32,16 +40,16 @@ public class Model {
             System.out.println("File not found");
             return false;
         }
-        /* extrait le nombre de points, segments et triangles indiqués par le fichier */
+        /* extrait le nombre de points, segments et triangles indiques par le fichier */
         String ligne = bufferReader.readLine();
         String str[] = ligne.split(" ");
         if (str.length != 3) {
-            System.out.println("Erreur : Nombres de points, segments, triangle indiqué incorrect");
+            System.out.println("Erreur : Nombre de points, segments, triangle indique incorrect");
             return false;
         }
         for (int i = 0; i < str.length; ++i) {
             if (!isNumber(str[i])) {
-                System.out.println("Erreur : La première ligne de " + url + " comporte des caractères au lieu de nombres");
+                System.out.println("Erreur : La premiere ligne de " + url + " comporte des caracteres au lieu de nombres");
                 return false;
             }
         }
@@ -49,19 +57,19 @@ public class Model {
         int nbSeg = Integer.parseInt(str[1]);
         int nbTri = Integer.parseInt(str[2]);
 
-        /* Vérifie la liste des points */
-        List<Point> listPoints = new ArrayList<>();
+        /* Verifie la liste des points */
+        Map<Integer,Point> listPoints = new HashMap<Integer,Point>();
         if (!verifPoints(bufferReader, nbPts, listPoints)) {
             return false;
         }
 
-        /* Vérifie la liste des segments */
-        List<Segment> listSegments = new ArrayList<>();
+        /* Verifie la liste des segments */
+        Map<Integer,Segment> listSegments = new HashMap<Integer,Segment>();
         if (!verifSegments(bufferReader, nbSeg, listSegments, listPoints)) {
             return false;
         }
 
-        /* Vérifie la liste des triangles */
+        /* Verifie la liste des triangles */
         if (!verifTriangles(bufferReader, nbTri, listSegments)) {
             return false;
         }
@@ -79,52 +87,35 @@ public class Model {
         return true;
     }
 
-    public boolean verifPoints(BufferedReader br, int nbPts, List<Point> list) throws Exception {
+    public boolean verifPoints(BufferedReader br, int nbPts, Map<Integer,Point> list) throws Exception {
         String ligne;
-        List<String> points = new ArrayList<String>();
         int i = 0;
         while (i < nbPts) {
             ligne = br.readLine();
-            if (ligne.charAt(0) == '#') {
-                System.out.println("Nombre de points incorrect");
-                i--;
-            }
             String str[] = ligne.split(" ");
-            //nb de poin,t inccorect
+            //nb de point inccorect
             if (str.length != 3) {
-                System.out.println("Erreur : Nombre de coordoonnées d'un point incorrect");
+                System.out.println("Erreur : Nombre de coordoonnees d'un point incorrect");
                 return false;
             }
             //anomalie
             for (int j = 0; j < str.length; ++j) {
                 if (!isNumber(str[j])) {
-                    System.out.println("Erreur : Une coordonnée d'un point n'est pas un nombre");
+                    System.out.println("Erreur : Une coordonnee d'un point n'est pas un nombre");
                     return false;
                 }
             }
-            //doublons
-            if (points.contains(ligne)) {
-                System.out.println("Le point " + ligne + "est présent plusieurs fois");
-                return false;
-            } else {
-                list.add(new Point(Float.parseFloat(str[0]), Float.parseFloat(str[1]), Float.parseFloat(str[2])));
-                points.add(ligne);
-            }
+            list.put(i, new Point(Float.parseFloat(str[0]), Float.parseFloat(str[1]), Float.parseFloat(str[2])));
             ++i;
         }
         return list.size() == nbPts;
     }
 
-    public boolean verifSegments(BufferedReader br, int nbSeg, List<Segment> list, List<Point> lPoints) throws Exception {
+    public boolean verifSegments(BufferedReader br, int nbSeg, Map<Integer,Segment> list, Map<Integer,Point> lPoints) throws Exception {
         String ligne;
-        List<String> segments = new ArrayList<String>();
         int i = 0;
         while (i < nbSeg) {
             ligne = br.readLine();
-            if (ligne.charAt(0) == '#') {
-                System.out.println("Nombre de segments incorrect");
-                i--;
-            }
             String str[] = ligne.split(" ");
             if (str.length != 2) {
                 System.out.println("Erreur : Nombre de points d'un segment incorrect");
@@ -132,35 +123,28 @@ public class Model {
             }
             for (int j = 0; j < str.length; ++j) {
                 if (!isNumber(str[j])) {
-                    System.out.println("Erreur : Une coordonnée d'un segment n'est pas un nombre");
+                    System.out.println("Erreur : Une coordonnee d'un segment n'est pas un nombre");
                     return false;
                 }
-                if (Integer.parseInt(str[j]) > lPoints.size()) {
+                if (Integer.parseInt(str[j]) > lPoints.size() || Integer.parseInt(str[j]) < 1) {
                     System.out.println("Le point " + str[j] + " n'existe pas");
                     return false;
                 }
             }
-            if (segments.contains(ligne)) {
-                System.out.println("Le segment " + ligne + " est présent plusieurs fois");
-                return false;
-            } else {
-                list.add(new Segment(new Point(lPoints.get(Integer.parseInt(str[0]) - 1)), new Point(lPoints.get(Integer.parseInt(str[1]) - 1))));
-                segments.add(ligne);
-            }
+            list.put(i, new Segment(lPoints.get(Integer.parseInt(str[0]) - 1), lPoints.get(Integer.parseInt(str[1]) - 1)));
             ++i;
         }
         return list.size() == nbSeg;
     }
 
-    public boolean verifTriangles(BufferedReader br, int nbTri, List<Segment> lSegments) throws Exception {
+    public boolean verifTriangles(BufferedReader br, int nbTri, Map<Integer,Segment> lSegments) throws Exception {
         String ligne;
-        List<String> triangles = new ArrayList<String>();
         int i = 0;
         while (i < nbTri) {
             ligne = br.readLine();
             if (ligne == null) {
                 System.out.println("Nombre de Triangles incorrect");
-                i--;
+                return false;
             }
             String str[] = ligne.split(" ");
             if (str.length != 3) {
@@ -169,23 +153,17 @@ public class Model {
             }
             for (int j = 0; j < str.length; ++j) {
                 if (!isNumber(str[j])) {
-                    System.out.println("Erreur : Une coordonnée d'un triangle n'est pas un nombre");
+                    System.out.println("Erreur : Une coordonnee d'un triangle n'est pas un nombre");
                     return false;
                 }
-                if (Integer.parseInt(str[j]) > lSegments.size()) {
+                if (Integer.parseInt(str[j]) > lSegments.size() || Integer.parseInt(str[j]) < 1) {
                     System.out.println("Le segment " + str[j] + " n'existe pas");
                     return false;
                 }
             }
-            if (triangles.contains(ligne)) {
-                System.out.println("Le triangle " + ligne + " est présent plusieurs fois");
-                return false;
-            } else {
-                triangle.add(new Triangle(new Segment(lSegments.get(Integer.parseInt(str[0]) - 1))
-                		,new Segment(lSegments.get(Integer.parseInt(str[1]) - 1))
-                		,new Segment(lSegments.get(Integer.parseInt(str[2]) - 1))));
-                triangles.add(ligne);
-            }
+            triangle.add(new Triangle(lSegments.get(Integer.parseInt(str[0]) - 1)
+              , lSegments.get(Integer.parseInt(str[1]) - 1)
+              , lSegments.get(Integer.parseInt(str[2]) - 1)));
             ++i;
         }
         return triangle.size() == nbTri;

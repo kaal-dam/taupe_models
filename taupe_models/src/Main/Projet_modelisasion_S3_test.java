@@ -1,8 +1,13 @@
+package Main;
 
 
 import java.io.File;
 import java.util.Collections;
+
 import javax.swing.JFrame;
+
+import Affichage.Affichage;
+import Affichage.Model;
 
 public class Projet_modelisasion_S3_test{
 
@@ -10,8 +15,8 @@ public class Projet_modelisasion_S3_test{
      * @param args the command line arguments
      */
 	
-	static Affichage aff;
-	static Model model;
+	public static Affichage aff;
+	public static Model model;
     public static void main(String[] args) {
         //pour test
         JFrame jf = new JFrame("test de projection d'un cube");

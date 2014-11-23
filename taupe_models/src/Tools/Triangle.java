@@ -1,3 +1,4 @@
+package Tools;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Triangle implements Comparable<Triangle>{
         matrixPoint = new double[3][4];
         
         for(int i = 0; i < point.size(); i++){
-        	System.out.println("i=" + i + " list size = " + point.size() + " pt@i = " + point.get(i));
+        	//System.out.println("i=" + i + " list size = " + point.size() + " pt@i = " + point.get(i));
         	matrixPoint[i][0] = point.get(i).x;
         	matrixPoint[i][1] = point.get(i).y;
         	matrixPoint[i][2] = point.get(i).z;
