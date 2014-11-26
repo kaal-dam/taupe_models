@@ -14,8 +14,11 @@ import java.sql.ResultSet;
  */
 
 public class PickFile {
-	//exemple pour la connection connection = 
-	//Class.forName("org.sqlite.JDBC");  
-	//DriverManager.getConnection("jdbc:sqlite:D:\\test");
+	
+	public PickFile() {
+		
+	}
+	
+	
 	
 }

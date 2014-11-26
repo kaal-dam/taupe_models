@@ -28,8 +28,13 @@ public class SelectFile
       while ( rs.next() ) {
          String  name = rs.getString("name");
          String chemin  = rs.getString("chemin");
+         String tag1 = rs.getString("tag1");;
+         String tag2 = rs.getString("tag2");
          System.out.println( "NAME = " + name );
          System.out.println( "CHEMIN = " + chemin );
+         System.out.println(" tag 1= "+ tag1);
+         System.out.println(" tag 2= "+ tag2);
+         
          System.out.println();
       }
       rs.close();

@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import Tools.MouseController;
 import Tools.ToolBox;
 import Tools.Triangle;
-import BDD.InsertFile;
+import BDD.GoToInsertFile;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Affichage extends JPanel {
 
 	public Affichage(Model model) {
 		this.model = model;
-		this.add(new InsertFile(), BorderLayout.NORTH);
+		this.add(new GoToInsertFile(), BorderLayout.NORTH);
 		this.addMouseWheelListener(new MouseController());
 		this.addMouseListener(new MouseController());
 		this.addMouseMotionListener(new MouseController());

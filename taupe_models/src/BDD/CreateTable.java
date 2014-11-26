@@ -16,7 +16,9 @@ public class CreateTable
       stmt = c.createStatement();
       String sql = "CREATE TABLE Modeles " +
                    "(NAME           TEXT    NOT NULL, " +
-                   " CHEMIN			TEXT	NOT NULL)";
+                   " CHEMIN			TEXT	NOT NULL,"+
+                   " TAG1 TEXT NOT NULL,"+
+                   " TAG2 TEXT NOT NULL)";
       stmt.executeUpdate(sql);
       stmt.close();
       c.close();

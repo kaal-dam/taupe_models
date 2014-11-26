@@ -14,17 +14,19 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.sql.*;
 
-public class InsertFile extends JPanel implements ActionListener {
+public class GoToInsertFile extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	JButton bt1;
-	JButton bt2;
+	
 	JFileChooser fc;
 
-	public InsertFile() {
+	public GoToInsertFile() {
 		setSize(600, 600);
 		setLayout(new FlowLayout());
 		
@@ -35,9 +37,9 @@ public class InsertFile extends JPanel implements ActionListener {
 
 		add(bt1);
 		
-
+		FileFilter filter = new FileNameExtensionFilter("GTS File","gts");
 		fc = new JFileChooser();
-
+		fc.setFileFilter(filter);
 		setVisible(true);
 	}
 
@@ -45,37 +47,34 @@ public class InsertFile extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == bt1) {
-			int result = fc.showSaveDialog(InsertFile.this);
+			int result = fc.showSaveDialog(GoToInsertFile.this);
 
 			if (result == JFileChooser.APPROVE_OPTION) {
-				System.out.println("");
-				Connection c=null;
+				
+				
 				try {
-					Class.forName("org.sqlite.JDBC");  
-					c=DriverManager.getConnection("jdbc:sqlite:model.db");
-					c.setAutoCommit(false);
-					System.out.println("Opened database successfully");
+					
+					
+					
+					
 					
 					File filePath = fc.getSelectedFile();
 					String s="./model/"+filePath.getName();
 					File fileDest = new File(s);
 					fileDest.createNewFile();
 					copyFile(filePath,fileDest);
+					new TagInsertFile(new File(s));
 					
-					Statement stmt = c.createStatement();
-				    String sql = "INSERT INTO Modeles (NAME,CHEMIN) " +
-				                   "VALUES ('"+filePath.getName()+"', '"+s+"');"; 
-				    stmt.executeUpdate(sql);
-				    stmt.close();
-				    c.commit();
+					
+					
 				
 				} catch (Exception sql){
 					System.err.println( sql.getClass().getName() + ": " + sql.getMessage() );
 				      System.exit(0);
 				} finally{
-					try{c.close();}catch(Exception sql2){};
+					
 				}
-				System.out.println("Records created successfully");
+				
 				
 			}
 			
