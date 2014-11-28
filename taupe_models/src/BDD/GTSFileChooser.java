@@ -19,14 +19,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.sql.*;
 
-public class GoToInsertFile extends JPanel implements ActionListener {
+public class GTSFileChooser extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	JButton bt1;
 	
 	JFileChooser fc;
 
-	public GoToInsertFile() {
+	public GTSFileChooser() {
 		setSize(600, 600);
 		setLayout(new FlowLayout());
 		
@@ -47,7 +47,7 @@ public class GoToInsertFile extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == bt1) {
-			int result = fc.showSaveDialog(GoToInsertFile.this);
+			int result = fc.showSaveDialog(GTSFileChooser.this);
 
 			if (result == JFileChooser.APPROVE_OPTION) {
 				

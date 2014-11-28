@@ -4,48 +4,44 @@
  * and open the template in the editor.
  */
 
-
 //projection perspective 
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
 
-import BDD.InsertFile;
+import BDD.GTSFileChooser;
+
 
 /**
- *
+ * 
  * @author flo
  */
 public class Affichage extends JPanel {
-	public static Model model;
+	public static Model	model;
 
-	public int ZOOM = 10;
+	public int			ZOOM	= 10;
 
 	public Affichage(Model model) {
 		this.model = model;
-		this.add(new InsertFile(), BorderLayout.NORTH);
-		this.addMouseWheelListener(new MouseController());
-		this.addMouseListener(new MouseController());
-		this.addMouseMotionListener(new MouseController());
+		this.add(new GTSFileChooser(), BorderLayout.NORTH);
+		addMouseWheelListener(new MouseController());
+		addMouseListener(new MouseController());
+		addMouseMotionListener(new MouseController());
 	}
 
 	public void setListTriangle(List<Triangle> listTriangle) {
-		this.model.triangle = listTriangle;
+		model.triangle = listTriangle;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setVisible(false);
+		setVisible(false);
 		Collections.sort(model.triangle);
 		for (Triangle i : model.triangle) {
 			int[] x, y;
@@ -62,14 +58,11 @@ public class Affichage extends JPanel {
 			g.setColor(Color.BLACK);
 			for (int idx = 0; idx < 3; idx++) {
 				for (int idy = 0; idy < 3; idy++) {
-					g.drawLine((int) (i.matrixPoint[idx][0] * 10) + 400,
-							(int) (i.matrixPoint[idx][1] * 10) + 300,
-							(int) (i.matrixPoint[idy][0] * 10) + 400,
-							(int) (i.matrixPoint[idy][1] * 10) + 300);
+					g.drawLine((int) (i.matrixPoint[idx][0] * 10) + 400, (int) (i.matrixPoint[idx][1] * 10) + 300, (int) (i.matrixPoint[idy][0] * 10) + 400, (int) (i.matrixPoint[idy][1] * 10) + 300);
 				}
 			}
 		}
-		this.setVisible(true);
+		setVisible(true);
 	}
 
 }
