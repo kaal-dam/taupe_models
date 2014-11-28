@@ -2,9 +2,11 @@ package Main;
 
 
 import java.awt.BorderLayout;
+import java.io.File;
 import java.util.Collections;
 
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -33,9 +35,15 @@ public class Projet_modelisasion_S3_test{
         menuBar.add(menuFichier);
         jf.setJMenuBar(menuBar);
         
+        String[] listeModels = new File("./model").list();
+        
+        JList JListeModels = new JList(listeModels);
+        
+        jf.add(JListeModels, BorderLayout.WEST);
+        
         jf.add(new Console(jf.WIDTH, jf.HEIGHT/4), BorderLayout.SOUTH);
         
-        model = new Model("x_wing.gts");
+        model = new Model("model/x_wing.gts");
         Collections.sort(model.triangle);
         aff = new Affichage(model);
         jf.add(aff);

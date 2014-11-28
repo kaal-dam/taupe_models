@@ -16,9 +16,18 @@ public class CreateTable {
 
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE Modeles "
-					+ "(NAME           TEXT    NOT NULL, "
-					+ " CHEMIN			TEXT	NOT NULL," + " TAG1 TEXT NOT NULL,"
-					+ " TAG2 TEXT NOT NULL)";
+					+"(NOM			TEXT NOT NULL	PRIMARY KEY,"
+					+"CHEMIN           TEXT    NOT NULL)";
+			stmt.executeUpdate(sql);
+			sql = "CREATE TABLE Tags "
+					+"(TAG			TEXT NOT NULL	PRIMARY KEY)";
+			stmt.executeUpdate(sql);
+			sql = "CREATE TABLE Association "
+					+"(NOM			TEXT NOT NULL,"
+					+"TAG           TEXT    NOT NULL,"
+					+"PRIMARY KEY(nom,tag),"
+					+"FOREIGN KEY (nom) REFERENCES Modeles(nom),"
+					+"FOREIGN KEY (tag) REFERENCES Tags(tag))";
 			stmt.executeUpdate(sql);
 			stmt.close();
 

@@ -17,6 +17,10 @@ public class DropTable {
 			stmt = c.createStatement();
 			String sql = "DROP TABLE Modeles";
 			stmt.executeUpdate(sql);
+			sql = "DROP TABLE Tags";
+			stmt.executeUpdate(sql);
+			sql = "DROP TABLE Association";
+			stmt.executeUpdate(sql);
 			stmt.close();
 
 		} catch (Exception e) {
