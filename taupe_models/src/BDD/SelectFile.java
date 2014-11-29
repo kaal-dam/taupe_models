@@ -26,17 +26,39 @@ public class SelectFile
       stmt = c.createStatement();
       ResultSet rs = stmt.executeQuery( "SELECT * FROM Modeles;" );
       while ( rs.next() ) {
-         String  name = rs.getString("name");
+         String  name = rs.getString("nom");
          String chemin  = rs.getString("chemin");
-         String tag1 = rs.getString("tag1");;
-         String tag2 = rs.getString("tag2");
          System.out.println( "NAME = " + name );
          System.out.println( "CHEMIN = " + chemin );
-         System.out.println(" tag 1= "+ tag1);
-         System.out.println(" tag 2= "+ tag2);
          
          System.out.println();
       }
+      rs.close();
+      rs = stmt.executeQuery( "SELECT * FROM Tags;" );
+      while ( rs.next() ) {
+         String  tag = rs.getString("tag");
+         System.out.println( "TAG = " + tag );
+         
+         System.out.println();
+      }
+      rs = stmt.executeQuery( "SELECT * FROM Association;" );
+      while ( rs.next() ) {
+         String  name = rs.getString("nom");
+         String tag  = rs.getString("tag");
+         System.out.println( "NAME = " + name );
+         System.out.println( "TAG = " + tag );
+         
+         System.out.println();
+      }
+      rs.close();
+      rs = stmt.executeQuery( "SELECT nom FROM Association WHERE tag='lapin';" );
+      while ( rs.next() ) {
+         String  name = rs.getString("nom");
+         System.out.println( "NAME = " + name );
+         
+         System.out.println();
+      }
+      rs.close();
       rs.close();
       stmt.close();
       c.close();

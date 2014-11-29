@@ -25,8 +25,8 @@ import javax.swing.JTextField;
 public class TagInsertFile extends JFrame{
 	
 	JTextField j1=new JTextField();
-	JTextField j2=new JTextField();		
 	JButton b1=new JButton("valider");
+	JButton b2=new JButton("ajouter");
 	static File f;
 	
 	public TagInsertFile(File f){
@@ -37,15 +37,21 @@ public class TagInsertFile extends JFrame{
 		this.add(new JLabel("tag1"));
 		j1.setPreferredSize(new Dimension(100,20));
 		this.add(j1);
-		this.add(new JLabel("tag2"));
-		j2.setPreferredSize(new Dimension(100,20));
-		this.add(j2);
+		this.add(b2);
+		b2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addBDD(j1.getText());
+				j1.setText("");
+				
+			}
+		});
 		this.add(b1);
 		b1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				addBDD(j1.getText(),j2.getText());
 				dispose();
 			}
 		});
@@ -57,7 +63,7 @@ public class TagInsertFile extends JFrame{
 
 	
 	
-	static void addBDD(String tag1,String tag2){
+	static void addBDD(String tag1){
 		Connection c =null;		
 		try{
 			Class.forName("org.sqlite.JDBC");  
@@ -67,8 +73,20 @@ public class TagInsertFile extends JFrame{
 			c.setAutoCommit(false);
 			Statement stmt = c.createStatement();
 		    String sql = "INSERT INTO Modeles  " +
-		                   "VALUES ('"+f.getName()+"', '"+f+"', '"+tag1+"', '"+tag2+"');"; 
-		    stmt.executeUpdate(sql);
+		    			"VALUES ('"+f.getName()+"', '"+f+"');"; 
+		    try{
+		    	stmt.executeUpdate(sql);
+		    }catch(Exception e){}
+		    sql = "INSERT INTO Tags  " +
+	                   "VALUES ('"+tag1+"');"; 
+		    try{
+		    	stmt.executeUpdate(sql);
+		    }catch(Exception e){}
+		    sql = "INSERT INTO Association  " +
+	                   "VALUES ('"+f.getName()+"', '"+tag1+"');"; 
+		    try{
+		    	stmt.executeUpdate(sql);
+		    }catch(Exception e){}
 		    stmt.close();
 		    c.commit();
 		    
