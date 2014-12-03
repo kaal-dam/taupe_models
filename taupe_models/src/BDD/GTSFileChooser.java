@@ -17,7 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class GTSFileChooser extends JPanel implements ActionListener {
 
 	private static final long	serialVersionUID	= 1L;
-	JButton						bt1;
+	
 
 	JFileChooser				fc;
 
@@ -25,11 +25,7 @@ public class GTSFileChooser extends JPanel implements ActionListener {
 		setSize(600, 600);
 		setLayout(new FlowLayout());
 
-		bt1 = new JButton("Save File FileChooser");
-
-		bt1.addActionListener(this);
-
-		add(bt1);
+		
 
 		FileFilter filter = new FileNameExtensionFilter("GTS File", "gts");
 		fc = new JFileChooser();
@@ -40,13 +36,15 @@ public class GTSFileChooser extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == bt1) {
-			int result = fc.showSaveDialog(GTSFileChooser.this);
+		
+			int result = fc.showDialog(GTSFileChooser.this, "Importer");
+			
+			
 
 			if (result == JFileChooser.APPROVE_OPTION) {
 
 				try {
-
+					
 					File filePath = fc.getSelectedFile();
 					String s = "./model/" + filePath.getName();
 					File fileDest = new File(s);
@@ -72,7 +70,7 @@ public class GTSFileChooser extends JPanel implements ActionListener {
 			else if (result == JFileChooser.ERROR_OPTION) {
 				System.out.println("");
 			}
-		}
+		
 	}
 
 	public static boolean copyFile(File source, File dest) {

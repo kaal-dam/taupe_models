@@ -2,6 +2,7 @@ package Main;
 
 
 import java.awt.BorderLayout;
+
 import java.io.File;
 import java.util.Collections;
 
@@ -13,6 +14,10 @@ import javax.swing.JMenuItem;
 
 import Affichage.Affichage;
 import Affichage.Model;
+import BDD.GTSFileChooser;
+import BDD.addTagToTableTag;
+
+
 import IHM.Console;
 
 public class Projet_modelisasion_S3_test{
@@ -32,12 +37,22 @@ public class Projet_modelisasion_S3_test{
         menuFichier.add(ouvrir);
         JMenuItem importer = new JMenuItem("Importer");
         menuFichier.add(importer);
+        JMenuItem newTag = new JMenuItem("NewTag");
+        menuFichier.add(newTag);
+        
+        
         menuBar.add(menuFichier);
         jf.setJMenuBar(menuBar);
+        
+        importer.addActionListener(new GTSFileChooser());
+        newTag.addActionListener(new addTagToTableTag());
+        
         
         String[] listeModels = new File("./model").list();
         
         JList JListeModels = new JList(listeModels);
+        
+        
         
         jf.add(JListeModels, BorderLayout.WEST);
         

@@ -1,43 +1,39 @@
 package BDD;
 
-/* pour l'instant l'utilisateur entre les tag à la main 
- * 
- * 
- * 
- */
-
-
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
 import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TagInsertFile extends JFrame{
-	
+public class addTagToTableTag extends JFrame implements ActionListener{
+
 	JTextField j1=new JTextField();
 	JButton b1=new JButton("valider");
 	JButton b2=new JButton("ajouter");
-	static File f;
 	
-	public TagInsertFile(File f){
+
+	public addTagToTableTag() {
+		
+		
 		this.setSize(500,100);
-		this.setVisible(true);
+		
 		this.setLayout(new FlowLayout());
-		this.f=f;
+		
 		this.add(new JLabel("tag1"));
 		j1.setPreferredSize(new Dimension(100,20));
 		this.add(j1);
 		this.add(b2);
+		this.add(b1);
 		b2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -47,7 +43,6 @@ public class TagInsertFile extends JFrame{
 				
 			}
 		});
-		this.add(b1);
 		b1.addActionListener(new ActionListener() {
 			
 			@Override
@@ -57,15 +52,13 @@ public class TagInsertFile extends JFrame{
 				dispose();
 			}
 		});
-		
 		this.setDefaultCloseOperation(1);
 		this.setLocationRelativeTo(null);
 		
+		
 	}
-
 	
-	
-	static void addBDD(String tag1){
+	protected void addBDD(String tag1) {
 		Connection c =null;		
 		try{
 			Class.forName("org.sqlite.JDBC");  
@@ -74,37 +67,31 @@ public class TagInsertFile extends JFrame{
 			c = DriverManager.getConnection("jdbc:sqlite:model.db");
 			c.setAutoCommit(false);
 			Statement stmt = c.createStatement();
-		    String sql = "INSERT INTO Modeles  " +
-		    			"VALUES ('"+f.getName()+"', '"+f+"');"; 
-		    try{
-		    	stmt.executeUpdate(sql);
-		    }catch(Exception e){}
-		    
-		    //ajouter la figure même si on ne lui met aucun tag
-		    
-		    if(!tag1.equals("")){
+			String sql;
+		
+		
+			if(!tag1.equals("")){
 			    sql = "INSERT INTO Tags  " +
 		                   "VALUES ('"+tag1+"');"; 
 			    try{
 			    	stmt.executeUpdate(sql);
 			    }catch(Exception e){}
-			    sql = "INSERT INTO Association  " +
-		                   "VALUES ('"+f.getName()+"', '"+tag1+"');"; 
-			    try{
-			    	stmt.executeUpdate(sql);
-			    }catch(Exception e){}
+			    
 		    }
 		    stmt.close();
 		    c.commit();
-		    
-		    
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			try{c.close();}catch(Exception e2){}
 		}
+		
 	}
-	
-	
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		this.setVisible(true);
+		
+	}
+
 }
