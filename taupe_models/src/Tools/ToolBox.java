@@ -2,31 +2,34 @@ package Tools;
 import java.awt.Color;
 
 public class ToolBox {
-	// constante de rotation
-	public static final double angleRotHorraire = Math.PI / 64;
-	public static final double angleRotAntiHorraire = -Math.PI / 64;
-	// rotation horraire
-	public static double[][] mRotationXHorraire = new double[][] {
-			{ 1, 0, 0, 0 },
-			{ 0, Math.cos(angleRotHorraire), Math.sin(angleRotHorraire), 0 },
-			{ 0, -Math.sin(angleRotHorraire), Math.cos(angleRotHorraire), 0 },
-			{ 0, 0, 0, 1 } };
-	public static double[][] mRotationYHorraire = new double[][] {
-			{ Math.cos(angleRotHorraire), 0, -Math.sin(angleRotHorraire), 0 },
-			{ 0, 1, 0, 0 },
-			{ Math.sin(angleRotHorraire), 0, Math.cos(angleRotHorraire), 0 },
-			{ 0, 0, 0, 1 } };
-	// rotation anti-horraire
-	public static double[][] mRotationYAntiHorraire = new double[][] {
-			{ Math.cos(angleRotAntiHorraire), 0, -Math.sin(angleRotAntiHorraire), 0 },
-			{ 0, 1, 0, 0 },
-			{ Math.sin(angleRotAntiHorraire), 0, Math.cos(angleRotAntiHorraire), 0 },
-			{ 0, 0, 0, 1 } };
-	public static double[][] mRotationXAntiHorraire = new double[][] {
-			{ 1, 0, 0, 0 },
-			{ 0, Math.cos(angleRotAntiHorraire), Math.sin(angleRotAntiHorraire), 0 },
-			{ 0, -Math.sin(angleRotAntiHorraire), Math.cos(angleRotAntiHorraire), 0 },
-			{ 0, 0, 0, 1 } };
+	
+	// ancienne version (buggée)
+	public static double[][] mRot(double x, double y) {
+		return new double[][]{
+				{Math.cos(y*Math.PI/64), 0,                       -Math.sin(y*Math.PI/64),    0},
+				{0,                      Math.cos(x*Math.PI/64),  Math.sin(x*Math.PI/64),     0},
+				{Math.sin(y*Math.PI/64), -Math.sin(x*Math.PI/64), Math.cos((x+y)*Math.PI/64), 0},
+				{0,                      0,                       0,                          1}
+		};
+	}
+	
+	public static double[][] mRotX(double x) {
+		return new double[][]{
+				{1, 0,                       0,                      0},
+				{0, Math.cos(x*Math.PI/64),  Math.sin(x*Math.PI/64), 0},
+				{0, -Math.sin(x*Math.PI/64), Math.cos(x*Math.PI/64), 0},
+				{0, 0,                       0,                      1}
+		};
+	}
+	
+	public static double[][] mRotY(double y) {
+		return new double[][]{
+				{Math.cos(y*Math.PI/64), 0, -Math.sin(y*Math.PI/64), 0},
+				{0,                      1, 0,                       0},
+				{Math.sin(y*Math.PI/64), 0, Math.cos(y*Math.PI/64),  0},
+				{0,                      0, 0,                       1}
+		};
+	}
 
 	// constante de cadrage
 	public static double zoomIn = 1.5;
@@ -37,36 +40,17 @@ public class ToolBox {
 	// matrice zoomOut
 	public static double[][] mZoomOut = new double[][] { { zoomOut, 0, 0, 0 },
 			{ 0, zoomOut, 0, 0 }, { 0, 0, zoomOut, 0 }, { 0, 0, 0, 1 } };
-
-	//constante de translation
-	public static double transX = 0.5;
-	public static double transY = 0.5;
-	//trans sur X
-	public static double[][] mTransXPos = new double[][]{
-		{1,0,0,0},
-		{0,1,0,0},
-		{0,0,1,0},
-		{transX,0,0,1},
-	};
-	public static double[][] mTransXNeg = new double[][]{
-		{1,0,0,0},
-		{0,1,0,0},
-		{0,0,1,0},
-		{-transX,0,0,1},
-	};
-	//trans sur Y
-	public static double[][] mTransYPos = new double[][]{
-		{1,0,0,0},
-		{0,1,0,0},
-		{0,0,1,0},
-		{0,transY,0,1},
-	};
-	public static double[][] mTransYNeg = new double[][]{
-		{1,0,0,0},
-		{0,1,0,0},
-		{0,0,1,0},
-		{0,-transY,0,1},
-	};
+	
+	//  matrice de translation
+	public static double[][] mTrans(double x, double y) {
+		return new double[][]{
+				{1,0,0,0},
+				{0,1,0,0},
+				{0,0,1,0},
+				{x,y,0,1}
+		};
+	}
+	
 	
 	/**
 	 * @param m1

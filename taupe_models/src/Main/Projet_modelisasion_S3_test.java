@@ -2,7 +2,6 @@ package Main;
 
 
 import java.awt.BorderLayout;
-
 import java.io.File;
 import java.util.Collections;
 
@@ -16,9 +15,9 @@ import Affichage.Affichage;
 import Affichage.Model;
 import BDD.GTSFileChooser;
 import BDD.addTagToTableTag;
-
-
 import IHM.Console;
+import IHM.Infos;
+import IHM.ListeModels;
 
 public class Projet_modelisasion_S3_test{
 
@@ -48,19 +47,20 @@ public class Projet_modelisasion_S3_test{
         newTag.addActionListener(new addTagToTableTag());
         
         
-        String[] listeModels = new File("./model").list();
+        //String[] listeModels = new File("./model").list();
         
-        JList JListeModels = new JList(listeModels);
+        //JList JListeModels = new JList(listeModels);
         
         
         
-        jf.add(JListeModels, BorderLayout.WEST);
-        
-        jf.add(new Console(jf.WIDTH, jf.HEIGHT/4), BorderLayout.SOUTH);
+        jf.add(new ListeModels(), BorderLayout.WEST);
         
         model = new Model("model/x_wing.gts");
         Collections.sort(model.triangle);
         aff = new Affichage(model);
+        
+        jf.add(new Infos(), BorderLayout.SOUTH);
+        
         jf.add(aff);
         jf.setVisible(true);
         jf.setSize(800, 600);

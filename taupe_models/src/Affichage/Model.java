@@ -15,6 +15,8 @@ import Tools.Triangle;
 public class Model {
 
     public List<Triangle> triangle;
+    
+    public static int nbPts, nbSeg, nbTri;
 
     public Model(List<Triangle> t) {
         triangle = t;
@@ -53,9 +55,9 @@ public class Model {
                 return false;
             }
         }
-        int nbPts = Integer.parseInt(str[0]);
-        int nbSeg = Integer.parseInt(str[1]);
-        int nbTri = Integer.parseInt(str[2]);
+        nbPts = Integer.parseInt(str[0]);
+        nbSeg = Integer.parseInt(str[1]);
+        nbTri = Integer.parseInt(str[2]);
 
         /* Verifie la liste des points */
         Map<Integer,Point> listPoints = new HashMap<Integer,Point>();

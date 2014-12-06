@@ -36,9 +36,10 @@ public class Affichage extends JPanel {
 
 	public Affichage(Model model) {
 		this.model = model;
-		this.addMouseWheelListener(new MouseController());
-		this.addMouseListener(new MouseController());
-		this.addMouseMotionListener(new MouseController());
+		MouseController mc = new MouseController();
+		this.addMouseWheelListener(mc);
+		this.addMouseListener(mc);
+		this.addMouseMotionListener(mc);
 	}
 
 	public void setListTriangle(List<Triangle> listTriangle) {
