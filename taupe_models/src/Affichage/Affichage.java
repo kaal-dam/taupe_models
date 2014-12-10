@@ -53,36 +53,38 @@ public class Affichage extends JPanel {
 		Collections.sort(model.triangle);
 		for (Triangle i : model.triangle) {
 			//on verifie que le triangle est bien dans le plan
-			if ((i.matrixPoint[0][0] + 400 > 0 && i.matrixPoint[0][0] + 400 < 800) 
-					&& (i.matrixPoint[1][0] + 400 > 0 && i.matrixPoint[1][0] + 400 < 800)
-					&& (i.matrixPoint[2][0] + 400 > 0 && i.matrixPoint[2][0] + 400 < 800)
-					&& (i.matrixPoint[0][1] + 300 > 0 && i.matrixPoint[0][1] + 300 < 600)
-					&& (i.matrixPoint[1][1] + 300 > 0 && i.matrixPoint[1][1] + 300 < 600)
-					&& (i.matrixPoint[2][1] + 300 > 0 && i.matrixPoint[2][1] + 300 < 600)) {
+			int demiLargeur = this.getHeight()/2;
+			int demiLongueur = this.getWidth()/2;
+			if ((i.matrixPoint[0][0] + demiLongueur > 0 && i.matrixPoint[0][0] + demiLongueur < this.getHeight()) 
+					&& (i.matrixPoint[1][0] + demiLongueur > 0 && i.matrixPoint[1][0] + demiLongueur < this.getHeight())
+					&& (i.matrixPoint[2][0] + demiLongueur > 0 && i.matrixPoint[2][0] + demiLongueur < this.getHeight())
+					&& (i.matrixPoint[0][1] + demiLargeur > 0 && i.matrixPoint[0][1] + demiLargeur < this.getWidth())
+					&& (i.matrixPoint[1][1] + demiLargeur > 0 && i.matrixPoint[1][1] + demiLargeur < this.getWidth())
+					&& (i.matrixPoint[2][1] + demiLargeur > 0 && i.matrixPoint[2][1] + demiLargeur < this.getWidth())) {
 				int[] x, y;
 				x = new int[3];
 				y = new int[3];
 				for (int idx = 0; idx < 3; idx++) {
 					// utiliser la matrice de point de chaque triangle
-					x[idx] = (int) (i.matrixPoint[idx][0]) + 400;
-					y[idx] = (int) (i.matrixPoint[idx][1]) + 300;
+					x[idx] = (int) (i.matrixPoint[idx][0]) + demiLongueur;
+					y[idx] = (int) (i.matrixPoint[idx][1]) + demiLargeur;
 				}
 				g.setColor(ToolBox.getColor(i));
 				g.fillPolygon(x, y, 3);
 
 				g.setColor(Color.BLACK);
-				g.drawLine((int) (i.matrixPoint[0][0]) + 400,
-						(int) (i.matrixPoint[0][1]) + 300,
-						(int) (i.matrixPoint[1][0]) + 400,
-						(int) (i.matrixPoint[1][1]) + 300);
-				g.drawLine((int) (i.matrixPoint[0][0]) + 400,
-						(int) (i.matrixPoint[0][1]) + 300,
-						(int) (i.matrixPoint[2][0]) + 400,
-						(int) (i.matrixPoint[2][1]) + 300);
-				g.drawLine((int) (i.matrixPoint[2][0]) + 400,
-						(int) (i.matrixPoint[2][1]) + 300,
-						(int) (i.matrixPoint[1][0]) + 400,
-						(int) (i.matrixPoint[1][1]) + 300);
+				g.drawLine((int) (i.matrixPoint[0][0]) + demiLongueur,
+						(int) (i.matrixPoint[0][1]) + demiLargeur,
+						(int) (i.matrixPoint[1][0]) + demiLongueur,
+						(int) (i.matrixPoint[1][1]) + demiLargeur);
+				g.drawLine((int) (i.matrixPoint[0][0]) + demiLongueur,
+						(int) (i.matrixPoint[0][1]) + demiLargeur,
+						(int) (i.matrixPoint[2][0]) + demiLongueur,
+						(int) (i.matrixPoint[2][1]) + demiLargeur);
+				g.drawLine((int) (i.matrixPoint[2][0]) + demiLongueur,
+						(int) (i.matrixPoint[2][1]) + demiLargeur,
+						(int) (i.matrixPoint[1][0]) + demiLongueur,
+						(int) (i.matrixPoint[1][1]) + demiLargeur);
 			}
 		}
 		this.setVisible(true);
