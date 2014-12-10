@@ -13,6 +13,10 @@ import Tools.Segment;
 import Tools.Triangle;
 
 public class Model {
+	
+	public float xMin, xMax;
+	public float yMin, yMax;
+	public float zMin, zMax;
 
     public List<Triangle> triangle;
     
@@ -24,11 +28,20 @@ public class Model {
 
     public Model(String url) {
         triangle = new ArrayList<Triangle>();
+        xMax = -999;
+        xMin = 999;
+        yMax = -999;
+        yMin = 999;
+        zMax = -999;
+        zMin = 999;
         try {
             this.loadFile(url);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(xMax + " : " + xMin);
+        System.out.println(yMax + " : " + yMin);
+        System.out.println(zMax + " : " + zMin);
     }
 
     @SuppressWarnings("resource")
@@ -106,6 +119,24 @@ public class Model {
                     System.out.println("Erreur : Une coordonnee d'un point n'est pas un nombre");
                     return false;
                 }
+            }
+            //on recupere le xMin et xMax
+            if(Float.parseFloat(str[0]) > xMax){
+            	xMax = Float.parseFloat(str[0]);
+            }else if(Float.parseFloat(str[0]) < xMin){
+            	xMin = Float.parseFloat(str[0]);
+            }
+            //on recupere le yMin, yMax
+            if(Float.parseFloat(str[1]) > yMax){
+            	yMax = Float.parseFloat(str[1]);
+            }else if(Float.parseFloat(str[1]) < yMin){
+            	yMin = Float.parseFloat(str[1]);
+            }
+            //on recupere z min/max
+            if(Float.parseFloat(str[2]) > zMax){
+            	zMax = Float.parseFloat(str[2]);
+            }else if(Float.parseFloat(str[2]) < zMin){
+            	zMin = Float.parseFloat(str[2]);
             }
             list.put(i, new Point(Float.parseFloat(str[0]), Float.parseFloat(str[1]), Float.parseFloat(str[2])));
             ++i;

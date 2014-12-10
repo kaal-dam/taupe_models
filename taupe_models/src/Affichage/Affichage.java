@@ -1,10 +1,10 @@
 package Affichage;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 
 //projection perspective 
 
@@ -64,14 +64,18 @@ public class Affichage extends JPanel {
 			g.fillPolygon(x, y, 3);
 
 			g.setColor(Color.BLACK);
-			for (int idx = 0; idx < 3; idx++) {
-				for (int idy = 0; idy < 3; idy++) {
-					g.drawLine((int) (i.matrixPoint[idx][0] * 10) + 400,
-							(int) (i.matrixPoint[idx][1] * 10) + 300,
-							(int) (i.matrixPoint[idy][0] * 10) + 400,
-							(int) (i.matrixPoint[idy][1] * 10) + 300);
-				}
-			}
+			g.drawLine((int) (i.matrixPoint[0][0] * 10) + 400,
+					(int) (i.matrixPoint[0][1] * 10) + 300,
+					(int) (i.matrixPoint[1][0] * 10) + 400,
+					(int) (i.matrixPoint[1][1] * 10) + 300);
+			g.drawLine((int) (i.matrixPoint[0][0] * 10) + 400,
+					(int) (i.matrixPoint[0][1] * 10) + 300,
+					(int) (i.matrixPoint[2][0] * 10) + 400,
+					(int) (i.matrixPoint[2][1] * 10) + 300);
+			g.drawLine((int) (i.matrixPoint[2][0] * 10) + 400,
+					(int) (i.matrixPoint[2][1] * 10) + 300,
+					(int) (i.matrixPoint[1][0] * 10) + 400,
+					(int) (i.matrixPoint[1][1] * 10) + 300);
 		}
 		this.setVisible(true);
 	}

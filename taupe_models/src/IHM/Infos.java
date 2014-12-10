@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Main.Projet_modelisasion_S3_test;
+import Main.MainClass;
 
 @SuppressWarnings("serial")
 public class Infos extends JPanel {
@@ -14,9 +14,9 @@ public class Infos extends JPanel {
 	
 	public Infos() {
 		
-		text = new JLabel(((Integer) (Projet_modelisasion_S3_test.model.nbPts)).toString()+" points / "+
-						((Integer) (Projet_modelisasion_S3_test.model.nbSeg)).toString()+" segments / "+
-						((Integer) (Projet_modelisasion_S3_test.model.nbTri)).toString()+" triangles");
+		text = new JLabel(((Integer) (MainClass.model.nbPts)).toString()+" points / "+
+						((Integer) (MainClass.model.nbSeg)).toString()+" segments / "+
+						((Integer) (MainClass.model.nbTri)).toString()+" triangles");
 		
 		add(text);
 		text.setForeground(Color.white);

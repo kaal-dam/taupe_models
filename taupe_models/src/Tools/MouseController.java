@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.SwingUtilities;
 
-import Main.Projet_modelisasion_S3_test;
+import Main.MainClass;
 
 
 public class MouseController implements MouseWheelListener, MouseListener,
@@ -23,18 +23,18 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getPreciseWheelRotation() < 0) {
-			for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+			for (Triangle t : MainClass.model.triangle) {
 				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
 						ToolBox.mZoomIn);
 			}
 		}
 		if (e.getPreciseWheelRotation() > 0) {
-			for (Triangle t : Projet_modelisasion_S3_test.model.triangle) {
+			for (Triangle t : MainClass.model.triangle) {
 				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
 						ToolBox.mZoomOut);
 			}
 		}
-		Projet_modelisasion_S3_test.aff.repaint();
+		MainClass.aff.repaint();
 	}
 
 	@Override
@@ -74,26 +74,27 @@ public class MouseController implements MouseWheelListener, MouseListener,
 		// ROTATION
 		//**************************************************************************************
 		if (SwingUtilities.isLeftMouseButton(e)) {
+			
 			if(x!=e.getX()) {
-				for (Triangle t : Projet_modelisasion_S3_test.model.triangle)
+				for (Triangle t : MainClass.model.triangle)
 					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotY(0.1*(double) (e.getX()-x)));
 			}
 			
 			if(y!=e.getY()) {
-				for (Triangle t : Projet_modelisasion_S3_test.model.triangle)
+				for (Triangle t : MainClass.model.triangle)
 					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotX(-0.1*(double) (e.getY()-y)));
 			}
-			
-			/*for (Triangle t : Projet_modelisasion_S3_test.model.triangle)
+			/*
+			for (Triangle t : Projet_modelisasion_S3_test.model.triangle)
 				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRot(-0.1*((double) (e.getY()-y)), 0.1*((double) (e.getX()-x))));*/
 		}
 		// TRANSLATION
 		// *************************************************************************
 		if (SwingUtilities.isRightMouseButton(e)) {
-			for (Triangle t : Projet_modelisasion_S3_test.model.triangle)
+			for (Triangle t : MainClass.model.triangle)
 				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTrans(0.1*((double) (e.getX()-x)), 0.1*((double) (e.getY()-y)))); 
 		}
-		Projet_modelisasion_S3_test.aff.repaint();
+		MainClass.aff.repaint();
 		x = e.getX();
 		y = e.getY();
 	}

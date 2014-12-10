@@ -18,8 +18,9 @@ import BDD.addTagToTableTag;
 import IHM.Console;
 import IHM.Infos;
 import IHM.ListeModels;
+import IHM.Scale;
 
-public class Projet_modelisasion_S3_test{
+public class MainClass{
 
     /**
      * @param args the command line arguments
@@ -38,6 +39,7 @@ public class Projet_modelisasion_S3_test{
         menuFichier.add(importer);
         JMenuItem newTag = new JMenuItem("NewTag");
         menuFichier.add(newTag);
+        menuFichier.add(new Scale());
         
         
         menuBar.add(menuFichier);
@@ -45,6 +47,10 @@ public class Projet_modelisasion_S3_test{
         
         importer.addActionListener(new GTSFileChooser());
         newTag.addActionListener(new addTagToTableTag());
+        
+        /************************/
+        
+        /***********************/
         
         
         //String[] listeModels = new File("./model").list();

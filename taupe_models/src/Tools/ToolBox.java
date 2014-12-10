@@ -1,57 +1,55 @@
 package Tools;
+
 import java.awt.Color;
 
 public class ToolBox {
 	
+	//coef de scaling
+	public float coefX = 1;
+	public float coefY = 1;
+	public float coefZ = 1;
+
 	// ancienne version (buggée)
 	public static double[][] mRot(double x, double y) {
-		return new double[][]{
-				{Math.cos(y*Math.PI/64), 0,                       -Math.sin(y*Math.PI/64),    0},
-				{0,                      Math.cos(x*Math.PI/64),  Math.sin(x*Math.PI/64),     0},
-				{Math.sin(y*Math.PI/64), -Math.sin(x*Math.PI/64), Math.cos((x+y)*Math.PI/64), 0},
-				{0,                      0,                       0,                          1}
-		};
+		return new double[][] {
+				{ Math.cos(y * Math.PI / 64), 0, -Math.sin(y * Math.PI / 64), 0 },
+				{ 0, Math.cos(x * Math.PI / 64), Math.sin(x * Math.PI / 64), 0 },
+				{ Math.sin(y * Math.PI / 64), -Math.sin(x * Math.PI / 64),
+						Math.cos((x + y) * Math.PI / 64), 0 }, { 0, 0, 0, 1 } };
 	}
-	
+
 	public static double[][] mRotX(double x) {
-		return new double[][]{
-				{1, 0,                       0,                      0},
-				{0, Math.cos(x*Math.PI/64),  Math.sin(x*Math.PI/64), 0},
-				{0, -Math.sin(x*Math.PI/64), Math.cos(x*Math.PI/64), 0},
-				{0, 0,                       0,                      1}
-		};
+		return new double[][] {
+				{ 1, 0, 0, 0 },
+				{ 0, Math.cos(x * Math.PI / 64), Math.sin(x * Math.PI / 64), 0 },
+				{ 0, -Math.sin(x * Math.PI / 64), Math.cos(x * Math.PI / 64), 0 },
+				{ 0, 0, 0, 1 } };
 	}
-	
+
 	public static double[][] mRotY(double y) {
-		return new double[][]{
-				{Math.cos(y*Math.PI/64), 0, -Math.sin(y*Math.PI/64), 0},
-				{0,                      1, 0,                       0},
-				{Math.sin(y*Math.PI/64), 0, Math.cos(y*Math.PI/64),  0},
-				{0,                      0, 0,                       1}
-		};
+		return new double[][] {
+				{ Math.cos(y * Math.PI / 64), 0, -Math.sin(y * Math.PI / 64), 0 },
+				{ 0, 1, 0, 0 },
+				{ Math.sin(y * Math.PI / 64), 0, Math.cos(y * Math.PI / 64), 0 },
+				{ 0, 0, 0, 1 } };
 	}
 
 	// constante de cadrage
 	public static double zoomIn = 1.5;
-	public static double zoomOut = 1/zoomIn;
+	public static double zoomOut = 1 / zoomIn;
 	// matrice zoomIn
 	public static double[][] mZoomIn = new double[][] { { zoomIn, 0, 0, 0 },
 			{ 0, zoomIn, 0, 0 }, { 0, 0, zoomIn, 0 }, { 0, 0, 0, 1 } };
 	// matrice zoomOut
 	public static double[][] mZoomOut = new double[][] { { zoomOut, 0, 0, 0 },
 			{ 0, zoomOut, 0, 0 }, { 0, 0, zoomOut, 0 }, { 0, 0, 0, 1 } };
-	
-	//  matrice de translation
+
+	// matrice de translation
 	public static double[][] mTrans(double x, double y) {
-		return new double[][]{
-				{1,0,0,0},
-				{0,1,0,0},
-				{0,0,1,0},
-				{x,y,0,1}
-		};
+		return new double[][] { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 },
+				{ x, y, 0, 1 } };
 	}
-	
-	
+
 	/**
 	 * @param m1
 	 * @param m2
