@@ -5,9 +5,9 @@ import java.awt.Color;
 public class ToolBox {
 	
 	//coef de scaling
-	public float coefX = 1;
-	public float coefY = 1;
-	public float coefZ = 1;
+	public static float coefX = 1;
+	public static float coefY = 1;
+	public static float coefZ = 1;
 
 	// ancienne version (buggée)
 	public static double[][] mRot(double x, double y) {
@@ -100,7 +100,7 @@ public class ToolBox {
 
 		double coef = Math
 				.abs(Math.cos(((Math.abs(produitScalaire(v, n)) / (normeVectoriel(v) * normeVectoriel(n))))));
-		int color = (int) (255 * coef);
+		int color = (int) (150 * coef);
 		return new Color(color, color, color);
 	}
 }

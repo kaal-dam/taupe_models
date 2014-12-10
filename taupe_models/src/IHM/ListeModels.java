@@ -10,6 +10,9 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import Affichage.Model;
+import Main.MainClass;
+
 public class ListeModels extends JPanel {
 	
 	JComboBox tags;

@@ -52,32 +52,39 @@ public class Affichage extends JPanel {
 		this.setVisible(false);
 		Collections.sort(model.triangle);
 		for (Triangle i : model.triangle) {
-			int[] x, y;
-			x = new int[3];
-			y = new int[3];
-			for (int idx = 0; idx < 3; idx++) {
-				// utiliser la matrice de point de chaque triangle
-				x[idx] = (int) (i.matrixPoint[idx][0] * 10) + 400;
-				y[idx] = (int) (i.matrixPoint[idx][1] * 10) + 300;
-			}
-			g.setColor(ToolBox.getColor(i));
-			g.fillPolygon(x, y, 3);
+			//on verifie que le triangle est bien dans le plan
+			if ((i.matrixPoint[0][0] + 400 > 0 && i.matrixPoint[0][0] + 400 < 800) 
+					&& (i.matrixPoint[1][0] + 400 > 0 && i.matrixPoint[1][0] + 400 < 800)
+					&& (i.matrixPoint[2][0] + 400 > 0 && i.matrixPoint[2][0] + 400 < 800)
+					&& (i.matrixPoint[0][1] + 300 > 0 && i.matrixPoint[0][1] + 300 < 600)
+					&& (i.matrixPoint[1][1] + 300 > 0 && i.matrixPoint[1][1] + 300 < 600)
+					&& (i.matrixPoint[2][1] + 300 > 0 && i.matrixPoint[2][1] + 300 < 600)) {
+				int[] x, y;
+				x = new int[3];
+				y = new int[3];
+				for (int idx = 0; idx < 3; idx++) {
+					// utiliser la matrice de point de chaque triangle
+					x[idx] = (int) (i.matrixPoint[idx][0]) + 400;
+					y[idx] = (int) (i.matrixPoint[idx][1]) + 300;
+				}
+				g.setColor(ToolBox.getColor(i));
+				g.fillPolygon(x, y, 3);
 
-			g.setColor(Color.BLACK);
-			g.drawLine((int) (i.matrixPoint[0][0] * 10) + 400,
-					(int) (i.matrixPoint[0][1] * 10) + 300,
-					(int) (i.matrixPoint[1][0] * 10) + 400,
-					(int) (i.matrixPoint[1][1] * 10) + 300);
-			g.drawLine((int) (i.matrixPoint[0][0] * 10) + 400,
-					(int) (i.matrixPoint[0][1] * 10) + 300,
-					(int) (i.matrixPoint[2][0] * 10) + 400,
-					(int) (i.matrixPoint[2][1] * 10) + 300);
-			g.drawLine((int) (i.matrixPoint[2][0] * 10) + 400,
-					(int) (i.matrixPoint[2][1] * 10) + 300,
-					(int) (i.matrixPoint[1][0] * 10) + 400,
-					(int) (i.matrixPoint[1][1] * 10) + 300);
+				g.setColor(Color.BLACK);
+				g.drawLine((int) (i.matrixPoint[0][0]) + 400,
+						(int) (i.matrixPoint[0][1]) + 300,
+						(int) (i.matrixPoint[1][0]) + 400,
+						(int) (i.matrixPoint[1][1]) + 300);
+				g.drawLine((int) (i.matrixPoint[0][0]) + 400,
+						(int) (i.matrixPoint[0][1]) + 300,
+						(int) (i.matrixPoint[2][0]) + 400,
+						(int) (i.matrixPoint[2][1]) + 300);
+				g.drawLine((int) (i.matrixPoint[2][0]) + 400,
+						(int) (i.matrixPoint[2][1]) + 300,
+						(int) (i.matrixPoint[1][0]) + 400,
+						(int) (i.matrixPoint[1][1]) + 300);
+			}
 		}
 		this.setVisible(true);
 	}
-
 }

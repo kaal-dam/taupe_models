@@ -9,8 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+import javax.tools.Tool;
 
 import Main.MainClass;
+import Tools.ToolBox;
 
 public class Scale extends JMenuItem {
 	JFrame jf = new JFrame();
@@ -62,14 +64,19 @@ public class Scale extends JMenuItem {
 						saisieX = Float.valueOf(textLong.getText());
 						saisieY = Float.valueOf(textLarg.getText());
 						saisieZ = Float.valueOf(texthaut.getText());
+						if(saisieX < 0 || saisieY < 0 || saisieZ < 0){
+							throw new Exception("saisie de nb negatif");
+						}
 						
-						
-						
+						ToolBox.coefX = saisieX/distX;
+						ToolBox.coefY = saisieY/distY;
+						ToolBox.coefZ = saisieZ/distZ;
 					} catch (Exception ex) {
 						error.add(new JLabel(ex.getMessage()));
 						error.setVisible(true);
 					}
 				} else {
+					
 				}
 
 				jf.setVisible(false);
@@ -98,10 +105,16 @@ public class Scale extends JMenuItem {
 		jf.add(cancel);
 		jf.add(valid);
 		jf.setSize(200, 100);
+		
+		
+		
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				textLong.setText((MainClass.model.xMax - MainClass.model.xMin)*ToolBox.coefX + "");
+				textLarg.setText((MainClass.model.yMax - MainClass.model.yMin)*ToolBox.coefY + "");
+				texthaut.setText((MainClass.model.zMax - MainClass.model.zMin)*ToolBox.coefZ + "");
 				jf.setVisible(true);
 			}
 		});
