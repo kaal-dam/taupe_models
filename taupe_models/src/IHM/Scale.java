@@ -60,6 +60,8 @@ public class Scale extends JMenuItem {
 						saisieX = Float.valueOf(textLong.getText());
 						saisieY = Float.valueOf(textLarg.getText());
 						saisieZ = Float.valueOf(texthaut.getText());
+						
+						
 					} catch (Exception ex) {
 						error.setVisible(true);
 					}
