@@ -37,6 +37,8 @@ public class Scale extends JMenuItem {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JFrame error = new JFrame("error");
+				error.setLayout(new GridLayout(2,1));
+				error.setSize(100, 100);
 				error.add(new JLabel("ERROR ! CONNARD"));
 				
 				
@@ -62,7 +64,9 @@ public class Scale extends JMenuItem {
 						saisieZ = Float.valueOf(texthaut.getText());
 						
 						
+						
 					} catch (Exception ex) {
+						error.add(new JLabel(ex.getMessage()));
 						error.setVisible(true);
 					}
 				} else {
