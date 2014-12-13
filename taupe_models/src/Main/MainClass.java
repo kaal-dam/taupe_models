@@ -39,25 +39,13 @@ public class MainClass{
         menuFichier.add(importer);
         JMenuItem newTag = new JMenuItem("NewTag");
         menuFichier.add(newTag);
-        menuFichier.add(new Scale());
-        
-        
+                
         menuBar.add(menuFichier);
+        menuBar.add(new Scale());
         jf.setJMenuBar(menuBar);
         
         importer.addActionListener(new GTSFileChooser());
-        newTag.addActionListener(new addTagToTableTag());
-        
-        /************************/
-        
-        /***********************/
-        
-        
-        //String[] listeModels = new File("./model").list();
-        
-        //JList JListeModels = new JList(listeModels);
-        
-        
+        newTag.addActionListener(new addTagToTableTag());        
         
         jf.add(new ListeModels(), BorderLayout.WEST);
         
