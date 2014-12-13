@@ -1,14 +1,15 @@
 package Tools;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
 import Main.MainClass;
-
 
 public class MouseController implements MouseWheelListener, MouseListener,
 		MouseMotionListener {
@@ -22,17 +23,39 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	// utiliser le produit matricielle !
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if (e.getPreciseWheelRotation() < 0) {
-			for (Triangle t : MainClass.model.triangle) {
-				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
-						ToolBox.mZoomIn);
+		class ThreadZoom extends Thread {
+			List<Triangle> list;
+			double[][] sens;
+
+			public ThreadZoom(List<Triangle> l, double[][] s) {
+				sens = s;
+				list = l;
+			}
+
+			@Override
+			public void run() {
+				for (int i = list.size() / 2; i < list.size(); i++) {
+					list.get(i).matrixPoint = ToolBox.produitMatriciel(list.get(i).matrixPoint,sens);
+				}
 			}
 		}
+		if (e.getPreciseWheelRotation() < 0) {
+			ThreadZoom th = new ThreadZoom(MainClass.model.triangle, ToolBox.mZoomIn);
+			th.start();
+			for (int i = 0; i < MainClass.model.triangle.size()/2; i++) {
+				MainClass.model.triangle.get(i).matrixPoint = ToolBox.produitMatriciel(MainClass.model.triangle.get(i).matrixPoint,
+						ToolBox.mZoomIn);
+			}
+			while(th.isAlive());
+		}
 		if (e.getPreciseWheelRotation() > 0) {
-			for (Triangle t : MainClass.model.triangle) {
-				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint,
+			ThreadZoom th = new ThreadZoom(MainClass.model.triangle, ToolBox.mZoomOut);
+			th.start();
+			for (int i = 0; i < MainClass.model.triangle.size()/2; i++) {
+				MainClass.model.triangle.get(i).matrixPoint = ToolBox.produitMatriciel(MainClass.model.triangle.get(i).matrixPoint,
 						ToolBox.mZoomOut);
 			}
+			while(th.isAlive());
 		}
 		MainClass.aff.repaint();
 	}
@@ -44,7 +67,7 @@ public class MouseController implements MouseWheelListener, MouseListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+
 	}
 
 	@Override
@@ -65,34 +88,111 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		if(!clic){
-			x=e.getX();
-			y=e.getY();
+	public void mouseDragged(final MouseEvent e) {
+		if (!clic) {
+			x = e.getX();
+			y = e.getY();
 			clic = true;
 		}
 		// ROTATION
-		//**************************************************************************************
+		// **************************************************************************************
 		if (SwingUtilities.isLeftMouseButton(e)) {
-			
-			if(x!=e.getX()) {
-				for (Triangle t : MainClass.model.triangle)
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotY(0.1*(double) (e.getX()-x)));
+			// THREAD DE ROTATION X
+			class ThreadRotationX extends Thread {
+				List<Triangle> list;
+
+				public ThreadRotationX(List<Triangle> t) {
+					this.list = t;
+				}
+
+				@Override
+				public void run() {
+					for (int i = list.size() / 2; i < list.size(); i++) {
+						list.get(i).matrixPoint = ToolBox.produitMatriciel(
+								list.get(i).matrixPoint,
+								ToolBox.mRotY(0.1 * (double) (e.getX() - x)));
+					}
+				}
 			}
-			
-			if(y!=e.getY()) {
-				for (Triangle t : MainClass.model.triangle)
-					t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRotX(-0.1*(double) (e.getY()-y)));
+
+			if (x != e.getX()) {
+				ThreadRotationX th = new ThreadRotationX(
+						MainClass.model.triangle);
+				th.start();
+				for (int i = 0; i < MainClass.model.triangle.size() / 2; i++) {
+					MainClass.model.triangle.get(i).matrixPoint = ToolBox
+							.produitMatriciel(
+									MainClass.model.triangle.get(i).matrixPoint,
+									ToolBox.mRotY(0.1 * (double) (e.getX() - x)));
+				}
+				while (th.isAlive()) {
+				}
 			}
-			/*
-			for (Triangle t : Projet_modelisasion_S3_test.model.triangle)
-				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mRot(-0.1*((double) (e.getY()-y)), 0.1*((double) (e.getX()-x))));*/
+
+			// THREAD DE ROTATION Y
+			class ThreadRotationY extends Thread {
+				List<Triangle> list;
+
+				public ThreadRotationY(List<Triangle> t) {
+					this.list = t;
+				}
+
+				@Override
+				public void run() {
+					for (int i = list.size() / 2; i < list.size(); i++) {
+						list.get(i).matrixPoint = ToolBox.produitMatriciel(
+								list.get(i).matrixPoint,
+								ToolBox.mRotX(0.1 * (double) (y - e.getY())));
+					}
+				}
+			}
+
+			if (y != e.getY()) {
+				ThreadRotationY th = new ThreadRotationY(
+						MainClass.model.triangle);
+				th.start();
+				for (int i = 0; i < MainClass.model.triangle.size() / 2; i++) {
+					MainClass.model.triangle.get(i).matrixPoint = ToolBox
+							.produitMatriciel(
+									MainClass.model.triangle.get(i).matrixPoint,
+									ToolBox.mRotX(0.1 * (double) (y - e.getY())));
+				}
+				while (th.isAlive()) {
+				}
+			}
 		}
 		// TRANSLATION
 		// *************************************************************************
 		if (SwingUtilities.isRightMouseButton(e)) {
-			for (Triangle t : MainClass.model.triangle)
-				t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, ToolBox.mTrans(0.1*((double) (e.getX()-x)), 0.1*((double) (e.getY()-y)))); 
+			// THREAD DE TRANSLATION
+			class ThreadTrans extends Thread {
+				List<Triangle> list;
+
+				public ThreadTrans(List<Triangle> l) {
+					list = l;
+				}
+
+				@Override
+				public void run() {
+					for (int i = list.size() / 2; i < list.size(); i++) {
+						list.get(i).matrixPoint = ToolBox.produitMatriciel(list
+								.get(i).matrixPoint, ToolBox.mTrans(
+								0.1 * ((double) (e.getX() - x)),
+								0.1 * ((double) (e.getY() - y))));
+					}
+				}
+			}
+
+			ThreadTrans th = new ThreadTrans(MainClass.model.triangle);
+			th.start();
+			for (int i = 0; i < MainClass.model.triangle.size() / 2; i++)
+				MainClass.model.triangle.get(i).matrixPoint = ToolBox
+						.produitMatriciel(
+								MainClass.model.triangle.get(i).matrixPoint,
+								ToolBox.mTrans(0.1 * ((double) (e.getX() - x)),
+										0.1 * ((double) (e.getY() - y))));
+			while (th.isAlive()) {
+			}
 		}
 		MainClass.aff.repaint();
 		x = e.getX();
