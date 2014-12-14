@@ -49,9 +49,7 @@ public class MainClass{
         
         jf.add(new ListeModels(), BorderLayout.WEST);
         
-        model = new Model("model/x_wing.gts");
-        Collections.sort(model.triangle);
-        aff = new Affichage(model);
+        loadModel("x_wing.gts");
         
         jf.add(new Infos(), BorderLayout.SOUTH);
         
@@ -59,5 +57,11 @@ public class MainClass{
         jf.setVisible(true);
         jf.setSize(800, 600);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+    }
+    
+    public static void loadModel(Object object) {
+    	model = new Model("model/"+object);
+        Collections.sort(model.triangle);
+        aff = new Affichage(model);
     }
 }
