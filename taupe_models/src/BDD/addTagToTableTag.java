@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JButton;
@@ -14,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Main.MainClass;
 
 public class addTagToTableTag extends JFrame implements ActionListener {
 
@@ -67,6 +70,8 @@ public class addTagToTableTag extends JFrame implements ActionListener {
             c.setAutoCommit(false);
             Statement stmt = c.createStatement();
             String sql;
+            ResultSet rs;
+            String name="";
 
 
             if (!tag1.equals("")) {
@@ -76,7 +81,25 @@ public class addTagToTableTag extends JFrame implements ActionListener {
                     stmt.executeUpdate(sql);
                 } catch (Exception e) {
                 }
-
+                sql= "SELECT nom FROM modeles "
+                		+"WHERE chemin = './"+MainClass.model.url+"';";
+                System.out.println(sql);
+                try {
+                    rs=stmt.executeQuery(sql);
+                    while ( rs.next() )
+                    	name = rs.getString("nom");
+                    System.out.println(name);
+                } catch (Exception e) {
+                }
+                if(!name.equals("")){
+                	System.out.println("in");
+	                sql = "INSERT INTO Association  "
+	                        + "VALUES ('" + name + "','" + tag1 + "');";
+	                try {
+	                    stmt.executeUpdate(sql);
+	                } catch (Exception e) {
+	                }
+                }
             }
             stmt.close();
             c.commit();

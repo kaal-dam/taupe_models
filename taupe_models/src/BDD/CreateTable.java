@@ -18,6 +18,8 @@ public class CreateTable {
 			String sql = "CREATE TABLE Modeles "
 					+"(NOM			TEXT NOT NULL	PRIMARY KEY,"
 					+"CHEMIN           TEXT    NOT NULL)";
+					/*+"PHOTO			TEXT,"
+					+"DESCRIPTION	TEXT)";*/
 			stmt.executeUpdate(sql);
 			sql = "CREATE TABLE Tags "
 					+"(TAG			TEXT NOT NULL	PRIMARY KEY)";

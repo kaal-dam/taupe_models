@@ -21,12 +21,15 @@ public class Model {
     public List<Triangle> triangle;
     
     public static int nbPts, nbSeg, nbTri;
+    
+    public String url;
 
     public Model(List<Triangle> t) {
         triangle = t;
     }
 
     public Model(String url) {
+    	this.url = url;
         triangle = new ArrayList<Triangle>();
         xMax = -999;
         xMin = 999;
