@@ -28,6 +28,8 @@ public class MainClass{
 	
 	public static Affichage aff;
 	public static Model model;
+	public static int panelH = 600, panelW = 800;
+	
     public static void main(String[] args) {
         //pour test
         JFrame jf = new JFrame("Taupes Models");
@@ -62,6 +64,6 @@ public class MainClass{
     public static void loadModel(Object object) {
     	model = new Model("model/"+object);
         Collections.sort(model.triangle);
-        aff = new Affichage(model);
+        aff = new Affichage(model, panelW, panelH);
     }
 }

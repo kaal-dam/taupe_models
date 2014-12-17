@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Main.MainClass;
 import Tools.Point;
 import Tools.Segment;
+import Tools.ToolBox;
 import Tools.Triangle;
 
 public class Model {
@@ -93,6 +95,31 @@ public class Model {
         }
 
         bufferReader.close();
+        /**
+         * recentrer model et zoomer direct
+         */
+        
+        double x =0, y = 0, z = 0;
+        for(Triangle t : this.triangle){
+        	x += t.getBarycentre().getX();
+        	y += t.getBarycentre().getY();
+        	z += t.getBarycentre().getZ();
+        }
+        x = x/triangle.size();
+        y = y/triangle.size();
+        z = z/triangle.size();
+        
+        float coefZoom = (((float) (MainClass.panelW)/100) * 15)/xMin;
+        for(Triangle t : triangle){
+        	t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, new double[][]{{1, 0, 0, 0},
+        																		   {0, 1, 0, 0},
+        																		   {0, 0, 1, 0},
+        																		   {-x, -y, -z, 1}});
+        	t.matrixPoint = ToolBox.produitMatriciel(t.matrixPoint, new double[][]{{coefZoom, 0, 0, 0},
+        	        {0, coefZoom, 0, 0}, {0, 0, coefZoom, 0}, {0, 0, 0, 1}});
+        	
+        }
+        
         return true;
     }
 

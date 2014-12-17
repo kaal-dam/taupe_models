@@ -32,8 +32,9 @@ public class Affichage extends JPanel {
     public static Model model;
     public int ZOOM = 10;
 
-    public Affichage(Model model) {
+    public Affichage(Model model, int w, int h) {
         this.model = model;
+        this.setSize(w, h);
         MouseController mc = new MouseController();
         this.addMouseWheelListener(mc);
         this.addMouseListener(mc);
@@ -59,8 +60,8 @@ public class Affichage extends JPanel {
                 y = new int[3];
                 for (int idx = 0; idx < 3; idx++) {
                     // utiliser la matrice de point de chaque triangle
-                    x[idx] = (int) (i.matrixPoint[idx][0]*10) + demiLongueur;
-                    y[idx] = (int) (i.matrixPoint[idx][1]*10) + demiLargeur;
+                    x[idx] = (int) (i.matrixPoint[idx][0]) + demiLongueur;
+                    y[idx] = (int) (i.matrixPoint[idx][1]) + demiLargeur;
                 }
                 g.setColor(ToolBox.getColor(i));
                 g.fillPolygon(x, y, 3);
