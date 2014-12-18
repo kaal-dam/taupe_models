@@ -98,8 +98,7 @@ public class Scale extends JMenuItem {
                     }
                 } else {
                 }
-
-                jf.setVisible(false);
+                jf.dispose();
             }
         });
 
@@ -109,7 +108,7 @@ public class Scale extends JMenuItem {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                jf.setVisible(false);
+                jf.dispose();
             }
         });
 
