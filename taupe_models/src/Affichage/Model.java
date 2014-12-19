@@ -44,9 +44,6 @@ public class Model {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(xMax + " : " + xMin);
-        System.out.println(yMax + " : " + yMin);
-        System.out.println(zMax + " : " + zMin);
     }
 
     @SuppressWarnings("resource")
@@ -198,6 +195,12 @@ public class Model {
             ++i;
         }
         return list.size() == nbSeg;
+    }
+    
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return this.url;
     }
 
     public boolean verifTriangles(BufferedReader br, int nbTri, Map<Integer,Segment> lSegments) throws Exception {

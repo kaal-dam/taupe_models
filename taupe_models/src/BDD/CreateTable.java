@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-
 public class CreateTable {
 	public static void main(String args[]) {
 		Connection c = null;
@@ -16,32 +15,33 @@ public class CreateTable {
 
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE Modeles "
-					+"(NOM			TEXT NOT NULL	PRIMARY KEY,"
-					+"CHEMIN           TEXT    NOT NULL)";
-					/*+"PHOTO			TEXT,"
-					+"DESCRIPTION	TEXT)";*/
+					+ "(NOM	TEXT NOT NULL PRIMARY KEY,"
+					+ "CHEMIN TEXT NOT NULL,"
+					/* +"PHOTO			TEXT," */
+					+ "DESCRIPTION TEXT)";
 			stmt.executeUpdate(sql);
-			sql = "CREATE TABLE Tags "
-					+"(TAG			TEXT NOT NULL	PRIMARY KEY)";
+			System.out.println("table model");
+			sql = "CREATE TABLE Tags " + "(TAG			TEXT NOT NULL	PRIMARY KEY)";
 			stmt.executeUpdate(sql);
-			sql = "CREATE TABLE Association "
-					+"(NOM			TEXT NOT NULL,"
-					+"TAG           TEXT    NOT NULL,"
-					+"PRIMARY KEY(nom,tag),"
-					+"FOREIGN KEY (nom) REFERENCES Modeles(nom),"
-					+"FOREIGN KEY (tag) REFERENCES Tags(tag))";
+			System.out.println("table tag");
+			sql = "CREATE TABLE Association " + "(NOM			TEXT NOT NULL,"
+					+ "TAG           TEXT    NOT NULL,"
+					+ "PRIMARY KEY(nom,tag),"
+					+ "FOREIGN KEY (nom) REFERENCES Modeles(nom),"
+					+ "FOREIGN KEY (tag) REFERENCES Tags(tag))";
 			stmt.executeUpdate(sql);
+			System.out.println("table asso");
 			stmt.close();
 
+			System.out.println("Table created successfully");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 
-		}
-		finally {
+		} finally {
 			try {
 				c.close();
-			} catch (Exception e2) {}
+			} catch (Exception e2) {
+			}
 		}
-		System.out.println("Table created successfully");
 	}
 }

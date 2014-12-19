@@ -26,12 +26,14 @@ public class TagInsertFile extends JFrame {
     JButton b1 = new JButton("valider");
     JButton b2 = new JButton("ajouter");
     static File file;
+    static String desc;
 
-    public TagInsertFile(File f) {
+    public TagInsertFile(File f, String d) {
         this.setSize(500, 100);
         this.setVisible(true);
         this.setLayout(new FlowLayout());
         this.file = f;
+        this.desc = d;
         this.add(new JLabel("tag1"));
         j1.setPreferredSize(new Dimension(100, 20));
         this.add(j1);
@@ -65,7 +67,7 @@ public class TagInsertFile extends JFrame {
             c.setAutoCommit(false);
             Statement stmt = c.createStatement();
             String sql = "INSERT INTO Modeles  "
-                    + "VALUES ('" + file.getName() + "', '" + file + "');";
+                    + "VALUES ('" + file.getName() + "', '" + file + "','"+desc+"');";
             try {
                 stmt.executeUpdate(sql);
             } catch (Exception e) {

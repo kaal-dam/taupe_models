@@ -1,8 +1,6 @@
 package IHM;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -11,20 +9,23 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
-import Affichage.Model;
 import Main.MainClass;
 
 public class ListeModels extends JPanel implements MouseListener {
 
-    JComboBox tags;
+	private static final long serialVersionUID = -2678875145334246880L;
+	JComboBox tags;
     JList liste;
-
-    public ListeModels() {
+    JPopupMenu jf;
+    
+    @SuppressWarnings("unchecked")
+	public ListeModels() {
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        tags = new JComboBox(new String[]{"<aucun tag>"});
+        tags = new JComboBox<String>(new String[]{"<aucun tag>"});
         tags.setMaximumSize(tags.getPreferredSize());
         add(tags);
 
@@ -36,10 +37,16 @@ public class ListeModels extends JPanel implements MouseListener {
 
     }
 
+    public void refreshList(){
+    	this.remove(liste);
+    	liste = new JList(new File("./model").list());
+    	liste.addMouseListener(this);
+        add(liste);
+    }
+    
     @Override
     public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
     }
 
     @Override

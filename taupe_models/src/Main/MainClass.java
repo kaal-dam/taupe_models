@@ -23,10 +23,12 @@ public class MainClass {
     public static Infos info;
     public static int panelH = 600, panelW = 800;
     public static JFrame jf;
+    public static ListeModels listmodel;
 
     public static void main(String[] args) {
         //pour test
         jf = new JFrame("Taupes Models");
+        listmodel = new ListeModels();
         JMenuBar menuBar = new JMenuBar();
         JMenu menuFichier = new JMenu("Fichier");
         JMenuItem ouvrir = new JMenuItem("Ouvrir");
@@ -43,7 +45,7 @@ public class MainClass {
         importer.addActionListener(new GTSFileChooser());
         newTag.addActionListener(new addTagToTableTag());
 
-        jf.add(new ListeModels(), BorderLayout.WEST);
+        jf.add(listmodel, BorderLayout.WEST);
 
         loadModel("model/x_wing.gts");
 

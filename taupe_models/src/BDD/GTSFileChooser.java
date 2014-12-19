@@ -13,8 +13,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Main.MainClass;
 
 public class GTSFileChooser extends JPanel implements ActionListener {
 
@@ -23,6 +26,8 @@ public class GTSFileChooser extends JPanel implements ActionListener {
     JFileChooser fc;
     File filePath;
     JFrame jf;
+    JTextField jTextNom;
+    JTextField jTextDesc;
 
     public GTSFileChooser() {
         setSize(600, 600);
@@ -43,26 +48,31 @@ public class GTSFileChooser extends JPanel implements ActionListener {
 
             try {
                 filePath = fc.getSelectedFile();
-                Main.MainClass.loadModel(filePath.getName());
+                System.out.println(filePath.toString());
+                Main.MainClass.loadModel(filePath.toString());
                 /**
                  * si on est sur de vouloir add
                  */
                 jf = new JFrame("accepter le model ?");
-                jf.setLayout(new GridLayout(2,1));
+                jTextNom = new JTextField("nom du model...");
+                jTextDesc = new JTextField("description du model...");
+                jf.setLayout(new GridLayout(3,1));
                 
                 JButton valid = new JButton("ajouter");
                 valid.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String nomFile = "./model/" + filePath.getName();
+                        String nomFile = "./model/" + jTextNom.getText() + ".gts";
                         File fileDest = new File(nomFile);
                         try {
                             fileDest.createNewFile();
                             copyFile(filePath, fileDest);
-                            new TagInsertFile(new File(nomFile));
+                            new TagInsertFile(new File(nomFile), jTextDesc.getText());
                         } catch (IOException patate) {
                             patate.printStackTrace();
                         }finally{
+                        	MainClass.listmodel.refreshList();
+                        	MainClass.listmodel.repaint();
                             jf.dispose();
                         }
                     }
@@ -79,12 +89,14 @@ public class GTSFileChooser extends JPanel implements ActionListener {
                 JPanel pan1 = new JPanel();
                 pan1.setLayout(new FlowLayout());
                 pan1.add(new JLabel("ajouter ce model a la bdd ?"));
+                pan1.add(jTextNom);
                 
                 JPanel pan2 = new JPanel(new FlowLayout());
                 pan2.add(annul);
                 pan2.add(valid);
                 
                 jf.add(pan1);
+                jf.add(jTextDesc);
                 jf.add(pan2);
                 jf.setSize(300, 100);
                 jf.setVisible(true);
