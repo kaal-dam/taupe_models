@@ -1,11 +1,5 @@
 package BDD;
 
-/* pour l'instant l'utilisateur entre les tag à la main 
- * 
- * 
- * 
- */
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

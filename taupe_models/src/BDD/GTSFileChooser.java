@@ -62,7 +62,7 @@ public class GTSFileChooser extends JPanel implements ActionListener {
                 valid.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String nomFile = "./model/" + jTextNom.getText() + ".gts";
+                        String nomFile = "./model/" + filePath.getName();
                         File fileDest = new File(nomFile);
                         try {
                             fileDest.createNewFile();

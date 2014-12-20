@@ -177,8 +177,8 @@ public class MouseController implements MouseWheelListener, MouseListener,
 					for (int i = list.size() / 2; i < list.size(); i++) {
 						list.get(i).matrixPoint = ToolBox.produitMatriciel(list
 								.get(i).matrixPoint, ToolBox.mTrans(
-								0.1 * ((double) (e.getX() - x)),
-								0.1 * ((double) (e.getY() - y))));
+								 ((double) (e.getX() - x)),
+								 ((double) (e.getY() - y))));
 					}
 				}
 			}
@@ -189,8 +189,8 @@ public class MouseController implements MouseWheelListener, MouseListener,
 				MainClass.model.triangle.get(i).matrixPoint = ToolBox
 						.produitMatriciel(
 								MainClass.model.triangle.get(i).matrixPoint,
-								ToolBox.mTrans(0.1 * ((double) (e.getX() - x)),
-										0.1 * ((double) (e.getY() - y))));
+								ToolBox.mTrans( ((double) (e.getX() - x)),
+										 ((double) (e.getY() - y))));
 			while (th.isAlive()) {
 			}
 		}

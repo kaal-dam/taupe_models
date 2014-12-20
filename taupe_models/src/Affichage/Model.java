@@ -234,4 +234,19 @@ public class Model {
         }
         return triangle.size() == nbTri;
     }
+    
+    public Point getCentreGravite() {
+    	double x=0;
+    	double y=0;
+    	double z=0;
+    	for(int i=0; i<triangle.size(); ++i) {
+    		x += triangle.get(i).getBarycentre().getX();
+    		y += triangle.get(i).getBarycentre().getY();
+    		z += triangle.get(i).getBarycentre().getZ();
+    	}
+    	x = x/triangle.size();
+    	y = y/triangle.size();
+    	z = z/triangle.size();
+    	return new Point(x, y, z);
+    }
 }
