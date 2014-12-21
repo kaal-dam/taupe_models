@@ -23,7 +23,7 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
 
 	private static final long serialVersionUID = -2678875145334246880L;
 	public static JTextField recherche;
-    JList<Object> liste;
+    JList<?> liste;
     JPopupMenu jf;
     
     public ListeModels() {
@@ -43,8 +43,6 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
         liste = new JList<Object>(new File("./model").list());
         add(liste);
         liste.addMouseListener(this);
-        liste.setMaximumSize(this.getSize());
-        liste.setMinimumSize(this.getSize());
 
         this.setSize(150, 600);
         this.setPreferredSize(this.getSize());

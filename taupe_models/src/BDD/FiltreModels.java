@@ -7,11 +7,11 @@ import javax.swing.JList;
 
 public class FiltreModels {
 	
-	Vector<Object> list;
+	Vector<String> list;
 	
 	public FiltreModels() {
 		
-		list = new Vector();
+		list = new Vector<String>();
 		
 		Connection c = null;
 	    Statement stmt = null;
@@ -36,7 +36,12 @@ public class FiltreModels {
 		    
 		    while(rs.next()){
 		    	System.out.println("Chemin : " + rs.getString("chemin").substring(8));
-		    	list.add(rs.getString("chemin").substring(8));
+		    	int i = 0;
+		    	if(!list.isEmpty()) {
+		    		while(list.get(i).compareTo(rs.getString("chemin").substring(8)) < 0)
+		    			++i;
+		    	}
+		    	list.add(i, rs.getString("chemin").substring(8));
 		    }
 	    	
 	    }catch ( Exception e ) {
@@ -48,7 +53,7 @@ public class FiltreModels {
 
 	}
 	
-	public Vector<Object> getList() {
+	public Vector<String> getList() {
 		return list;
 	}
 	
