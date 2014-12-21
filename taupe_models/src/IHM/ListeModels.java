@@ -29,7 +29,9 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
     public ListeModels() {
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        this.setMaximumSize(this.getPreferredSize());
+        this.setMaximumSize(this.getSize());
+        this.setMinimumSize(this.getSize());
+        
 
         recherche = new JTextField("");
         recherche.setSize(150, 25);
@@ -41,7 +43,11 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
         liste = new JList<Object>(new File("./model").list());
         add(liste);
         liste.addMouseListener(this);
+        liste.setMaximumSize(this.getSize());
+        liste.setMinimumSize(this.getSize());
 
+        this.setSize(150, 600);
+        this.setPreferredSize(this.getSize());
         this.setBackground(Color.white);
 
     }

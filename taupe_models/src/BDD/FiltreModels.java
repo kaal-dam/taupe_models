@@ -21,12 +21,17 @@ public class FiltreModels {
 	    	Class.forName("org.sqlite.JDBC");
 		    c = DriverManager.getConnection("jdbc:sqlite:model.db");
 		    c.setAutoCommit(false);
+		    String arg[] = IHM.ListeModels.recherche.getText().split(" ");
 		    stmt = c.createStatement();
 		    String query = "select distinct chemin from Modeles M, Association A " +
-		    				"where M.nom = A.nom and " +
-		    					"(M.nom like \"%" + IHM.ListeModels.recherche.getText() + "%\" " +
-		    						"or A.tag like \"%" + IHM.ListeModels.recherche.getText() + "%\");";
-		    
+		    				"where M.nom = A.nom and (";
+		    for(int i =0; i < arg.length; i++){
+		    	query += "M.nom like \"%" + arg[i] + "%\" " +
+		    						"or A.tag like \"%" + arg[i] + "%\"";
+		    	if(i < arg.length-1)
+		    		query += " or ";
+		    }
+		    query += ");";
 		    ResultSet rs = stmt.executeQuery(query);
 		    
 		    while(rs.next()){
