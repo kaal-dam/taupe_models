@@ -17,30 +17,28 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
-import BDD.FiltreModels;
 import Main.MainClass;
 
 public class ListeModels extends JPanel implements MouseListener, ActionListener, KeyListener {
 
 	private static final long serialVersionUID = -2678875145334246880L;
 	public static JTextField recherche;
-    JList liste;
+    JList<Object> liste;
     JPopupMenu jf;
     
-    @SuppressWarnings("unchecked")
-	public ListeModels() {
+    public ListeModels() {
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.setMaximumSize(this.getPreferredSize());
-        this.
 
-        recherche = new JTextField("Recherche par nom/tag");
-        recherche.setMaximumSize(new Dimension(200, 25));
+        recherche = new JTextField("");
+        recherche.setSize(150, 25);
+        recherche.setMaximumSize(new Dimension(150, 25));
         recherche.addActionListener(this);
         recherche.addKeyListener(this);
         add(recherche, BorderLayout.NORTH);
 
-        liste = new JList(new File("./model").list());
+        liste = new JList<Object>(new File("./model").list());
         add(liste);
         liste.addMouseListener(this);
 
@@ -50,7 +48,7 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
 
     public void refreshList(){
     	this.remove(liste);
-    	liste = new JList(new File("./model").list());
+    	liste = new JList<Object>(new BDD.FiltreModels().getList());
     	liste.addMouseListener(this);
         add(liste);
     }
@@ -63,6 +61,7 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == liste) {
+        	System.out.println(e.getSource().getClass());
             if (e.getClickCount() == 2) {
                 MainClass.loadModel("model/" + liste.getSelectedValue());
             }
@@ -96,17 +95,17 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getSource() == recherche) {
-			if(recherche.getText().length()>20)
-				recherche.setText(recherche.getText().substring(0, 20));
-		}
-		
+	public void keyPressed(KeyEvent e) {			
+			/*if(recherche.getText().length()>20)
+				recherche.setText(recherche.getText().substring(0, 20));*/
 	}
+		
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void keyReleased(KeyEvent e) {
+		if(e.getSource() == recherche){
+			refreshList();
+		}
 		
 	}
 

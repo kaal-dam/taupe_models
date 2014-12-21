@@ -1,14 +1,17 @@
 package BDD;
 
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.JList;
 
 public class FiltreModels {
 	
-	List<String> list = new ArrayList<String>();
+	Vector<Object> list;
 	
 	public FiltreModels() {
+		
+		list = new Vector();
 		
 		Connection c = null;
 	    Statement stmt = null;
@@ -27,8 +30,8 @@ public class FiltreModels {
 		    ResultSet rs = stmt.executeQuery(query);
 		    
 		    while(rs.next()){
-		    	System.out.println("Chemin : " + rs.getString("chemin"));
-		    	list.add(rs.getString("chemin"));
+		    	System.out.println("Chemin : " + rs.getString("chemin").substring(8));
+		    	list.add(rs.getString("chemin").substring(8));
 		    }
 	    	
 	    }catch ( Exception e ) {
@@ -39,4 +42,9 @@ public class FiltreModels {
 		}
 
 	}
+	
+	public Vector<Object> getList() {
+		return list;
+	}
+	
 }
