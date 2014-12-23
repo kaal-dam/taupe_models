@@ -1,9 +1,8 @@
 package BDD;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Vector;
-
-import javax.swing.JList;
 
 public class FiltreModels {
 
@@ -38,17 +37,17 @@ public class FiltreModels {
 				}
 			}
 			query += ";";
-			System.out.println(IHM.ListeModels.recherche.getText() + "\na"
-					+ query);
+			/*System.out.println(IHM.ListeModels.recherche.getText() + "\n"
+					+ query);*/
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				System.out.println("Chemin : "
-						+ rs.getString("chemin").substring(8));
+				/*System.out.println("Chemin : "
+						+ rs.getString("chemin").substring(8));*/
 				int i = 0;
 				if (!list.isEmpty()) {
 					while (i < list.size()
-							&& list.get(i).compareTo(rs.getString("chemin")) < 0)
+							&& list.get(i).compareTo(rs.getString("chemin").substring(8)) < 0)
 						++i;
 				}
 				list.add(i, rs.getString("chemin").substring(8));
@@ -68,6 +67,24 @@ public class FiltreModels {
 
 	public Vector<String> getList() {
 		return list;
+	}
+	
+	public String[] getList1(int SelectedValue) {
+		String res[];
+		List<String> l = list.subList(0, SelectedValue+1);
+		res = new String[l.size()];
+		for(int i=0; i<res.length; ++i)
+			res[i] = l.get(i);
+		return res;
+	}
+	
+	public String[] getList2(int SelectedValue) {
+		String res[];
+		List<String> l = list.subList(SelectedValue+1, list.size());
+		res = new String[l.size()];
+		for(int i=0; i<res.length; ++i)
+			res[i] = l.get(i);
+		return res;
 	}
 
 }

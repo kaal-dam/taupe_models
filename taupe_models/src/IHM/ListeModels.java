@@ -3,27 +3,27 @@ package IHM;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
-
+import BDD.SelectTag;
 import Main.MainClass;
 
-public class ListeModels extends JPanel implements MouseListener, ActionListener, KeyListener {
+public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	private static final long serialVersionUID = -2678875145334246880L;
 	public static JTextField recherche;
-    JList<?> liste;
+	public JList<Object> liste, liste2;
     JPopupMenu jf;
     
     public ListeModels() {
@@ -36,7 +36,6 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
         recherche = new JTextField("");
         recherche.setSize(150, 25);
         recherche.setMaximumSize(new Dimension(150, 25));
-        recherche.addActionListener(this);
         recherche.addKeyListener(this);
         add(recherche, BorderLayout.NORTH);
 
@@ -50,11 +49,60 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
 
     }
 
-    public void refreshList(){
-    	this.remove(liste);
-    	liste = new JList<Object>(new BDD.FiltreModels().getList());
-    	liste.addMouseListener(this);
-        add(liste);
+    public void refreshList(int nbListes) {
+    	
+    	List<String> tags = null;
+    	int selectedIndex = 0;
+    	
+    	if(liste.getSelectedValue() != null) {
+    		tags = SelectTag.GetTags(liste.getSelectedValue().toString());
+    		if(liste.getSelectedIndex() == liste.getModel().getSize()-1)
+    			nbListes = 1;
+    		else {
+    			nbListes = 2;
+    			selectedIndex = liste.getSelectedIndex();
+    		}
+    	}
+    	
+    	else if(liste2 != null && liste2.getSelectedValue() != null) {
+    		tags = SelectTag.GetTags(liste2.getSelectedValue().toString());
+    		if(liste2.getSelectedIndex() == liste2.getModel().getSize()-1)
+    			nbListes = 1;
+    		else {
+    			nbListes = 2;
+    			selectedIndex = liste.getModel().getSize() + liste2.getSelectedIndex();
+    		}
+    	}
+    	
+    	this.removeAll();
+    	add(recherche);
+    	
+    	if(nbListes == 1) {
+    		liste = new JList<Object>(new BDD.FiltreModels().getList());
+    		liste.addMouseListener(this);
+    		add(liste);
+    		if(tags != null) {
+            	for(int i=0; i<tags.size(); ++i) {
+            		add(new JLabel(tags.get(i))).setForeground(Color.gray);
+            	}
+            }
+    	}
+    	
+    	if(nbListes == 2) {
+    		liste = new JList<Object>(new BDD.FiltreModels().getList1(selectedIndex));
+    		liste.addMouseListener(this);
+    		liste2 = new JList<Object>(new BDD.FiltreModels().getList2(selectedIndex));
+    		liste2.addMouseListener(this);
+    		add(liste);
+    		if(tags != null) {
+            	for(int i=0; i<tags.size(); ++i) {
+            		add(new JLabel(tags.get(i))).setForeground(Color.gray);
+            	}
+            }
+    		add(liste2);
+    	}
+        
+        recherche.requestFocusInWindow();
     }
     
     @Override
@@ -65,9 +113,25 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == liste) {
-        	System.out.println(e.getSource().getClass());
+        	if(e.getClickCount()== 1) {
+        		if(liste2 == null)
+        			refreshList(1);
+        		else
+        			refreshList(2);
+        	}
             if (e.getClickCount() == 2) {
                 MainClass.loadModel("model/" + liste.getSelectedValue());
+            }
+        }
+        if (e.getSource() == liste2) {
+        	if(e.getClickCount()== 1) {
+        		if(liste2 == null)
+        			refreshList(1);
+        		else
+        			refreshList(2);
+        	}
+            if (e.getClickCount() == 2) {
+                MainClass.loadModel("model/" + liste2.getSelectedValue());
             }
         }
     }
@@ -92,23 +156,18 @@ public class ListeModels extends JPanel implements MouseListener, ActionListener
 
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == recherche) {
-			
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {			
-			/*if(recherche.getText().length()>20)
-				recherche.setText(recherche.getText().substring(0, 20));*/
+	public void keyPressed(KeyEvent e) {
+		
 	}
 		
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getSource() == recherche){
-			refreshList();
+		if(e.getSource() == recherche) {
+			if(liste2 == null)
+    			refreshList(1);
+    		else
+    			refreshList(2);
 		}
 		
 	}

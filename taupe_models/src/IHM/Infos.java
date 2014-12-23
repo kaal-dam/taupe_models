@@ -14,7 +14,7 @@ public class Infos extends JPanel {
 
     public Infos() {
 
-        text = new JLabel(MainClass.model.url + ":   "
+        text = new JLabel(MainClass.model.url.substring(6) + " :   "
         		+ ((Integer) (MainClass.model.nbPts)).toString() + " points / "
                 + ((Integer) (MainClass.model.nbSeg)).toString() + " segments / "
                 + ((Integer) (MainClass.model.nbTri)).toString() + " triangles");
