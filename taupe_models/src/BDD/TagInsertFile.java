@@ -22,12 +22,12 @@ public class TagInsertFile extends JFrame {
     static File file;
     static String desc;
 
-    public TagInsertFile(File f, String d) {
+    public TagInsertFile(File file, String desc) {
         this.setSize(500, 100);
         this.setVisible(true);
         this.setLayout(new FlowLayout());
-        this.file = f;
-        this.desc = d;
+        this.file = file;
+        this.desc = desc;
         this.add(new JLabel("tag1"));
         j1.setPreferredSize(new Dimension(100, 20));
         this.add(j1);
@@ -60,13 +60,14 @@ public class TagInsertFile extends JFrame {
             c = DriverManager.getConnection("jdbc:sqlite:model.db");
             c.setAutoCommit(false);
             Statement stmt = c.createStatement();
+            
             String sql = "INSERT INTO Modeles  "
                     + "VALUES ('" + file.getName() + "', '" + file + "','"+desc+"');";
             try {
                 stmt.executeUpdate(sql);
             } catch (Exception e) {
             }
-            //ajouter la figure même si on ne lui met aucun tag
+            //ajouter la figure meme si on ne lui met aucun tag
             if (!tag1.equals("")) {
                 sql = "INSERT INTO Tags  "
                         + "VALUES ('" + tag1 + "');";
@@ -79,6 +80,7 @@ public class TagInsertFile extends JFrame {
                 try {
                     stmt.executeUpdate(sql);
                 } catch (Exception e) {
+                	System.out.println("echec pour add asso");
                 }
             }
             stmt.close();

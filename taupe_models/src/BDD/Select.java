@@ -39,10 +39,8 @@ public class Select {
 		Connection c = null;
 		String query ="";
 		ArrayList<String> list = new ArrayList<String>();
-		if(model.substring(model.length()-4, model.length()).equals(".gts"))
-			model = model.substring(0, model.length()-4);
+		
 		try{
-			
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:model.db");
 			c.setAutoCommit(false);
@@ -50,7 +48,6 @@ public class Select {
 			ResultSet rs = c.createStatement().executeQuery(query);
 			while(rs.next()){
 				list.add(rs.getString(1));
-				System.out.println("*" + rs.getString(1));
 			}
 			c.close();
 			String[] ret = new String[list.size()];

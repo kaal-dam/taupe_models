@@ -7,7 +7,20 @@ public class FormatageDeTable {
 	static String query = "";
 	
 	public static void main(String[] args){
+		//lookALL();
+		Connection c = null;
+		try{
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:model.db");
+		c.setAutoCommit(false);
+		
+		//c.createStatement().executeUpdate("insert into tags (tag) values ('patate');");
 		lookALL();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{c.close();}catch(Exception e){}
+		}
 	}
 	
 	public static void formatAll(){
@@ -87,13 +100,13 @@ public class FormatageDeTable {
 		query = "select * from modeles;";
 		ResultSet rs = c.createStatement().executeQuery(query);
 		ResultSetMetaData rm = rs.getMetaData();
-		for(int i = 1; i < rm.getColumnCount(); i++){
+		for(int i = 1; i <= rm.getColumnCount(); i++){
 			System.out.print(rm.getColumnLabel(i) + "|");
 		}
 		System.out.println("");
 		while(rs.next()){
-			for(int i = 1; i < rm.getColumnCount(); i++){
-				System.out.print(rs.getString(rm.getColumnLabel(i)) + "|");
+			for(int i = 1; i <= rm.getColumnCount(); i++){
+				System.out.print(rs.getString(i) + "|");
 			}
 		}
 		
@@ -101,28 +114,27 @@ public class FormatageDeTable {
 		query = "select * from tags;";
 		rs = c.createStatement().executeQuery(query);
 		rm = rs.getMetaData();
-		for(int i = 1; i < rm.getColumnCount(); i++){
+		for(int i = 1; i <= rm.getColumnCount(); i++){
 			System.out.print(rm.getColumnLabel(i) + "|");
 		}
 		System.out.println("");
 		while(rs.next()){
-			for(int i = 1; i < rm.getColumnCount(); i++){
-				System.out.print(rs.getString(rm.getColumnLabel(i)) + "|");
-			}
+			System.out.println(rs.getString("tag"));
 		}
 		
 		System.out.println("\nTABLE ASSO.");
 		query = "select * from association;";
 		rs = c.createStatement().executeQuery(query);
 		rm = rs.getMetaData();
-		for(int i = 1; i < rm.getColumnCount(); i++){
+		for(int i = 1; i <= rm.getColumnCount(); i++){
 			System.out.print(rm.getColumnLabel(i) + "|");
 		}
 		System.out.println("");
 		while(rs.next()){
-			for(int i = 1; i < rm.getColumnCount(); i++){
-				System.out.print(rs.getString(rm.getColumnLabel(i)) + "|");
+			for(int i = 1; i <= rm.getColumnCount(); i++){
+				System.out.print(rs.getString(i) + "|");
 			}
+			System.out.println("");
 		}
 		
 		}catch(Exception e){

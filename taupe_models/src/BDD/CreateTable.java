@@ -18,17 +18,17 @@ public class CreateTable {
 					+ "(NOM	TEXT NOT NULL PRIMARY KEY,"
 					+ "CHEMIN TEXT NOT NULL,"
 					/* +"PHOTO			TEXT," */
-					+ "DESCRIPTION TEXT)";
+					+ "DESCRIPTION TEXT);";
 			stmt.executeUpdate(sql);
 			System.out.println("table model");
-			sql = "CREATE TABLE Tags " + "(TAG			TEXT NOT NULL	PRIMARY KEY)";
+			sql = "CREATE TABLE Tags (TAG TEXT NOT NULL PRIMARY KEY);";
 			stmt.executeUpdate(sql);
 			System.out.println("table tag");
 			sql = "CREATE TABLE Association " + "(NOM TEXT NOT NULL,"
 					+ "TAG TEXT NOT NULL,"
 					+ "PRIMARY KEY(nom,tag),"
 					+ "FOREIGN KEY (nom) REFERENCES Modeles(nom),"
-					+ "FOREIGN KEY (tag) REFERENCES Tags(tag))";
+					+ "FOREIGN KEY (tag) REFERENCES Tags(tag));";
 			stmt.executeUpdate(sql);
 			System.out.println("table asso");
 			stmt.close();
