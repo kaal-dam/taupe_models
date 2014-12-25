@@ -47,7 +47,7 @@ public class MainClass {
 
         jf.add(listmodel, BorderLayout.WEST);
 
-        loadModel("model/x_wing.gts");
+        loadModel("model/fluttershy.gts");
 
         jf.add(info, BorderLayout.SOUTH);
 
