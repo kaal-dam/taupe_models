@@ -34,6 +34,8 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	public JList<Object> liste;
 	JPopupMenu jf;
 	public JPanel info;
+	public JList<String> listTag;
+	public JFrame frameInfo;
 
 	public ListeModels() {
 
@@ -100,8 +102,8 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		}
 	}
 	
-	public void plusDInfo(String model){
-		JFrame jf = new JFrame("plus d'infos sur " + model);
+	public void plusDInfo(final String model){
+		frameInfo = new JFrame("plus d'infos sur " + model);
 		JTextField description = null;
 		Connection c = null;
 		try {
@@ -126,17 +128,30 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		pan1.add(new JLabel("description:"));
 		pan1.add(description);
 		//panel tag 
-		JPanel pan2 = new JPanel();
+		final JPanel pan2 = new JPanel();
 		pan2.setLayout(new FlowLayout());
-		JList<String> list = new JList<String>(BDD.Select.getTagof(model));
-		pan2.add(list);
+		listTag = new JList<String>(BDD.Select.getTagof(model));
+		pan2.add(listTag);
+		JButton delete = new JButton("supprimer");
+		delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pan2.remove(listTag);
+				BDD.Delete.delete("tags","tag", listTag.getSelectedValue());
+				BDD.Delete.delete("association","tag", listTag.getSelectedValue());
+				listTag = new JList<String>(BDD.Select.getTagof(model));
+				pan2.add(listTag);
+				frameInfo.repaint();
+			}
+		});
+		pan2.add(delete);
 		
 		//on ajoute les pan
-		jf.setSize(300, 200);
-		jf.setLayout(new GridLayout(2,1));
-		jf.add(pan1);
-		jf.add(pan2);
-		jf.setVisible(true);
+		frameInfo.setSize(300, 200);
+		frameInfo.setLayout(new GridLayout(2,1));
+		frameInfo.add(pan1);
+		frameInfo.add(pan2);
+		frameInfo.setVisible(true);
 	}
 
 	public void refreshList() {

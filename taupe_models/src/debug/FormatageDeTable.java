@@ -14,7 +14,7 @@ public class FormatageDeTable {
 		c = DriverManager.getConnection("jdbc:sqlite:model.db");
 		c.setAutoCommit(false);
 		
-		//c.createStatement().executeUpdate("insert into tags (tag) values ('patate');");
+		c.createStatement().executeUpdate("delete from tags where tag = 'lol';");
 		lookALL();
 		}catch(Exception e){
 			e.printStackTrace();
