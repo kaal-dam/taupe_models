@@ -1,6 +1,7 @@
 package BDD;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -69,9 +70,18 @@ public class FiltreModels {
 		return list;
 	}
 	
+	public String[] getArray(){
+		String[] ret = new String[list.size()];
+		for(int i  =0 ; i < list.size(); i++){
+			ret[i] = list.get(i);
+		}
+		return ret;
+	}
+	
 	public String[] getList1(int SelectedValue) {
 		String res[];
 		List<String> l = list.subList(0, SelectedValue+1);
+		
 		res = new String[l.size()];
 		for(int i=0; i<res.length; ++i)
 			res[i] = l.get(i);
