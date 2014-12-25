@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -39,7 +44,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 		info = new JPanel();
 		info.setLayout(new FlowLayout());
-		info.setMaximumSize(new Dimension(150, 75));
+		info.setMaximumSize(new Dimension(150, 100));
 		info.setSize(150, 200);
 		add(info, BorderLayout.NORTH);
 
@@ -60,7 +65,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	}
 
-	public void refreshInfo(String model) {
+	public void refreshInfo(final String model) {
 		info.removeAll();
 		Connection c = null;
 		Statement stmnt = null;
@@ -81,11 +86,58 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 			description.setText(desc);
 			description.setEditable(false);
 			info.add(description);
+			JButton plus = new JButton("plus d'infos");
+			plus.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					plusDInfo(model);
+				}
+			});
+			info.add(plus);
 		} catch (Exception e) {
 			
 		} finally {
 			try{c.close();}catch(Exception e1){}
 		}
+	}
+	
+	public void plusDInfo(String model){
+		JFrame jf = new JFrame("plus d'infos sur " + model);
+		JTextField description = null;
+		Connection c = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:model.db");
+			c.setAutoCommit(false);
+			String query = "SELECT * FROM Modeles WHERE nom = '" + model + "';";
+			ResultSet rs = c.createStatement().executeQuery(query);
+			String desc = rs.getString("description");
+			description = new JTextField(desc);
+			description.setEditable(false);
+		} catch (Exception e) {
+			
+		} finally {
+			try{c.close();}catch(Exception e1){}
+		}
+		//panel nom + desc
+		JPanel pan1 = new JPanel();
+		pan1.setLayout(new GridLayout(2,2));
+		pan1.add(new JLabel("nom: " + model));
+		pan1.add(new JLabel(""));
+		pan1.add(new JLabel("description:"));
+		pan1.add(description);
+		//panel tag 
+		JPanel pan2 = new JPanel();
+		pan2.setLayout(new FlowLayout());
+		JList<String> list = new JList<String>(BDD.Select.getTagof(model));
+		pan2.add(list);
+		
+		//on ajoute les pan
+		jf.setSize(300, 200);
+		jf.setLayout(new GridLayout(2,1));
+		jf.add(pan1);
+		jf.add(pan2);
+		jf.setVisible(true);
 	}
 
 	public void refreshList() {
@@ -102,7 +154,6 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println(liste.getSelectedValue().toString());
 		if (e.getSource() == liste) {
 			if (e.getClickCount() == 2) {
 				MainClass.loadModel("model/" + liste.getSelectedValue());

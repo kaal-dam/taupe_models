@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 public class TagInsertFile extends JFrame {
 
     JTextField j1 = new JTextField();
-    JButton b1 = new JButton("valider");
-    JButton b2 = new JButton("ajouter");
+    JButton valid = new JButton("valider");
+    JButton add = new JButton("ajouter");
     static File file;
     static String desc;
 
@@ -31,16 +31,16 @@ public class TagInsertFile extends JFrame {
         this.add(new JLabel("tag1"));
         j1.setPreferredSize(new Dimension(100, 20));
         this.add(j1);
-        this.add(b2);
-        b2.addActionListener(new ActionListener() {
+        this.add(add);
+        add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 addBDD(j1.getText());
                 j1.setText("");
             }
         });
-        this.add(b1);
-        b1.addActionListener(new ActionListener() {
+        this.add(valid);
+        valid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 addBDD(j1.getText());

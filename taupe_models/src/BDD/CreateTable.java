@@ -24,8 +24,8 @@ public class CreateTable {
 			sql = "CREATE TABLE Tags " + "(TAG			TEXT NOT NULL	PRIMARY KEY)";
 			stmt.executeUpdate(sql);
 			System.out.println("table tag");
-			sql = "CREATE TABLE Association " + "(NOM			TEXT NOT NULL,"
-					+ "TAG           TEXT    NOT NULL,"
+			sql = "CREATE TABLE Association " + "(NOM TEXT NOT NULL,"
+					+ "TAG TEXT NOT NULL,"
 					+ "PRIMARY KEY(nom,tag),"
 					+ "FOREIGN KEY (nom) REFERENCES Modeles(nom),"
 					+ "FOREIGN KEY (tag) REFERENCES Tags(tag))";
