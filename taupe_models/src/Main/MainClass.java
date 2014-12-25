@@ -27,6 +27,8 @@ public class MainClass {
 
     public static void main(String[] args) {
         //pour test
+    	
+    	//vrai main
         jf = new JFrame("Taupes Models");
         listmodel = new ListeModels();
         JMenuBar menuBar = new JMenuBar();

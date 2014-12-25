@@ -48,7 +48,6 @@ public class InsertFile extends JPanel implements ActionListener {
 			int result = fc.showSaveDialog(InsertFile.this);
 
 			if (result == JFileChooser.APPROVE_OPTION) {
-				System.out.println("");
 				Connection c=null;
 				try {
 					Class.forName("org.sqlite.JDBC");  

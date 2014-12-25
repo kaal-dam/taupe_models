@@ -3,6 +3,7 @@ package IHM;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -36,6 +38,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		this.setMinimumSize(this.getSize());
 
 		info = new JPanel();
+		info.setLayout(new FlowLayout());
 		info.setMaximumSize(new Dimension(150, 75));
 		info.setSize(150, 200);
 		add(info, BorderLayout.NORTH);
@@ -46,7 +49,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		recherche.addKeyListener(this);
 		add(recherche, BorderLayout.WEST);
 
-		liste = new JList<Object>(new File("./model").list());
+		liste = new JList<Object>(BDD.Select.select("modeles", "nom"));
 		add(liste, BorderLayout.SOUTH);
 		liste.addMouseListener(this);
 
@@ -58,6 +61,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	}
 
 	public void refreshInfo(String model) {
+		info.removeAll();
 		Connection c = null;
 		Statement stmnt = null;
 		try {
@@ -70,7 +74,13 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 			ResultSet rs = stmnt.executeQuery(query);
 			info.add(new JLabel("nom :" + rs.getString("nom")));
 			String desc = rs.getString("description");
-			info.add(new JLabel("description:" + desc));
+			if(desc.length() > 50)
+				desc = desc.substring(0, 50) + "...";
+			info.add(new JLabel("description:"));
+			JTextField description = new JTextField();
+			description.setText(desc);
+			description.setEditable(false);
+			info.add(description);
 		} catch (Exception e) {
 			
 		} finally {
@@ -80,7 +90,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	public void refreshList() {
 		this.remove(liste);
-    	liste = new JList<Object>(new BDD.FiltreModels().getList());
+    	liste = new JList<Object>(BDD.Select.select("modeles", "chemin"));
     	liste.addMouseListener(this);
         add(liste);
 	}
@@ -98,7 +108,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 				MainClass.loadModel("model/" + liste.getSelectedValue());
 			}
 		}
-		//refreshInfo(liste.getSelectedValue().toString());
+		refreshInfo(liste.getSelectedValue().toString());
 	}
 
 	@Override
