@@ -12,8 +12,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,14 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
-import BDD.SelectTag;
 import Main.MainClass;
 
 public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	private static final long serialVersionUID = -2678875145334246880L;
 	public static JTextField recherche;
-	public JList<Object> liste, liste2;
+	public JList<Object> liste;
 	JPopupMenu jf;
 	public JPanel info;
 
@@ -81,63 +78,11 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		}
 	}
 
-	public void refreshList(int nbListes) {
-
-		List<String> tags = null;
-		int selectedIndex = 0;
-
-		if (liste.getSelectedValue() != null) {
-			tags = SelectTag.GetTags(liste.getSelectedValue().toString());
-			if (liste.getSelectedIndex() == liste.getModel().getSize() - 1)
-				nbListes = 1;
-			else {
-				nbListes = 2;
-				selectedIndex = liste.getSelectedIndex();
-			}
-		}
-
-		else if (liste2 != null && liste2.getSelectedValue() != null) {
-			tags = SelectTag.GetTags(liste2.getSelectedValue().toString());
-			if (liste2.getSelectedIndex() == liste2.getModel().getSize() - 1)
-				nbListes = 1;
-			else {
-				nbListes = 2;
-				selectedIndex = liste.getModel().getSize()
-						+ liste2.getSelectedIndex();
-			}
-		}
-
-		this.removeAll();
-		add(recherche);
-
-		if (nbListes == 1) {
-			liste = new JList<Object>(new BDD.FiltreModels().getList());
-			liste.addMouseListener(this);
-			add(liste);
-			if (tags != null) {
-				for (int i = 0; i < tags.size(); ++i) {
-					add(new JLabel(tags.get(i))).setForeground(Color.gray);
-				}
-			}
-		}
-
-		if (nbListes == 2) {
-			liste = new JList<Object>(
-					new BDD.FiltreModels().getList1(selectedIndex));
-			liste.addMouseListener(this);
-			liste2 = new JList<Object>(
-					new BDD.FiltreModels().getList2(selectedIndex));
-			liste2.addMouseListener(this);
-			add(liste);
-			if (tags != null) {
-				for (int i = 0; i < tags.size(); ++i) {
-					add(new JLabel(tags.get(i))).setForeground(Color.gray);
-				}
-			}
-			add(liste2);
-		}
-
-		recherche.requestFocusInWindow();
+	public void refreshList() {
+		this.remove(liste);
+    	liste = new JList<Object>(new BDD.FiltreModels().getList());
+    	liste.addMouseListener(this);
+        add(liste);
 	}
 
 	@Override
@@ -149,25 +94,8 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	public void mousePressed(MouseEvent e) {
 		System.out.println(liste.getSelectedValue().toString());
 		if (e.getSource() == liste) {
-			if (e.getClickCount() == 1) {
-				if (liste2 == null)
-					refreshList(1);
-				else
-					refreshList(2);
-			}
 			if (e.getClickCount() == 2) {
 				MainClass.loadModel("model/" + liste.getSelectedValue());
-			}
-		}
-		if (e.getSource() == liste2) {
-			if (e.getClickCount() == 1) {
-				if (liste2 == null)
-					refreshList(1);
-				else
-					refreshList(2);
-			}
-			if (e.getClickCount() == 2) {
-				MainClass.loadModel("model/" + liste2.getSelectedValue());
 			}
 		}
 		//refreshInfo(liste.getSelectedValue().toString());
@@ -199,10 +127,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getSource() == recherche) {
-			if (liste2 == null)
-				refreshList(1);
-			else
-				refreshList(2);
+				refreshList();
 		}
 
 	}

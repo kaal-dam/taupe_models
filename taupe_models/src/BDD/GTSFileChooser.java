@@ -71,10 +71,7 @@ public class GTSFileChooser extends JPanel implements ActionListener {
                         } catch (IOException patate) {
                             patate.printStackTrace();
                         }finally{
-                        	if(MainClass.listmodel.liste2 == null)
-                    			MainClass.listmodel.refreshList(1);
-                    		else
-                    			MainClass.listmodel.refreshList(2);
+                    		MainClass.listmodel.refreshList();
                         	MainClass.listmodel.repaint();
                             jf.dispose();
                         }
