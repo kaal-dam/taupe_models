@@ -95,7 +95,7 @@ public class MouseController implements MouseWheelListener, MouseListener,
 			clic = true;
 		}
 		// ROTATION
-		// **************************************************************************************
+		// *******************************************************************
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			// THREAD DE ROTATION X
 			class ThreadRotationX extends Thread {
