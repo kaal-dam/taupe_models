@@ -39,7 +39,7 @@ public class Triangle implements Comparable<Triangle>{
         }
     }
 
-    private boolean existIn(List<Point> list, Point p){
+    public static boolean existIn(List<Point> list, Point p){
     	for(Point tmp: list){
     		if(tmp.x == p.x && tmp.y == p.y && tmp.z == p.z){
     			return true;

@@ -33,25 +33,45 @@ public class MainClass {
         listmodel = new ListeModels();
         JMenuBar menuBar = new JMenuBar();
         JMenu menuFichier = new JMenu("Fichier");
-        JMenuItem ouvrir = new JMenuItem("Ouvrir");
-        menuFichier.add(ouvrir);
         JMenuItem importer = new JMenuItem("Importer");
         menuFichier.add(importer);
         JMenuItem newTag = new JMenuItem("NewTag");
         menuFichier.add(newTag);
 
         menuBar.add(menuFichier);
-        menuBar.add(new Scale());
+        
+        
+        JMenu menuScale = new JMenu("Scale");
+        JMenuItem scale = new JMenuItem("Scale");
+        menuScale.add(scale);
+        
+        menuBar.add(menuScale);
+        
+        
+        JMenu menuOptions = new JMenu("Options");
+        
+        menuBar.add(menuOptions);
+        
+        /* Redirection vers la doc */
+        JMenu menuAide = new JMenu("Aide");
+        
+        menuBar.add(menuAide);
+        
+        /* A propos contiendra des infos générales sur le logiciel
+         * Nom, noms des membres du groupes, etc... */
+        JMenu menuAPropos = new JMenu("A propos");
+        
+        menuBar.add(menuAPropos);
+        
         jf.setJMenuBar(menuBar);
 
         importer.addActionListener(new GTSFileChooser());
         newTag.addActionListener(new addTagToTableTag());
+        scale.addActionListener(new Scale());
 
         jf.add(listmodel, BorderLayout.WEST);
 
-        loadModel("model/fluttershy.gts");
-
-        jf.add(info, BorderLayout.SOUTH);
+        loadModel("model/x_wing.gts");
 
         jf.add(aff);
         jf.setVisible(true);

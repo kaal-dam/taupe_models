@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,7 +32,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	public static JTextField recherche;
 	public JList<Object> liste;
 	JPopupMenu jf;
-	public JPanel info;
+	Description info;
 	public JList<String> listTag;
 	public JFrame frameInfo;
 
@@ -43,10 +42,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		this.setMaximumSize(this.getSize());
 		this.setMinimumSize(this.getSize());
 
-		info = new JPanel();
-		info.setLayout(new FlowLayout());
-		info.setMaximumSize(new Dimension(150, 100));
-		info.setSize(150, 200);
+		info = new Description();
 		add(info, BorderLayout.NORTH);
 
 		recherche = new JTextField("recherche..");
@@ -62,101 +58,14 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 		this.setSize(150, 600);
 		this.setPreferredSize(this.getSize());
 		this.setBackground(Color.white);
-		refreshInfo("x_wing.gts");
+		info.refreshInfo("x_wing.gts");
 
 	}
 
-	public void refreshInfo(final String model) {
-		info.removeAll();
-		Connection c = null;
-		Statement stmnt = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:model.db");
-			c.setAutoCommit(false);
-			stmnt = c.createStatement();
-			
-			String query = "SELECT * FROM Modeles WHERE nom = '" + model + "';";
-			ResultSet rs = stmnt.executeQuery(query);
-			info.add(new JLabel("nom :" + rs.getString("nom")));
-			String desc = rs.getString("description");
-			if(desc.length() > 50)
-				desc = desc.substring(0, 50) + "...";
-			info.add(new JLabel("description:"));
-			JTextField description = new JTextField();
-			description.setText(desc);
-			description.setEditable(false);
-			info.add(description);
-			JButton plus = new JButton("plus d'infos");
-			plus.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					plusDInfo(model);
-				}
-			});
-			info.add(plus);
-		} catch (Exception e) {
-			
-		} finally {
-			try{c.close();}catch(Exception e1){}
-		}
-	}
-	
-	public void plusDInfo(final String model){
-		frameInfo = new JFrame("plus d'infos sur " + model);
-		JTextField description = null;
-		Connection c = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:model.db");
-			c.setAutoCommit(false);
-			String query = "SELECT * FROM Modeles WHERE nom = '" + model + "';";
-			ResultSet rs = c.createStatement().executeQuery(query);
-			String desc = rs.getString("description");
-			description = new JTextField(desc);
-			description.setEditable(false);
-		} catch (Exception e) {
-			
-		} finally {
-			try{c.close();}catch(Exception e1){}
-		}
-		//panel nom + desc
-		JPanel pan1 = new JPanel();
-		pan1.setLayout(new GridLayout(2,2));
-		pan1.add(new JLabel("nom: " + model));
-		pan1.add(new JLabel(""));
-		pan1.add(new JLabel("description:"));
-		pan1.add(description);
-		//panel tag 
-		final JPanel pan2 = new JPanel();
-		pan2.setLayout(new FlowLayout());
-		listTag = new JList<String>(BDD.Select.getTagof(model));
-		pan2.add(listTag);
-		JButton delete = new JButton("supprimer");
-		delete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				pan2.remove(listTag);
-				BDD.Delete.delete("tags","tag", listTag.getSelectedValue());
-				BDD.Delete.delete("association","tag", listTag.getSelectedValue());
-				listTag = new JList<String>(BDD.Select.getTagof(model));
-				pan2.add(listTag);
-				frameInfo.repaint();
-			}
-		});
-		pan2.add(delete);
-		
-		//on ajoute les pan
-		frameInfo.setSize(300, 200);
-		frameInfo.setLayout(new GridLayout(2,1));
-		frameInfo.add(pan1);
-		frameInfo.add(pan2);
-		frameInfo.setVisible(true);
-	}
 
 	public void refreshList() {
 		this.remove(liste);
-    	liste = new JList<Object>(BDD.Select.select("modeles", "chemin"));
+    	liste = new JList<Object>(new BDD.FiltreModels().getList());
     	liste.addMouseListener(this);
         add(liste);
 	}
@@ -173,7 +82,7 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 				MainClass.loadModel("model/" + liste.getSelectedValue());
 			}
 		}
-		refreshInfo(liste.getSelectedValue().toString());
+		info.refreshInfo(liste.getSelectedValue().toString());
 	}
 
 	@Override
@@ -201,10 +110,8 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getSource() == recherche) {
-				refreshList();
-		}
-
+		if (e.getSource() == recherche)
+			refreshList();
 	}
 
 	@Override

@@ -12,9 +12,11 @@ import javax.swing.JTextField;
 
 import Main.MainClass;
 import Tools.ToolBox;
+
 import javax.swing.JCheckBox;
 
-public class Scale extends JMenuItem {
+@SuppressWarnings("serial")
+public class Scale extends JFrame implements ActionListener {
 
     JFrame jf = new JFrame();
     JTextField textLong;
@@ -24,7 +26,7 @@ public class Scale extends JMenuItem {
 
     public Scale() {
 
-        this.setText("Scale");
+        this.setTitle("Scale");
 
         JLabel largeur = new JLabel("largeur");
         JLabel longueur = new JLabel("longueur");
@@ -35,7 +37,7 @@ public class Scale extends JMenuItem {
         textLarg = new JTextField();
         texthaut = new JTextField();
 
-        check = new JCheckBox("mise a l'échelle homogéne");
+        check = new JCheckBox("mise a l'echelle homogene");
         check.setSelected(true);
 
         JButton valid = new JButton("valider");
@@ -43,7 +45,6 @@ public class Scale extends JMenuItem {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
                 JFrame error = new JFrame("error");
                 error.setLayout(new GridLayout(2, 1));
                 error.setSize(100, 100);
@@ -98,7 +99,7 @@ public class Scale extends JMenuItem {
                     }
                 } else {
                 }
-                jf.dispose();
+                dispose();
             }
         });
 
@@ -107,37 +108,35 @@ public class Scale extends JMenuItem {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                jf.dispose();
+                dispose();
             }
         });
 
-        jf.setLayout(new GridLayout(4, 3));
-        jf.add(longueur);
-        jf.add(textLong);
-        jf.add(new JLabel("cm"));
-        jf.add(largeur);
-        jf.add(textLarg);
-        jf.add(new JLabel("cm"));
-        jf.add(hauteur);
-        jf.add(texthaut);
-        jf.add(new JLabel("cm"));
-        jf.add(cancel);
-        jf.add(valid);
-        jf.add(check);
-        jf.setSize(200, 100);
+        setLayout(new GridLayout(4, 3));
+        add(longueur);
+        add(textLong);
+        add(new JLabel("cm"));
+        add(largeur);
+        add(textLarg);
+        add(new JLabel("cm"));
+        add(hauteur);
+        add(texthaut);
+        add(new JLabel("cm"));
+        add(cancel);
+        add(valid);
+        add(check);
+        setSize(200, 100);
 
 
 
-        this.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textLong.setText((MainClass.model.xMax - MainClass.model.xMin) * ToolBox.coefX + "");
-                textLarg.setText((MainClass.model.yMax - MainClass.model.yMin) * ToolBox.coefY + "");
-                texthaut.setText((MainClass.model.zMax - MainClass.model.zMin) * ToolBox.coefZ + "");
-                jf.setVisible(true);
-            }
-        });
+        
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		textLong.setText((MainClass.model.xMax - MainClass.model.xMin) * ToolBox.coefX + "");
+        textLarg.setText((MainClass.model.yMax - MainClass.model.yMin) * ToolBox.coefY + "");
+        texthaut.setText((MainClass.model.zMax - MainClass.model.zMin) * ToolBox.coefZ + "");
+		this.setVisible(true);
+	}
 }
