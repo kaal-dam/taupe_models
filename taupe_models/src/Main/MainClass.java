@@ -1,12 +1,16 @@
 package Main;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collections;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JToggleButton;
 
 import Affichage.Affichage;
 import Affichage.Model;
@@ -15,6 +19,7 @@ import BDD.addTagToTableTag;
 import IHM.Infos;
 import IHM.ListeModels;
 import IHM.Scale;
+import Tools.ToolBox;
 
 public class MainClass {
 
@@ -32,6 +37,40 @@ public class MainClass {
         jf = new JFrame("Taupes Models");
         listmodel = new ListeModels();
         JMenuBar menuBar = new JMenuBar();
+        //je fais du bordel
+        JMenuBar menuAff = new JMenuBar();
+        
+        JToggleButton arrete = new JToggleButton("A",ToolBox.arrete);
+        arrete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ToolBox.arrete = !ToolBox.arrete;
+			}
+		});
+        
+        JToggleButton point = new JToggleButton("P",ToolBox.point);
+        point.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ToolBox.point = !ToolBox.point;
+			}
+		});
+        
+        JToggleButton face = new JToggleButton("F",ToolBox.face);
+        face.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ToolBox.face = !ToolBox.face;
+			}
+		});
+        
+        menuAff.add(arrete);
+        menuAff.add(point);
+        menuAff.add(face);
+        menuBar.add(menuAff);
+        
+        //fini le bordel
+        
         JMenu menuFichier = new JMenu("Fichier");
         JMenuItem importer = new JMenuItem("Importer");
         menuFichier.add(importer);
@@ -62,6 +101,7 @@ public class MainClass {
         JMenu menuAPropos = new JMenu("A propos");
         
         menuBar.add(menuAPropos);
+        menuBar.add(menuAff);
         
         jf.setJMenuBar(menuBar);
 

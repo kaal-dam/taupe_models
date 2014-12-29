@@ -3,6 +3,11 @@ package Tools;
 import java.awt.Color;
 
 public class ToolBox {
+	
+	//parametre de la vue:
+	public static boolean arrete = false;
+	public static boolean point = false;
+	public static boolean face = true;
 
     //coef de scaling
     public static float coefX = 1;

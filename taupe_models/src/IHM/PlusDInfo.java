@@ -54,7 +54,7 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 			ResultSet rs = c.createStatement().executeQuery(query);
 			String desc = rs.getString("description");
 			description = new JTextField(desc);
-			description.setEditable(true);
+			description.setEditable(false);
 		} catch (Exception e) {
 			
 		} finally {
