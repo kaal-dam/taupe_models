@@ -19,6 +19,7 @@ public class Delete {
 			query = "DELETE FROM " + table + " WHERE "+ field + "='" + nom + "';";
 			System.out.println(query);
 			boolean ret = c.createStatement().executeUpdate(query) > 0;
+			c.commit();
 			c.close();
 			return ret;
 		}catch(Exception e){

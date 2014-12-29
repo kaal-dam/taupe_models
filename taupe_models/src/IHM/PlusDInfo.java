@@ -1,6 +1,8 @@
 package IHM;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -32,6 +34,8 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 	
 	JList<String> listTag;
 	JButton delete;
+	JButton add;
+	JTextField tag;
 	final JPanel pan2;
 	final String model;
 
@@ -39,12 +43,17 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 	 * Constructeur de PlusDInfo
 	 * @param model Model sélectionné
 	 */
-	public PlusDInfo(final String model){
+	public PlusDInfo(String model){
 		
 		this.model = model;
 		this.setTitle("Plus d'infos sur " + model);
 		this.addWindowListener(this);
 		JTextField description = null;
+		
+		tag = new JTextField();
+		add = new JButton("add tag");
+		add.addActionListener(this);
+		
 		Connection c = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -76,11 +85,20 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 		delete.addActionListener(this);
 		pan2.add(delete);
 		
+		//panel d'ajout de tag
+		JPanel pan3 = new JPanel(new GridLayout(1,2));
+		tag.setMinimumSize(new Dimension(25, 50));
+		tag.setMaximumSize(new Dimension(25, 50));
+		pan3.add(tag);
+		pan3.add(add);
+		
+		
 		//on ajoute les pan
 		this.setSize(300, 200);
-		this.setLayout(new GridLayout(2,1));
+		this.setLayout(new GridLayout(3,1));
 		this.add(pan1);
 		this.add(pan2, BorderLayout.NORTH);
+		this.add(pan3);
 		this.setVisible(true);
 	}
 
@@ -90,9 +108,19 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 			pan2.remove(listTag);
 			BDD.Delete.delete("tags","tag", listTag.getSelectedValue());
 			BDD.Delete.delete("association","tag", listTag.getSelectedValue());
-			listTag = new JList<String>(new String[]{"lolilol"});
+			listTag.setListData(BDD.Select.getTagof(model));
 			pan2.add(listTag);
 			repaint();
+		}
+		if(e.getSource() == add){
+			if(!tag.getText().equals(" ") && !tag.getText().equals("")){
+				BDD.Add.toTag(tag.getText(), model);
+				listTag.setListData(BDD.Select.getTagof(model));
+				tag.setBackground(Color.white);
+				repaint();
+			}else{
+				tag.setBackground(Color.RED);
+			}
 		}
 	}
 
