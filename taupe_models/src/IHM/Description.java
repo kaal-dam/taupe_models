@@ -2,8 +2,6 @@ package IHM;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -19,17 +17,32 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * Cette classe correspond à la description du modèle actuellement sélectionné.<br>
+ * Le JPanel est situé dans le coin supérieur gauche de l'écran.<br>
+ * Des informations supplémentaires sont disponibles via un JButton.
+ * @see {@link PlusDInfo}
+ * 
+ *
+ */
 @SuppressWarnings("serial")
-public class Description extends JPanel {
+public class Description extends JPanel implements ActionListener {
 	
 	JLabel text;
 	
 	JList<String> listTag;
 	JFrame frameInfo;
+	JButton plus;
+	String model;
+	public static PlusDInfo plusDInfo = null;
 	
 	Connection c = null;
 	Statement stmnt = null;
 	
+	/**
+	 * Constructeur de Description
+	 */
 	public Description() {
 	
 		this.setMaximumSize(new Dimension(150, 75));
@@ -39,7 +52,13 @@ public class Description extends JPanel {
 		
 	}
 	
+	/**
+	 * 
+	 * Rafraichit le JPanel Description, cette méthode est appelée lors d'un clic simple sur un élément de la JList ({@link ListeModels}).
+	 * @param model Le model sélectionné
+	 */
 	public void refreshInfo(final String model) {
+		this.model = model;
 		this.removeAll();
 		Connection c = null;
 		Statement stmnt = null;
@@ -60,13 +79,8 @@ public class Description extends JPanel {
 			description.setText(desc);
 			description.setEditable(false);
 			this.add(description);
-			JButton plus = new JButton("plus d'infos");
-			plus.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					plusDInfo(model);
-				}
-			});
+			plus = new JButton("plus d'infos");
+			plus.addActionListener(this);
 			this.add(plus);
 		} catch (Exception e) {
 			
@@ -74,58 +88,11 @@ public class Description extends JPanel {
 			try{c.close();}catch(Exception e1){}
 		}
 	}
-	
-	public void plusDInfo(final String model){
-		
-		frameInfo = new JFrame("plus d'infos sur " + model);
-		JTextField description = null;
-		Connection c = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:model.db");
-			c.setAutoCommit(false);
-			String query = "SELECT * FROM Modeles WHERE nom = '" + model + "';";
-			ResultSet rs = c.createStatement().executeQuery(query);
-			String desc = rs.getString("description");
-			description = new JTextField(desc);
-			description.setEditable(false);
-		} catch (Exception e) {
-			
-		} finally {
-			try{c.close();}catch(Exception e1){}
-		}
-		//panel nom + desc
-		JPanel pan1 = new JPanel();
-		pan1.setLayout(new GridLayout(2,2));
-		pan1.add(new JLabel("nom: " + model));
-		pan1.add(new JLabel(""));
-		pan1.add(new JLabel("description:"));
-		pan1.add(description);
-		//panel tag 
-		final JPanel pan2 = new JPanel();
-		pan2.setLayout(new FlowLayout());
-		listTag = new JList<String>(BDD.Select.getTagof(model));
-		pan2.add(listTag);
-		JButton delete = new JButton("supprimer");
-		delete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				pan2.remove(listTag);
-				BDD.Delete.delete("tags","tag", listTag.getSelectedValue());
-				BDD.Delete.delete("association","tag", listTag.getSelectedValue());
-				listTag = new JList<String>(BDD.Select.getTagof(model));
-				pan2.add(listTag);
-				frameInfo.repaint();
-			}
-		});
-		pan2.add(delete);
-		
-		//on ajoute les pan
-		frameInfo.setSize(300, 200);
-		frameInfo.setLayout(new GridLayout(2,1));
-		frameInfo.add(pan1);
-		frameInfo.add(pan2);
-		frameInfo.setVisible(true);
-	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == plus && plusDInfo == null) {
+			plusDInfo = new PlusDInfo(model);
+		}
+	}
 }

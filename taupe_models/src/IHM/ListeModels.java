@@ -3,22 +3,12 @@ package IHM;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -26,6 +16,14 @@ import javax.swing.JTextField;
 
 import Main.MainClass;
 
+/**
+ * 
+ * Cette classe correspond au panel latéral gauche qui affiche la liste des models disponibles
+ * ainsi que des informations supplémentaires sur le modèle actuellement sélectionner.<br>
+ * Recherche par nom / tag disponible via le JTextField.<br>
+ * Les infos supplémentaires sont disponibles via le JPanel {@link Description} au dessus de la liste.
+ * 
+ */
 public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	private static final long serialVersionUID = -2678875145334246880L;
@@ -36,6 +34,9 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	public JList<String> listTag;
 	public JFrame frameInfo;
 
+	/**
+	 * Constructeur de ListeModels
+	 */
 	public ListeModels() {
 
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -62,7 +63,10 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
 	}
 
-
+	/**
+	 * Rafraichit la liste des modèles en fonction de ce qui est écrit dans la barre de recherche (JTextField).<br>
+	 * Cette méthode est appelée lors de l'évènement KeyReleased (si la source est le JTextField).
+	 */
 	public void refreshList() {
 		this.remove(liste);
     	liste = new JList<Object>(new BDD.FiltreModels().getList());

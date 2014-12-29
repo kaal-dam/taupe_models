@@ -16,10 +16,10 @@ public class Delete {
 			c = DriverManager.getConnection("jdbc:sqlite:model.db");
 			c.setAutoCommit(false);
 			
-			query = "delete from " + table + " where "+ field + "='" + nom + "';";
+			query = "DELETE FROM " + table + " WHERE "+ field + "='" + nom + "';";
+			System.out.println(query);
 			boolean ret = c.createStatement().executeUpdate(query) > 0;
 			c.close();
-			
 			return ret;
 		}catch(Exception e){
 			e.printStackTrace();

@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 import Main.MainClass;
@@ -15,15 +14,22 @@ import Tools.ToolBox;
 
 import javax.swing.JCheckBox;
 
+/**
+ * 
+ * J'ai toujours pas compris le sens et l'intérêt de cette classe, demander à Sicchio :D
+ *
+ */
 @SuppressWarnings("serial")
 public class Scale extends JFrame implements ActionListener {
 
-    JFrame jf = new JFrame();
     JTextField textLong;
     JTextField textLarg;
     JTextField texthaut;
     JCheckBox check;
 
+    /**
+     * Contructeur de Scale.
+     */
     public Scale() {
 
         this.setTitle("Scale");
@@ -31,16 +37,15 @@ public class Scale extends JFrame implements ActionListener {
         JLabel largeur = new JLabel("largeur");
         JLabel longueur = new JLabel("longueur");
         JLabel hauteur = new JLabel("hauteur");
-        JLabel unite = new JLabel("cm");
 
         textLong = new JTextField();
         textLarg = new JTextField();
         texthaut = new JTextField();
 
-        check = new JCheckBox("mise a l'echelle homogene");
+        check = new JCheckBox("Mise a l'echelle homogene");
         check.setSelected(true);
 
-        JButton valid = new JButton("valider");
+        JButton valid = new JButton("Valider");
         valid.addActionListener(new ActionListener() {
 
             @Override
@@ -48,6 +53,7 @@ public class Scale extends JFrame implements ActionListener {
                 JFrame error = new JFrame("error");
                 error.setLayout(new GridLayout(2, 1));
                 error.setSize(100, 100);
+                /* Sicchio tu te calmes sur les erreurs voyons */
                 error.add(new JLabel("ERROR ! CONNARD"));
 
 
