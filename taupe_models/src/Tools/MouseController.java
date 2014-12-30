@@ -11,14 +11,17 @@ import javax.swing.SwingUtilities;
 
 import Main.MainClass;
 
+/**
+ * 
+ * Classe qui gere le controle du model a la souris
+ *
+ */
 public class MouseController implements MouseWheelListener, MouseListener,
 		MouseMotionListener {
 
 	private boolean clic = false;
 	private int x, y;
 
-	public MouseController() {
-	}
 
 	// utiliser le produit matricielle !
 	@Override

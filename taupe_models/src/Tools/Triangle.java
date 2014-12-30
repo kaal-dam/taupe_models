@@ -3,14 +3,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author flo
+ * Triangle de segments s1, s2 et s3
  */
 public class Triangle implements Comparable<Triangle>{
 
     List<Segment> segment;
     public double[][] matrixPoint;
 
+    /**
+     * Constructeur de Triangle.<br>
+     * Initialise aussi la matrice correspondant au Triangle.
+     * @param s1 : Segment 1
+     * @param s2 : Segment 2
+     * @param s3 : Segment 3
+     */
     public Triangle(Segment s1, Segment s2, Segment s3) {
         segment = new ArrayList<Segment>();
         List<Point> point = new ArrayList<Point>();
@@ -39,15 +45,24 @@ public class Triangle implements Comparable<Triangle>{
         }
     }
 
+    /**
+     * Méthode permettant de vérifier si un point p appartient à une List<Point> list
+     * @param list : List&ltPoint&gt
+     * @param p : Point
+     * @return
+     */
     public static boolean existIn(List<Point> list, Point p){
     	for(Point tmp: list){
-    		if(tmp.x == p.x && tmp.y == p.y && tmp.z == p.z){
+    		if(tmp.x == p.x && tmp.y == p.y && tmp.z == p.z)
     			return true;
-    		}
     	}
     	return false;
     }
-    	
+    
+    /**
+     * Méthode permettant de calculer le barycentre du Triangle
+     * @return Point correspondant au barycentre
+     */
     public Point getBarycentre(){ 
         double bx = 0, by = 0, bz = 0;
         for(int idx = 0; idx < matrixPoint.length; idx++){
@@ -61,13 +76,13 @@ public class Triangle implements Comparable<Triangle>{
     
     @Override
     public int compareTo(Triangle t) {
-        if(this.getBarycentre().z > t.getBarycentre().z){
+        if(this.getBarycentre().z > t.getBarycentre().z)
             return 1;
-        }else if(this.getBarycentre().z < t.getBarycentre().z){
+        else if(this.getBarycentre().z < t.getBarycentre().z)
             return -1;
-        }else{
+        else
             return 0;
-        }
+        
     }
 
 }

@@ -57,7 +57,7 @@ public class Scale extends JFrame implements ActionListener {
                 error.add(new JLabel("ERROR ! CONNARD"));
 
 
-                /*
+                /**
                  * trouver moyen de trouver la distance max entre les deux
                  * extremit� du modele en x,y,z et faire: saisieX/distX = coefX
                  * a refaire pour Y,Z
