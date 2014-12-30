@@ -164,6 +164,7 @@ public class MouseController implements MouseWheelListener, MouseListener,
 				}
 			}
 		}
+		
 		// TRANSLATION
 		// *************************************************************************
 		if (SwingUtilities.isRightMouseButton(e)) {
