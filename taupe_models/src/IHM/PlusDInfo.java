@@ -134,22 +134,6 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 	public void windowClosing(WindowEvent e) {
 		/* Permet d'interdire l'ouverte de plusieurs JFrame PlusDInfo */
 		IHM.Description.plusDInfo = null;
-		Connection c = null;
-		Statement stmnt = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:model.db");
-			c.setAutoCommit(false);
-			stmnt = c.createStatement();
-		} catch(Exception e1) {
-			e1.printStackTrace();
-		} finally {
-			try {
-				c.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
 	}
 
 	@Override

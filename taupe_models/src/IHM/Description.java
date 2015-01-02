@@ -45,8 +45,7 @@ public class Description extends JPanel implements ActionListener {
 	 */
 	public Description() {
 	
-		this.setMaximumSize(new Dimension(150, 75));
-		this.setSize(150, 200);
+		this.setMaximumSize(new Dimension(150, 100));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setBackground(Color.LIGHT_GRAY);
 		

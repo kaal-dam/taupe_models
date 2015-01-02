@@ -16,6 +16,7 @@ import Affichage.Affichage;
 import Affichage.Model;
 import BDD.GTSFileChooser;
 import BDD.addTagToTableTag;
+import IHM.APropos;
 import IHM.Infos;
 import IHM.ListeModels;
 import IHM.Scale;
@@ -29,6 +30,7 @@ public class MainClass {
     public static int panelH = 600, panelW = 800;
     public static JFrame jf;
     public static ListeModels listmodel;
+    public static int aProposOpened = 0;
 
     public static void main(String[] args) {
         //pour test
@@ -74,6 +76,8 @@ public class MainClass {
         JMenu menuFichier = new JMenu("Fichier");
         JMenuItem importer = new JMenuItem("Importer");
         menuFichier.add(importer);
+        
+        /* NewTag inutile maintenant, allez dans PlusDInfo */
         JMenuItem newTag = new JMenuItem("NewTag");
         menuFichier.add(newTag);
 
@@ -87,10 +91,6 @@ public class MainClass {
         menuBar.add(menuScale);
         
         
-        JMenu menuOptions = new JMenu("Options");
-        
-        menuBar.add(menuOptions);
-        
         /* Redirection vers la doc */
         JMenu menuAide = new JMenu("Aide");
         
@@ -99,6 +99,8 @@ public class MainClass {
         /* A propos contiendra des infos générales sur le logiciel
          * Nom, noms des membres du groupes, etc... */
         JMenu menuAPropos = new JMenu("A propos");
+        JMenuItem aPropos = new JMenuItem("A propos");
+        menuAPropos.add(aPropos);
         
         menuBar.add(menuAPropos);
         menuBar.add(menuAff);
@@ -108,6 +110,16 @@ public class MainClass {
         importer.addActionListener(new GTSFileChooser());
         newTag.addActionListener(new addTagToTableTag());
         scale.addActionListener(new Scale());
+        aPropos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(aProposOpened == 0) {
+					new APropos();
+					aProposOpened = 1;
+				}
+			}
+        	
+        });
 
         jf.add(listmodel, BorderLayout.WEST);
 
