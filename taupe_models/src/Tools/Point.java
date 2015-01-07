@@ -52,6 +52,10 @@ public class Point {
 		return z;
 	}
     
+    public double[] toArray(){
+    	return new double[]{x,y,z};
+    }
+    
     @Override
     public String toString() {
     	return "[" + x + " : " + y + " : " + z  +"]";
