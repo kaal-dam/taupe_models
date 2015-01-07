@@ -130,6 +130,7 @@ public class MouseController implements MouseWheelListener, MouseListener,
 				}
 				while (th.isAlive()) {
 				}
+				ToolBox.axe = ToolBox.produitMatriciel(ToolBox.axe,ToolBox.mRotY(0.1 * (double) (e.getX() - x)));
 			}
 
 			// THREAD DE ROTATION Y
@@ -162,6 +163,7 @@ public class MouseController implements MouseWheelListener, MouseListener,
 				}
 				while (th.isAlive()) {
 				}
+				ToolBox.axe = ToolBox.produitMatriciel(ToolBox.axe,ToolBox.mRotX(0.1 * (double) (y - e.getY())));
 			}
 		}
 		

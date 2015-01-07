@@ -175,8 +175,11 @@ public class ToolBox {
                 getVecteur(t.matrixPoint[0], t.matrixPoint[2]));
         double[] v = new double[]{0, 0, 1};
 
-        double coef = Math.abs(Math.cos(((Math.abs(produitScalaire(v, n)) / (normeVectoriel(v) * normeVectoriel(n))))));
+        double coef =1- Math.abs(Math.cos(((Math.abs(produitScalaire(v, n)) / (normeVectoriel(v) * normeVectoriel(n))))));
         return new Color((int) (defaultColor.getRed() * coef), (int) (defaultColor.getGreen() * coef), (int) (defaultColor.getBlue() * coef));
         //return new Color((int) (Math.random()*256 * coef), (int) (Math.random()*256 * coef), (int) (Math.random()*256 * coef));
     }
+    
+    
+    public static double[][] axe = new double[][]{{30,0,0,0},{0,30,0,0},{0,0,30,0}};
 }

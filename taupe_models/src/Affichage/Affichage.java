@@ -6,6 +6,7 @@ package Affichage;
  * and open the template in the editor.
  */
 //projection perspective 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -33,6 +34,7 @@ import BDD.GTSFileChooser;
  *
  * @author flo
  */
+@SuppressWarnings("serial")
 public class Affichage extends JPanel {
 
 	public static Model model;
@@ -113,8 +115,15 @@ public class Affichage extends JPanel {
 				g1.fillOval((int) i.matrixPoint[2][0] + demiLongueur,
 						(int) i.matrixPoint[2][1] + demiLargeur, tailleDot, tailleDot);
 			}
-
 		}
+		//on print l'axe
+		g1.setStroke(new BasicStroke(4));
+		g1.setColor(Color.RED);
+		g1.drawLine(0+30, 0+30 , (int) ToolBox.axe[0][0] + 30, (int) ToolBox.axe[0][1] + 30);
+		g1.setColor(Color.green);
+		g1.drawLine(0+30, 0+30 , (int) ToolBox.axe[1][0] + 30, (int) ToolBox.axe[1][1] + 30);
+		g1.setColor(Color.blue);
+		g1.drawLine(0+30, 0+30 , (int) ToolBox.axe[2][0] + 30, (int) ToolBox.axe[2][1] + 30);
 		this.setVisible(true);
 	}
 }
