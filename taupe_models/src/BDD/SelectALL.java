@@ -25,6 +25,7 @@ public class SelectALL
 
       stmt = c.createStatement();
       ResultSet rs = stmt.executeQuery( "SELECT * FROM Modeles;" );
+      System.out.println("Modeles:");
       while ( rs.next() ) {
          String  name = rs.getString("nom");
          String chemin  = rs.getString("chemin");
@@ -35,6 +36,7 @@ public class SelectALL
       }
       rs.close();
       rs = stmt.executeQuery( "SELECT * FROM Tags;" );
+      System.out.println("Tags:");
       while ( rs.next() ) {
          String  tag = rs.getString("tag");
          System.out.println( "TAG = " + tag );
@@ -42,6 +44,7 @@ public class SelectALL
          System.out.println();
       }
       rs = stmt.executeQuery( "SELECT * FROM Association;" );
+      System.out.println("Association:");
       while ( rs.next() ) {
          String  name = rs.getString("nom");
          String tag  = rs.getString("tag");

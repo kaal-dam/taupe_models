@@ -67,6 +67,7 @@ public class GTSFileChooser extends JPanel implements ActionListener {
                         try {
                             fileDest.createNewFile();
                             copyFile(filePath, fileDest);
+                            BDD.Add.toModeles(nomFile, nomFile, jTextDesc.getText());
                             new TagInsertFile(new File(nomFile), jTextDesc.getText());
                         } catch (IOException patate) {
                             patate.printStackTrace();

@@ -88,7 +88,7 @@ public class MainClass {
         JMenuItem scale = new JMenuItem("Scale");
         menuScale.add(scale);
         
-        menuBar.add(menuScale);
+        //menuBar.add(menuScale);
         
         
         /* Redirection vers la doc */

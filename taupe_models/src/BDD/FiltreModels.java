@@ -29,8 +29,8 @@ public class FiltreModels {
 				if ((i == 0 && arg.length > 1) || !arg[0].equals(""))
 					query += "and (";
 				if (!arg[i].equals("")) {
-					query += "M.nom like \"%" + arg[i] + "%\" "
-							+ "or A.tag like \"%" + arg[i] + "%\"";
+					query += "M.nom like \"%" + arg[i].toLowerCase() + "%\" "
+							+ "or A.tag like \"%" + arg[i].toLowerCase() + "%\"";
 					if (i < arg.length - 1)
 						query += " or ";
 					if (i == arg.length - 1)

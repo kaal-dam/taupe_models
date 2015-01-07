@@ -16,84 +16,78 @@ import javax.swing.JTextField;
 
 public class TagInsertFile extends JFrame {
 
-    JTextField j1 = new JTextField();
-    JButton valid = new JButton("valider");
-    JButton add = new JButton("ajouter");
-    static File file;
-    static String desc;
+	JTextField jTextField = new JTextField();
+	JButton valid = new JButton("valider");
+	JButton add = new JButton("ajouter");
+	static File file;
+	static String desc;
 
-    public TagInsertFile(File file, String desc) {
-        this.setSize(500, 100);
-        this.setVisible(true);
-        this.setLayout(new FlowLayout());
-        this.file = file;
-        this.desc = desc;
-        this.add(new JLabel("tag1"));
-        j1.setPreferredSize(new Dimension(100, 20));
-        this.add(j1);
-        this.add(add);
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                addBDD(j1.getText());
-                j1.setText("");
-            }
-        });
-        this.add(valid);
-        valid.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                addBDD(j1.getText());
-                dispose();
-            }
-        });
+	public TagInsertFile(File file, String desc) {
+		this.setSize(500, 100);
+		this.setVisible(true);
+		this.setLayout(new FlowLayout());
+		this.file = file;
+		this.desc = desc;
+		this.add(new JLabel("tag:"));
+		jTextField.setPreferredSize(new Dimension(100, 20));
+		this.add(jTextField);
+		this.add(add);
+		add.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addBDD(jTextField.getText());
+				jTextField.setText("");
+			}
+		});
+		this.add(valid);
+		valid.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				addBDD(jTextField.getText());
+				dispose();
+			}
+		});
 
-        this.setDefaultCloseOperation(1);
-        this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(1);
+		this.setLocationRelativeTo(null);
 
-    }
+	}
 
-    static void addBDD(String tag1) {
-        Connection c = null;
-        try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:model.db");
-            c.setAutoCommit(false);
-            Statement stmt = c.createStatement();
-            
-            String sql = "INSERT INTO Modeles  "
-                    + "VALUES ('" + file.getName() + "', '" + file + "','"+desc+"');";
-            try {
-                stmt.executeUpdate(sql);
-            } catch (Exception e) {
-            }
-            //ajouter la figure meme si on ne lui met aucun tag
-            if (!tag1.equals("")) {
-                sql = "INSERT INTO Tags  "
-                        + "VALUES ('" + tag1 + "');";
-                try {
-                    stmt.executeUpdate(sql);
-                } catch (Exception e) {
-                }
-                sql = "INSERT INTO Association  "
-                        + "VALUES ('" + file.getName() + "', '" + tag1 + "');";
-                try {
-                    stmt.executeUpdate(sql);
-                } catch (Exception e) {
-                	System.out.println("echec pour add asso");
-                }
-            }
-            stmt.close();
-            c.commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                c.close();
-            } catch (Exception e2) {
-            }
-        }
-    }
+	static void addBDD(String tag1) {
+		Connection c = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:model.db");
+			c.setAutoCommit(false);
+			Statement stmt = c.createStatement();
+			String sql = "";
+			// ajouter la figure meme si on ne lui met aucun tag
+			if (!tag1.equals("")) {
+				sql = "INSERT INTO Tags  " + "VALUES ('" + tag1 + "');";
+				try {
+					stmt.executeUpdate(sql);
+				} catch (Exception e) {
+				}
+				sql = "INSERT INTO Association  " + "VALUES ('"
+						+ file.getName() + "', '" + tag1 + "');";
+				try {
+					stmt.executeUpdate(sql);
+				} catch (Exception e) {
+					System.out.println("echec pour add asso");
+				}
+			}
+			stmt.close();
+			c.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				c.close();
+			} catch (Exception e2) {
+			}
+		}
+	}
 
 }

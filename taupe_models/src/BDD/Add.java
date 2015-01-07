@@ -31,4 +31,27 @@ public class Add {
 		}
 		return false;
 	}
+	
+	public static boolean toModeles(String nom, String path, String desc){
+		Connection c = null;
+		String query ="";
+		try{
+			
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:model.db");
+			c.setAutoCommit(false);
+			
+			query = "INSERT INTO Modeles VALUES ('"+ nom +"','"+ path+"','"+ desc +"');";
+			boolean ret1 = c.createStatement().executeUpdate(query) > 0;
+			c.commit();
+			c.close();
+			
+			return ret1;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{c.close();}catch(Exception e1){}
+		}
+		return false;
+	}
 }
