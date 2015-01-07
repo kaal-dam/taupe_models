@@ -10,6 +10,12 @@ import java.awt.Color;
  */
 public class ToolBox {
 	
+	//couleur du modeles
+	public static Color defaultColor = Color.CYAN;
+	
+	//Anti-aliasing on/off
+	public static boolean antiAlia = false;
+	
 	//parametre de la vue:
 	public static boolean arrete = false;
 	public static boolean point = false;
@@ -170,7 +176,7 @@ public class ToolBox {
         double[] v = new double[]{0, 0, 1};
 
         double coef = Math.abs(Math.cos(((Math.abs(produitScalaire(v, n)) / (normeVectoriel(v) * normeVectoriel(n))))));
-        return new Color((int) (249 * coef), (int) (66 * coef), (int) (158 * coef));
+        return new Color((int) (defaultColor.getRed() * coef), (int) (defaultColor.getGreen() * coef), (int) (defaultColor.getBlue() * coef));
         //return new Color((int) (Math.random()*256 * coef), (int) (Math.random()*256 * coef), (int) (Math.random()*256 * coef));
     }
 }

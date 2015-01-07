@@ -8,7 +8,20 @@ public class FormatageDeTable {
 	
 	public static void main(String[] args){
 		//lookALL();
-		formatAll();
+		Connection c = null;
+		try{
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:model.db");
+		c.setAutoCommit(false);
+		
+		c.createStatement().executeUpdate("insert into tags values ('lol');");
+		c.commit();
+		lookALL();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{c.close();}catch(Exception e){}
+		}
 	}
 	
 	public static void formatAll(){

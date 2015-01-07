@@ -1,10 +1,14 @@
 package Main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -17,6 +21,7 @@ import Affichage.Model;
 import BDD.GTSFileChooser;
 import BDD.addTagToTableTag;
 import IHM.APropos;
+import IHM.ColorChoice;
 import IHM.Infos;
 import IHM.ListeModels;
 import IHM.Scale;
@@ -42,7 +47,8 @@ public class MainClass {
         //je fais du bordel
         JMenuBar menuAff = new JMenuBar();
         
-        JToggleButton arrete = new JToggleButton("A",ToolBox.arrete);
+        JToggleButton arrete = new JToggleButton("",ToolBox.arrete);
+        arrete.setIcon(new ImageIcon("arrete.png"));
         arrete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -50,7 +56,8 @@ public class MainClass {
 			}
 		});
         
-        JToggleButton point = new JToggleButton("P",ToolBox.point);
+        JToggleButton point = new JToggleButton("",ToolBox.point);
+        point.setIcon(new ImageIcon("point.png"));
         point.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -58,7 +65,8 @@ public class MainClass {
 			}
 		});
         
-        JToggleButton face = new JToggleButton("F",ToolBox.face);
+        JToggleButton face = new JToggleButton("",ToolBox.face);
+        face.setIcon(new ImageIcon("face.png"));
         face.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,9 +74,19 @@ public class MainClass {
 			}
 		});
         
+        JToggleButton antialisaing = new JToggleButton("",ToolBox.antiAlia);
+        antialisaing.setIcon(new ImageIcon("aa.png"));
+        antialisaing.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ToolBox.antiAlia = !ToolBox.antiAlia;
+			}
+		});
+        
         menuAff.add(arrete);
         menuAff.add(point);
         menuAff.add(face);
+        menuAff.add(antialisaing);
         menuBar.add(menuAff);
         
         //fini le bordel
@@ -79,20 +97,25 @@ public class MainClass {
         
         /* NewTag inutile maintenant, allez dans PlusDInfo */
         JMenuItem newTag = new JMenuItem("NewTag");
-        menuFichier.add(newTag);
+        //menuFichier.add(newTag);
 
-        menuBar.add(menuFichier);
+        menuBar.add(importer);
         
         
-        JMenu menuScale = new JMenu("Scale");
-        JMenuItem scale = new JMenuItem("Scale");
-        menuScale.add(scale);
+        JMenuItem menuScale = new JMenuItem("Couleurs");
+        menuScale.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new ColorChoice();
+			}
+		});
         
-        //menuBar.add(menuScale);
+        menuBar.add(menuScale);
         
         
         /* Redirection vers la doc */
-        JMenu menuAide = new JMenu("Aide");
+        JMenuItem menuAide = new JMenuItem("Aide");
         
         menuBar.add(menuAide);
         
@@ -102,14 +125,14 @@ public class MainClass {
         JMenuItem aPropos = new JMenuItem("A propos");
         menuAPropos.add(aPropos);
         
-        menuBar.add(menuAPropos);
+        menuBar.add(aPropos);
         menuBar.add(menuAff);
         
         jf.setJMenuBar(menuBar);
 
         importer.addActionListener(new GTSFileChooser());
         newTag.addActionListener(new addTagToTableTag());
-        scale.addActionListener(new Scale());
+        //scale.addActionListener(new Scale());
         aPropos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
