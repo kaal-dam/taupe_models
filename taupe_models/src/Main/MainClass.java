@@ -148,12 +148,12 @@ public class MainClass {
         jf.add(listmodel, BorderLayout.WEST);
 
         loadModel("model/x_wing.gts");
-        /*
+        
         JFrame dec = new JFrame();
         dec.add(new Decoupe(0));
         dec.setSize(800, 800);
         dec.setVisible(true);
-        */
+        
         jf.add(aff);
         jf.setVisible(true);
         jf.setSize(800, 600);
