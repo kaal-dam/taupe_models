@@ -7,7 +7,13 @@ import java.util.List;
  */
 public class Triangle implements Comparable<Triangle>{
 
+	/**
+	 * liste de segment composant le triangle
+	 */
     public List<Segment> segment;
+    /**
+     * matrice de point du triangle
+     */
     public double[][] matrixPoint;
 
     /**
@@ -44,10 +50,6 @@ public class Triangle implements Comparable<Triangle>{
         	matrixPoint[i][3] = 1;
         }
     }
-    
-    public Triangle(double[][] m){
-    	this.matrixPoint = m;
-    }
 
     /**
      * Méthode permettant de vérifier si un point p appartient à une List<Point> list
@@ -78,6 +80,9 @@ public class Triangle implements Comparable<Triangle>{
         return new Point(bx/3, by/3, bz/3);
     }
     
+    /**
+     * permet de comparer les triangle en fonction de leurs Z
+     */
     @Override
     public int compareTo(Triangle t) {
         if(this.getBarycentre().z > t.getBarycentre().z)

@@ -16,24 +16,46 @@ import Tools.Triangle;
 
 public class Model {
 	
+	/**
+	 * permet d'identifier le X minimum et maximum du modele
+	 */
 	public float xMin, xMax;
+	/**
+	 * permet d'identifier le Y minimum et maximum du modele
+	 */
 	public float yMin, yMax;
+	/**
+	 * permet d'identifier le Z minimum et maximum du modele
+	 */
 	public float zMin, zMax;
 
+	/***
+	 * liste de triangle du modele
+	 */
     public List<Triangle> triangle;
     
+    /**
+     * permet de connaitre le nb de points, de segments, et de triangles du modele
+     */
     public static int nbPts, nbSeg, nbTri;
     
+    /**
+     * nom/url du modele
+     */
     public String url;
     
-    public Model(){
-    	triangle = new ArrayList<Triangle>();
-    }
-
+    /**
+     *creer un modeele en fonction d'une liste de triangle
+     * @param t liste des triangle du futur modele
+     */
     public Model(List<Triangle> t) {
         triangle = t;
     }
 
+    /**
+     * creer un modele a partir du fichier donner en parameetre
+     * @param url chemin veers le fichier GTS du modele
+     */ 
     public Model(String url) {
     	this.url = url;
         triangle = new ArrayList<Triangle>();
@@ -51,6 +73,12 @@ public class Model {
     }
 
     @SuppressWarnings("resource")
+    /**
+     * charge un modele contenu dans un fichier
+     * @param url chemin vers le fichier a charger
+     * @return vrai si le modele est bien charger sinon faux
+     * @throws Exception DK
+     */
     public boolean loadFile(String url) throws Exception {
         BufferedReader bufferReader = null;
         FileReader fichierSrc = null;
@@ -123,7 +151,12 @@ public class Model {
         
         return true;
     }
-
+    
+    /**
+     * retourne si le string donner est un nombre ou non
+     * @param s chaine contenant le chiffre
+     * @return vrai si le string est un chiffre
+     */
     public boolean isNumber(String s) {
         try {
             Float.parseFloat(s);
@@ -133,6 +166,15 @@ public class Model {
         return true;
     }
 
+    
+    /**
+     * verifie si les points sont correct dans le buffer et les stock dans la map
+     * @param br buffer a lire
+     * @param nbPts nb de points a verifier
+     * @param list map ou ranger les different points
+     * @return vrai si l'operation est complete
+     * @throws Exception NC
+     */
     public boolean verifPoints(BufferedReader br, int nbPts, Map<Integer,Point> list) throws Exception {
         String ligne;
         int i = 0;
@@ -175,6 +217,15 @@ public class Model {
         return list.size() == nbPts;
     }
 
+    /**
+     * verifie si les segment du buffer sont correct et les range dans la map correspondante
+     * @param br buffer a lire
+     * @param nbSeg nb de segment a verifier
+     * @param list map ou ranger les segment
+     * @param lPoints liste des points formant les segment
+     * @return vrai si tout est ok
+     * @throws Exception NC
+     */
     public boolean verifSegments(BufferedReader br, int nbSeg, Map<Integer,Segment> list, Map<Integer,Point> lPoints) throws Exception {
         String ligne;
         int i = 0;
@@ -202,11 +253,22 @@ public class Model {
     }
     
     @Override
+    /**
+     * retourne l'url du modele
+     */
     public String toString() {
     	// TODO Auto-generated method stub
     	return this.url;
     }
 
+    /**
+     * verifie si tous les triangles du buffer son t correct et les stock dans la map correspondante.
+     * @param br buffer a lire
+     * @param nbTri nb de triangle a verifier
+     * @param lSegments liste des segment composant les triangles
+     * @return vrai si tous est ok
+     * @throws Exception NC
+     */
     public boolean verifTriangles(BufferedReader br, int nbTri, Map<Integer,Segment> lSegments) throws Exception {
         String ligne;
         int i = 0;
@@ -239,6 +301,10 @@ public class Model {
         return triangle.size() == nbTri;
     }
     
+    /**
+     * calcul le barrycentre du modele 3d
+     * @return Point correzspondant a ce barrycentre
+     */
     public Point getCentreGravite() {
     	double x=0;
     	double y=0;

@@ -10,10 +10,20 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 
+/**
+ * ouvre un JColorChooser pour regler la couleur du modele
+ * @author _Flo
+ *
+ */
 public class ColorChoice extends JFrame {
+	/**
+	 * Jcolor chooser
+	 */
 	private JColorChooser jcc;
 
-	
+	/**
+	 * Construis la fenetre contenant le JcolorChooser
+	 */
 	public ColorChoice() {
 		// TODO Auto-generated constructor stub
 		this.setLayout(new FlowLayout());

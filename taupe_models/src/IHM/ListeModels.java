@@ -26,12 +26,25 @@ import Main.MainClass;
  */
 public class ListeModels extends JPanel implements MouseListener, KeyListener {
 
-	private static final long serialVersionUID = -2678875145334246880L;
+	/**
+	 * JtextField de saisie de la recherche
+	 */
 	public static JTextField recherche;
+	/**
+	 * liste des modele trouver
+	 */
 	public JList<Object> liste;
-	JPopupMenu jf;
+	/**
+	 * infos concernant le modele selectionner
+	 */
 	Description info;
+	/**
+	 * list des tags du modele selectionner
+	 */
 	public JList<String> listTag;
+	/**
+	 * frame contenant le menu plusd'infos
+	 */
 	public JFrame frameInfo;
 
 	/**
@@ -75,11 +88,17 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
+	/**
+	 * permet d'afficher le modele sur le quel on double click et les infos du model que l'on selection dans la liste
+	 */
 	public void mousePressed(MouseEvent e) {
 		if (e.getSource() == liste) {
 			if (e.getClickCount() == 2) {
@@ -90,35 +109,53 @@ public class ListeModels extends JPanel implements MouseListener, KeyListener {
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void keyPressed(KeyEvent e) {
 
 	}
 
 	@Override
+	/**
+	 * refresh la liste si on appuie sur une touche
+	 */
 	public void keyReleased(KeyEvent e) {
 		if (e.getSource() == recherche)
 			refreshList();
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 

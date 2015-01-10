@@ -17,7 +17,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JToggleButton;
 
 import Affichage.Affichage;
-import Affichage.Decoupe;
 import Affichage.Model;
 import BDD.GTSFileChooser;
 import BDD.addTagToTableTag;

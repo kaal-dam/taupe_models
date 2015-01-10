@@ -31,15 +31,22 @@ import Tools.Triangle;
 import BDD.GTSFileChooser;
 
 /**
- *
+ *Classe d'affichage du modele 3d
  * @author flo
  */
 @SuppressWarnings("serial")
 public class Affichage extends JPanel {
-
+	/**
+	 * modele 3d a afficher
+	 */
 	public static Model model;
-	public int ZOOM = 10;
 
+	/**
+	 * Construis un affichage e,n fonction d'un modele donner en parametre
+	 * @param model a afficher
+	 * @param w	taille horizontal du panel a afficher
+	 * @param h taille vertical du panel a afficher
+	 */
 	public Affichage(Model model, int w, int h) {
 		this.model = model;
 		this.setSize(w, h);
@@ -49,11 +56,10 @@ public class Affichage extends JPanel {
 		this.addMouseMotionListener(mc);
 	}
 
-	public void setListTriangle(List<Triangle> listTriangle) {
-		this.model.triangle = listTriangle;
-	}
-
 	@Override
+	/**
+	 * affiche le modele 3d dans le jpanel
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		//degradé debut

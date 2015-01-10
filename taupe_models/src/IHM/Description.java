@@ -29,16 +29,31 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class Description extends JPanel implements ActionListener {
 	
+	/**
+	 * un jlabel
+	 */
 	JLabel text;
 	
+	/**
+	 * liste des tag du modele regarder
+	 */
 	JList<String> listTag;
+	/**
+	 * frame du menu plus d'infos
+	 */
 	JFrame frameInfo;
+	/**
+	 * boutton permettant d'afficher le menu plus d'infos
+	 */
 	JButton plus;
+	/**
+	 * nom du modeldont ou souhaite les infos
+	 */
 	String model;
+	/**
+	 * fenetre plus d'info a afficher si voulu
+	 */
 	public static PlusDInfo plusDInfo = null;
-	
-	Connection c = null;
-	Statement stmnt = null;
 	
 	/**
 	 * Constructeur de Description
@@ -89,6 +104,9 @@ public class Description extends JPanel implements ActionListener {
 	}
 
 	@Override
+	/**
+	 * ouvre le menu plus d'info
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == plus && plusDInfo == null) {
 			plusDInfo = new PlusDInfo(model);

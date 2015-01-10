@@ -16,14 +16,22 @@ import Main.MainClass;
  * Classe qui gere le controle du model a la souris
  *
  */
-public class MouseController implements MouseWheelListener, MouseListener,
-		MouseMotionListener {
+public class MouseController implements MouseWheelListener, MouseListener,MouseMotionListener {
 
+	/***
+	 * permet de savoir si l'utilisateur clic
+	 */
 	private boolean clic = false;
+	/**
+	 * recupere le dernier emplacement ou l'utilisateur a cliquer
+	 */
 	private int x, y;
 
 
 	// utiliser le produit matricielle !
+	/**
+	 * permet le zoom in/out en fonction du mouvement de la roulette de la souris
+	 */
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		class ThreadZoom extends Thread {
@@ -64,32 +72,50 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseClicked(MouseEvent e) {
 
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mousePressed(MouseEvent e) {
 
 	}
 
 	@Override
+	/**
+	 * remet clic a false quand le bouton de la souris est relacher
+	 */
 	public void mouseReleased(MouseEvent e) {
 		clic = false;
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * permet la rotation et translation du modele 3d lorsque le client drag la souris
+	 */
 	@Override
 	public void mouseDragged(final MouseEvent e) {
 		if (!clic) {
@@ -206,6 +232,9 @@ public class MouseController implements MouseWheelListener, MouseListener,
 	}
 
 	@Override
+	/**
+	 * nc
+	 */
 	public void mouseMoved(MouseEvent e) {
 	}
 }

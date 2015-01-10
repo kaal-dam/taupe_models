@@ -52,11 +52,19 @@ public class Point {
 		return z;
 	}
     
+    /**
+     * 
+     * convertie le point en un tableau de double
+     * @return tableau de double du point
+     */
     public double[] toArray(){
     	return new double[]{x,y,z};
     }
     
     @Override
+    /**
+     * retourne un string du point
+     */
     public String toString() {
     	return "[" + x + " : " + y + " : " + z  +"]";
     }

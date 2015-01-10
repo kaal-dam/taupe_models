@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Main.MainClass;
 
 public class Add {
+	
 	public static boolean toTag(String t, String nom) {
 		Connection c = null;
 		String query = "";

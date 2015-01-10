@@ -18,6 +18,9 @@ import Main.MainClass;
 @SuppressWarnings("serial")
 public class Infos extends JPanel {
 
+	/**
+	 * label contenant les infos sur le modele
+	 */
     JLabel text;
 
     /**

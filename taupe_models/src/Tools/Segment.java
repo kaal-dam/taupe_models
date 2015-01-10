@@ -4,7 +4,13 @@ package Tools;
  * Segment de points p1 et p2
  */
 public class Segment {
+	/**
+	 * 1er point du segment
+	 */
     Point pt1;
+    /**
+     * point 2 du segment
+     */
     Point pt2;
     
     /**

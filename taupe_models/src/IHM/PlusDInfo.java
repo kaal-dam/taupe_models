@@ -32,11 +32,29 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 	
+	/**
+	 * list des tags du modele
+	 */
 	JList<String> listTag;
+	/**
+	 * bouton permettant la suppression d'un tag
+	 */
 	JButton delete;
+	/**
+	 * bouton permettant l'ajout d'un tag
+	 */
 	JButton add;
+	/**
+	 * jtextfield permettant la saisie d'un tag
+	 */
 	JTextField tag;
+	/**
+	 * panel contenant les bouton et le jtextfield 
+	 */
 	final JPanel pan2;
+	/**
+	 * nom du model desiré
+	 */
 	final String model;
 
 	/**
@@ -103,6 +121,9 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 	}
 
 	@Override
+	/**
+	 * permet de donner au bouton delete et add leurs action respective
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == delete) {
 			pan2.remove(listTag);
@@ -125,41 +146,62 @@ public class PlusDInfo extends JFrame implements ActionListener, WindowListener{
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	/**
+	 * permet de dire que la fenetre est bien fermer et permet donc d'en reouvrir une
+	 */
 	public void windowClosing(WindowEvent e) {
 		/* Permet d'interdire l'ouverte de plusieurs JFrame PlusDInfo */
 		IHM.Description.plusDInfo = null;
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void windowClosed(WindowEvent e) {
 		
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	/**
+	 * NC
+	 */
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
