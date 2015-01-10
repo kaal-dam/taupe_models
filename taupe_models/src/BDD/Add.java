@@ -7,16 +7,16 @@ import java.sql.DriverManager;
 /**
  * classe d ajout a la bdd
  * 
- * 
+ * @author toulouse,tanre,sicchio,opsommer
  */
 public class Add {
 	/**
 	 * 
 	 * @param t
-	 *            tag associe à l'image
+	 *            tag associe a l'image
 	 * @param nom
-	 *            nom du model a ajouter a la bdd
-	 * @return true si tout c est bien passer false sinon
+	 *            nom du modele a ajouter a la bdd
+	 * @return true si tout c'est bien passe, false sinon
 	 */
 	public static boolean toTag(String t, String nom) {
 		Connection c = null;
@@ -50,11 +50,11 @@ public class Add {
 	/**
 	 * 
 	 * @param nom
-	 *            nom du model a ajouter
+	 *            nom du modele a ajouter
 	 * @param path
-	 *            chemin d acces au model
+	 *            chemin d'acces au modele
 	 * @param desc
-	 *            description du model
+	 *            description du modele
 	 * @return true en cas de reussite false sinon
 	 */
 	public static boolean toModeles(String nom, String path, String desc) {

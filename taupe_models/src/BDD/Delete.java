@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 
 /**
- * classe de supression généralisé
+ * Classe de supression généralisée
  * 
  * 
  */
 public class Delete {
 	/**
-	 * supression de certain champs dans la bdd
+	 * Supression de champs dans la bdd
 	 * 
 	 * @param table
 	 *            table ou aura lieu la suppression

@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 
 
 /**
- * classe d'ajout de tag a un model lors de sa creation
+ * Classe d'ajout de tag a un modele lors de sa creation
  * 
- * @author damien
+ * @author damien, tanre
  * 
  */
 public class TagInsertFile extends JFrame {
@@ -61,7 +61,7 @@ public class TagInsertFile extends JFrame {
 	}
 
 	/**
-	 * ajoute le tag a la table des tag si le tag n existait pas et cree un
+	 * Ajoute le tag a la table des tag si le tag n'existait pas et cree une
 	 * association tag model
 	 * 
 	 * @param tag1

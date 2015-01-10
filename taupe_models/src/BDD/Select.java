@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 
 /**
- * classe de selection en bdd
+ * Classe de selection en bdd
  * 
- * 
+ * @author tanre
  */
 public class Select {
 	/**
-	 * selection en bdd
+	 * Selection en bdd
 	 * 
 	 * @param table
 	 *            table ou effectuer la recherche
@@ -54,11 +54,11 @@ public class Select {
 	}
 
 	/**
-	 * recuperation des tag d un model
+	 * Recuperation des tag d'un modele
 	 * 
 	 * @param model
-	 *            model dont on veut recuperer les hcamps
-	 * @return un tableau des tag du model si reussi null sinon
+	 *            modele dont on veut recuperer les champs
+	 * @return un tableau des tag du modele si reussi null sinon
 	 */
 	public static String[] getTagof(String model) {
 		Connection c = null;

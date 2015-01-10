@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 
 /**
- * creation des tables
+ * Creation des tables
  * 
  * @author tanre
  * 

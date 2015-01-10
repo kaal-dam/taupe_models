@@ -2,9 +2,9 @@ package BDD;
 
 /**
  * 
- * @author toulousd
+ * @author toulousd,tanre
  * 
- * Classe permettant l'affichage du contenue de la db pour verification textuel
+ * Classe permettant l'affichage du contenue de la db pour verification textuelle
  * 
  */
 

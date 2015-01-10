@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 
 /**
- * classe de suppression generaliser des tables
+ * lasse de suppression generalisee des tables
  * 
  * @author tanre
  * 
