@@ -5,6 +5,12 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 
+/**
+ * classe de suppression generaliser des tables
+ * 
+ * @author tanre
+ * 
+ */
 public class DropTable {
 	public static void main(String args[]) {
 		Connection c = null;

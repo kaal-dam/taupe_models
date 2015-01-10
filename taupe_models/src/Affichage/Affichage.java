@@ -28,7 +28,7 @@ import javax.tools.Tool;
 import Tools.MouseController;
 import Tools.ToolBox;
 import Tools.Triangle;
-import BDD.GTSFileChooser;
+import IHM.GTSFileChooser;
 
 /**
  *Classe d'affichage du modele 3d

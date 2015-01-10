@@ -14,18 +14,25 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+
+/**
+ * classe d'ajout de tag a un model lors de sa creation
+ * 
+ * @author damien
+ * 
+ */
 public class TagInsertFile extends JFrame {
 
-	JTextField j1 = new JTextField();
-	JButton valid = new JButton("valider");
-	JButton add = new JButton("ajouter");
-	static File file;
-	static String desc;
+	JTextField		j1		= new JTextField();
+	JButton			valid	= new JButton("valider");
+	JButton			add		= new JButton("ajouter");
+	static File		file;
+	static String	desc;
 
 	public TagInsertFile(File file, String desc) {
 		this.setSize(500, 100);
-		this.setVisible(true);
-		this.setLayout(new FlowLayout());
+		setVisible(true);
+		setLayout(new FlowLayout());
 		this.file = file;
 		this.desc = desc;
 		this.add(new JLabel("tag1"));
@@ -48,44 +55,50 @@ public class TagInsertFile extends JFrame {
 			}
 		});
 
-		this.setDefaultCloseOperation(1);
-		this.setLocationRelativeTo(null);
+		setDefaultCloseOperation(1);
+		setLocationRelativeTo(null);
 
 	}
 
+	/**
+	 * ajoute le tag a la table des tag si le tag n existait pas et cree un
+	 * association tag model
+	 * 
+	 * @param tag1
+	 *            tag a ajouter
+	 */
 	static void addBDD(String tag1) {
-    			Connection c = null;
-    			try {
-    				Class.forName("org.sqlite.JDBC");
-    				c = DriverManager.getConnection("jdbc:sqlite:model.db");
-    				c.setAutoCommit(false);
-    				Statement stmt = c.createStatement();
-    				String sql = "";
-    				// ajouter la figure meme si on ne lui met aucun tag
-    				if (!tag1.equals("")) {
-    					sql = "INSERT INTO Tags  " + "VALUES ('"+  tag1 + "');";
-    					try {
-    						stmt.executeUpdate(sql);
-    					} catch (Exception e) {
-    					}
-    					sql = "INSERT INTO Association  " + "VALUES ('"
-    							+ file.getName() + "', '" + tag1 + "');";
-    					try {
-    						stmt.executeUpdate(sql);
-    					} catch (Exception e) {
-    						System.out.println("echec pour add asso");
-    					}
-    				}
-    				stmt.close();
-    				c.commit();
-    	
-    			} catch (Exception e) {
-    				e.printStackTrace();
-    			} finally {
-    				try {
-    					c.close();
-    				} catch (Exception e2) {
-    				}
-    			}
-    		}
+		Connection c = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:model.db");
+			c.setAutoCommit(false);
+			Statement stmt = c.createStatement();
+			String sql = "";
+			// ajouter la figure meme si on ne lui met aucun tag
+			if (!tag1.equals("")) {
+				sql = "INSERT INTO Tags  " + "VALUES ('" + tag1 + "');";
+				try {
+					stmt.executeUpdate(sql);
+				} catch (Exception e) {}
+				sql = "INSERT INTO Association  " + "VALUES ('"
+						+ file.getName() + "', '" + tag1 + "');";
+				try {
+					stmt.executeUpdate(sql);
+				} catch (Exception e) {
+					System.out.println("echec pour add asso");
+				}
+			}
+			stmt.close();
+			c.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				c.close();
+			} catch (Exception e2) {}
+		}
+	}
 }
