@@ -11,29 +11,30 @@ import java.awt.Color;
 public class ToolBox {
 	
 	//couleur du modeles
+	/**
+	 * Couleur par defaut du model
+	 */
 	public static Color defaultColor = Color.CYAN;
 	
 	//Anti-aliasing on/off
+	/**
+	 * active ou desactive l'anti aliasing
+	 */
 	public static boolean antiAlia = false;
 	
 	//parametre de la vue:
+	/**
+	 * permet d'allumer ou eteindre l'affichage des arrétes
+	 */
 	public static boolean arrete = false;
+	/**
+	 * permet d'allumer ou eteindre l'affichage des points
+	 */
 	public static boolean point = false;
+	/**
+	 * permet d'allumer ou eteindre l'affichage des faces
+	 */
 	public static boolean face = true;
-
-    //coef de scaling
-    public static float coefX = 1;
-    public static float coefY = 1;
-    public static float coefZ = 1;
-
-    // ancienne version (buggee)
-    /*public static double[][] mRot(double x, double y) {
-        return new double[][]{
-                    {Math.cos(y * Math.PI / 64), 0, -Math.sin(y * Math.PI / 64), 0},
-                    {0, Math.cos(x * Math.PI / 64), Math.sin(x * Math.PI / 64), 0},
-                    {Math.sin(y * Math.PI / 64), -Math.sin(x * Math.PI / 64),
-                        Math.cos((x + y) * Math.PI / 64), 0}, {0, 0, 0, 1}};
-    }*/
 
     /**
      * Permet de générer une matrice de rotation sur l'axe X
@@ -64,10 +65,19 @@ public class ToolBox {
     }
     
     // constante de cadrage
+    /**
+     * constante d'unite pour le zoomin
+     */
     public static double zoomIn = 1.5;
+    /**
+     * constante d'unite pour le dezoom
+     */
     public static double zoomOut = 1 / zoomIn;
     
     // matrice zoomIn
+    /**
+     * genere la matrice de zoomOut
+     */
     public static double[][] mZoomIn = new double[][]{
     							{zoomIn, 0, 0, 0},
     							{0, zoomIn, 0, 0},
@@ -76,6 +86,9 @@ public class ToolBox {
     };
     
     // matrice zoomOut
+    /**
+     * genere une matrice de zoomIn
+     */
     public static double[][] mZoomOut = new double[][]{
     							{zoomOut, 0, 0, 0},
     							{0, zoomOut, 0, 0},
@@ -180,6 +193,8 @@ public class ToolBox {
         //return new Color((int) (Math.random()*256 * coef), (int) (Math.random()*256 * coef), (int) (Math.random()*256 * coef));
     }
     
-    
+    /**
+     * matrice permettant l'affichage du repere de l'axe
+     */
     public static double[][] axe = new double[][]{{30,0,0,0},{0,30,0,0},{0,0,30,0}};
 }

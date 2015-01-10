@@ -25,6 +25,10 @@ public class Model {
     public static int nbPts, nbSeg, nbTri;
     
     public String url;
+    
+    public Model(){
+    	triangle = new ArrayList<Triangle>();
+    }
 
     public Model(List<Triangle> t) {
         triangle = t;

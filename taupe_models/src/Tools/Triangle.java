@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Triangle implements Comparable<Triangle>{
 
-    List<Segment> segment;
+    public List<Segment> segment;
     public double[][] matrixPoint;
 
     /**
@@ -43,6 +43,10 @@ public class Triangle implements Comparable<Triangle>{
         	matrixPoint[i][2] = point.get(i).z;
         	matrixPoint[i][3] = 1;
         }
+    }
+    
+    public Triangle(double[][] m){
+    	this.matrixPoint = m;
     }
 
     /**
