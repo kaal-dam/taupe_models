@@ -24,7 +24,6 @@ import IHM.APropos;
 import IHM.ColorChoice;
 import IHM.Infos;
 import IHM.ListeModels;
-import IHM.Scale;
 import Tools.ToolBox;
 
 public class MainClass {
@@ -148,10 +147,6 @@ public class MainClass {
 
         loadModel("model/x_wing.gts");
         
-        JFrame dec = new JFrame();
-        dec.add(new Decoupe(0));
-        dec.setSize(800, 800);
-        dec.setVisible(true);
         
         jf.add(aff);
         jf.setVisible(true);

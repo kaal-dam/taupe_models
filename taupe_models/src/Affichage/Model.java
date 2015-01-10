@@ -157,7 +157,7 @@ public class Model {
      * @param s chaine contenant le chiffre
      * @return vrai si le string est un chiffre
      */
-    public boolean isNumber(String s) {
+    public static boolean isNumber(String s) {
         try {
             Float.parseFloat(s);
         } catch (NumberFormatException e) {
