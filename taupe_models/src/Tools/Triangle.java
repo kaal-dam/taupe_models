@@ -52,10 +52,10 @@ public class Triangle implements Comparable<Triangle>{
     }
 
     /**
-     * Méthode permettant de vérifier si un point p appartient à une List<Point> list
-     * @param list : List&ltPoint&gt
+     * Méthode permettant de vérifier si un point p appartient à une list
+     * @param list : List de point
      * @param p : Point
-     * @return
+     * @return vrai si il existe faux sinon
      */
     public static boolean existIn(List<Point> list, Point p){
     	for(Point tmp: list){
