@@ -1,0 +1,36 @@
+Section 1 : Fonctions Mathématiques
+
+ - Charger un fichier qui contient un modèle 3D et l'afficher à l'écran
+ - Rotation du modèle pour pouvoir le voir de tous les côtés (clic gauche)
+ - Translation du modèle pour le déplacer sur l'écran (clic droit)
+ - Controler le niveau de zoom sur l'objet (avec la molette)
+   le modèle occupera par défaut au chargement le maximum d'espace
+ - Eclairage de face du modèle pour mieux percevoir l'objet en 3D à l'écran
+
+
+
+Section 2 : Gestion de la bibliothèque
+
+ - Possibilité d'importer de nouveaux modèles
+ - Affichage des modèles importés dans un panel latéral
+ - Afficher des infos sur le modèle (clic simple)
+ - Afficher le modèle à l'écran (clique double)
+ - Ajouts de tags pour les modèles (exemple : on pourrait ajouter le tag "animal"
+   pour un modèle "bunny.gts"
+ - Filtrer les modèles par nom et par tag
+ - Gestion des infos d'un modèle via un bouton "plus d'infos"
+
+
+
+
+Section 3 : Fonctionnalités supplémentaires
+
+ - Possibilité de changer la couleur du modèle via le menu "Couleurs"
+ - Une fenêtre à propos pour afficher des infos générales sur le logiciel
+ - Un repère 3D RGB affiche dans quel sens est actuellement orienté le modèle
+ - Différents boutons permettant d'afficher oui ou non: - les arrêtes
+							- les points
+							- les faces
+							- l'anti-aliasing
+							
+ - Nombre de points, segments et triangles du modèle affichés en bas de l'écran
